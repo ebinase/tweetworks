@@ -13,6 +13,6 @@ interface RequestInterface
     function getRequestUri();
 
     //複合メソッド
-    function getBaseUrl(): string;
-    function getPathInfo(): string;
+    function getBaseUrl();
+    function getPathInfo();
 }
