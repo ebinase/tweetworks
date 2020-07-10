@@ -2,7 +2,7 @@
 
 namespace App\System;
 
-use App\Interfaces\RouterInterface;
+use App\System\Interfaces\RouterInterface;
 
 class Router implements RouterInterface
 {

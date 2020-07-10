@@ -1,8 +1,7 @@
 <?php
 
 
-namespace App\Interfaces;
-
+namespace App\System\Interfaces;
 
 interface ViewInterface
 {
