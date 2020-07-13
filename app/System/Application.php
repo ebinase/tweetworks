@@ -17,14 +17,13 @@ class Application
     {
         // TODO: デバッグモード搭載
 
-//        $this->initialize();
-         print_r($this->registerRoutes());
-//        print_r($this->registerRoutes());
+        $this->initialize();
     }
 
     private function initialize()
     {
-
+        //TODO: いろいろインスタンス化する処理を記述
+        $this->registerRoutes();
     }
 
     /**
@@ -32,12 +31,12 @@ class Application
      *
      * @return array
      */
-    private function registerRoutes()
+    private function registerRoutes(): array
     {
         // FIXME: dirname(__FILE__)を使った絶対パス指定ができなかった。
         require_once  "../route/web.php";
         // FIXME: 関数ではなくシンプルに配列として読み込めないものか・・・
-        return web();
+        return getWebRoutes();
     }
 
 
@@ -62,5 +61,5 @@ class Application
     //==============================================================================
     //その他のゲッター達
     //==============================================================================
-        // TODO: あとで実装
+        // TODO: 実装
 }

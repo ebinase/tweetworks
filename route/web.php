@@ -1,5 +1,5 @@
 <?php
-function web() {
+function getWebRoutes() {
     return [
         '/hoge' => [
             'controller' => 'hoge',
