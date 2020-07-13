@@ -1,9 +1,10 @@
 <?php
 //FIXME:関数ではなく、もっとシンプルに配列だけを返したい。
-function getDbConfig() {
+function connectParam() {
     return [
-        'dsn' => '',
-        'user' => '',
-        'password' => '',
+        'dsn' => 'mysql:dbname=tweetworks; host=127.0.0.1; charset=utf8',
+        'user' => 'root',
+        'password' => 'root',
     ];
+
 }

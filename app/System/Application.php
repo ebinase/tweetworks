@@ -3,6 +3,8 @@
 namespace App\System;
 
 //Applicationはデータのやり取りをしないため、Interfaceは導入しない。
+use App\Model\Tweet;
+
 class Application
 {
     protected $debug = false;
@@ -16,8 +18,10 @@ class Application
     public function __construct()
     {
         // TODO: デバッグモード搭載
-
         $this->initialize();
+
+        $tweet = new Tweet();
+        print_r($tweet->getAllTweet());
     }
 
     private function initialize()
@@ -46,11 +50,13 @@ class Application
     public function run()
     {
         //最後のsend()以外はtry~catch文中に記述
+        //パーP、241ページ参照
     }
 
     protected function runAction(string $controller_name, string $action_name, array $params)
     {
-
+        //注意：名前空間を意識して呼び出す必要あるかも
+        //参照：https://sousaku-memo.net/php-system/1417
     }
 
     protected function findController()
