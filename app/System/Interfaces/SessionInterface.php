@@ -12,7 +12,7 @@ interface SessionInterface
     function clear(): void;
     function regenerate(): void;
 
-    function setAuthenticated();
+    function setAuthenticated($bool);
     function isAuthenticated();
 
 }
