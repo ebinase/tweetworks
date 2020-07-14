@@ -7,30 +7,45 @@ use App\System\Interfaces\RequestInterface;
 class Request implements RequestInterface{
     public function isPost()
     {
-        // TODO: Implement isPost() method.
+        if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+            return true;
+        }
+         return false;
     }
 
-    public function getGet()
+    public function getGet($name,$default = null)
     {
-        // TODO: Implement getGet() method.
+        if (isset($_GET[$name])){
+            return $_GET[$name];
+        }
+        return  $default;
     }
-    public function getPost()
+    public function getPost($name,$default = null)
     {
-        // TODO: Implement getPost() method.
+        if (isset($_POST[$name])){
+            return $_POST[$name];
+        }
+        return $default;
     }
 
     public function getHost()
     {
-        // TODO: Implement getHost() method.
+        if (!empty($_SERVER['HTTP_HOST'])){
+            return $_SERVER['HTTP_HOST'];
+        }
+        return  $_SERVER['SERVER_NAME'];
     }
     public function isSsl(): bool
     {
-        // TODO: Implement isSsl() method.
+       if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
+           return true;
+       }
+       return false;
     }
 
     public function getRequestUri()
     {
-        // TODO: Implement getRequestUri() method.
+        return $_SERVER['REQUEST_URI'];
     }
 
     function getPathInfo()
