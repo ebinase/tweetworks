@@ -49,8 +49,7 @@ class Application
      */
     protected function registerRoutes(): array
     {
-        // FIXME: dirname(__FILE__)を使った絶対パス指定ができなかった。
-        require_once  "../route/web.php";
+        require_once  $this->getRouteDir() . '/web.php';
         // FIXME: 関数ではなくシンプルに配列として読み込めないものか・・・
         return getWebRoutes();
     }
@@ -109,12 +108,71 @@ class Application
 
     protected function render404Page($e)
     {
-        // TODO:実装
+        $this->response->setStatusCode(404, 'Not Found');
+        $message = $this->isDebugMode() ? $e->getMessage : 'Page not Found';
+        $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
+
+        $this->response->setContent(<<<EOF
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>page not found.</title>
+</head>
+<body>
+{$message}
+</body>
+</html>
+EOF
+        );
     }
 
 
     //==============================================================================
     //その他のゲッター達
     //==============================================================================
-        // TODO: 実装
+    public function isDebugMode()
+    {
+        return $this->debug;
+    }
+
+    public function getRequest()
+    {
+        return $this->request;
+    }
+
+    public function getResponse()
+    {
+        return $this->response;
+    }
+
+    public function getSession()
+    {
+        return $this->session;
+    }
+
+    public function getRootDir()
+    {
+        return str_replace('/app/System/Application.php', '', __FILE__);
+    }
+
+    public function getControllerDir()
+    {
+        return $this->getRootDir() . '/app/Controller';
+    }
+
+    public function getViewDir()
+    {
+        return $this->getRootDir() . '/resources';
+    }
+
+    public function getModelDir()
+    {
+        return $this->getRootDir() . '/app/Model';
+    }
+
+    public function getRouteDir()
+    {
+        return $this->getRootDir() . '/route';
+    }
 }
