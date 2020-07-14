@@ -19,6 +19,7 @@ abstract class Model implements ModelInterface
             //自作ログ関数
             consoleLogger('接続完了');
         }
+        consoleLogger('接続完了');
         $this->setTableName();
     }
 
