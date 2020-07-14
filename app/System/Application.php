@@ -4,6 +4,8 @@ namespace App\System;
 
 //Applicationはデータのやり取りをしないため、Interfaceは導入しない。
 
+use Cassandra\Exception\UnauthorizedException;
+
 class Application
 {
     protected $debug = false;
@@ -11,6 +13,8 @@ class Application
     protected $response;
     protected $session;
     protected $router;
+
+    protected $login_action = [];
 
     //==============================================================================
     //コンストラクタ
@@ -35,7 +39,6 @@ class Application
 
     protected function initialize()
     {
-        //TODO: いろいろインスタンス化する処理を記述
         $this->request = new Request();
         $this->response = new Response();
         $this->session = new Session();
@@ -73,12 +76,16 @@ class Application
             $this->runAction($controller, $action, $params);
         } catch (HttpNotFoundException $e) {
             $this->render404Page($e);
+        } catch (UnauthorizedException $e) {
+            //FIXME: 理解してない
+            list($controller, $action) = $this->login_action;
+            $this->runAction($controller, $action);
         }
 
         $this->response->send();
     }
 
-    protected function runAction(string $controller_name, string $action_name, array $params)
+    protected function runAction(string $controller_name, string $action_name, array $params = [])
     {
         //名前空間を考慮して完全修飾名にする
         //参考：https://sousaku-memo.net/php-system/1417
