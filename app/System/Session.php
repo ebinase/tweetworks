@@ -6,9 +6,8 @@ use App\System\Interfaces\SessionInterface;
 
 class Session implements SessionInterface
 {
-//FIXME（PHPの本写した）
-    protected static function $sessionStarted = false;
-    protected static function $sessionIdRegenerated = false;
+    protected static  $sessionStarted = false;
+    protected static  $sessionIdRegenerated = false;
 
     public  function __construct()
     {
@@ -42,15 +41,11 @@ class Session implements SessionInterface
     }
 
 //clearメソッド→$_SESSIONを空にする
-
-//:voidはPHP7以上。この型宣言は型を返すとエラーになる
-//FIXME（:voidでええんか？）
     public function clear():void
     {
         $_SESSION = array();
     }
 
-//FIXME（:voidでええんか？）
     function regenerate($destroy = true):void
     {
         // TODO: Implement regenerate() method.
@@ -63,7 +58,6 @@ class Session implements SessionInterface
 
     function setAuthenticated($bool)
     {
-        // TODO: Implement setAuthenticated() method.
         $this->set('_authenticated',(bool)$bool);
 
         $this->regenerate();
