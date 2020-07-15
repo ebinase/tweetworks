@@ -2,8 +2,6 @@
 
 namespace App\System;
 
-use Cassandra\Exception\UnauthorizedException;
-
 abstract class Cotroller
 {
     //エラー通知用
@@ -15,6 +13,7 @@ abstract class Cotroller
     protected $response;
     protected $session;
 
+    //FIXME:ログイン認証は絶対外部化したほうがいい
     protected $auth_actions = [];
 
     public function __construct(Application $application)

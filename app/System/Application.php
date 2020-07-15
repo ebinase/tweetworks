@@ -3,9 +3,6 @@
 namespace App\System;
 
 //Applicationはデータのやり取りをしないため、Interfaceは導入しない。
-
-use Cassandra\Exception\UnauthorizedException;
-
 class Application
 {
     protected $debug = false;
@@ -74,10 +71,11 @@ class Application
             $action = $params['action'];
 
             $this->runAction($controller, $action, $params);
+
         } catch (HttpNotFoundException $e) {
             $this->render404Page($e);
+
         } catch (UnauthorizedException $e) {
-            //FIXME: 理解してない
             list($controller, $action) = $this->login_action;
             $this->runAction($controller, $action);
         }
@@ -100,6 +98,7 @@ class Application
 
         $this->response->setContent($content);
     }
+
     //// $controller_classと同名のコントローラをインスタンス化して返す
     protected function findController(string $controller_class)
     {
