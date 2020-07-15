@@ -6,6 +6,8 @@ use App\System\Interfaces\RouterInterface;
 
 class Router implements RouterInterface
 {
+    protected $routes;
+
     //==============================================================================
     //コンストラクタ
     //==============================================================================
@@ -17,7 +19,7 @@ class Router implements RouterInterface
 
     /**
      * @param $difinitions
-     * @return array　
+     * @return array $routes
      */
     public function compileRoutes($difinitions)
     {
