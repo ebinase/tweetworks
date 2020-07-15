@@ -48,12 +48,12 @@ class Request implements RequestInterface{
         return $_SERVER['REQUEST_URI'];
     }
 
-    function getPathInfo()
+    public function getPathInfo()
     {
         // TODO: Implement getPathInfo() method.
     }
 
-    function getBaseUrl()
+    public function getBaseUrl()
     {
         // TODO: Implement getBaseUrl() method.
     }
