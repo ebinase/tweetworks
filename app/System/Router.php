@@ -15,7 +15,11 @@ class Router implements RouterInterface
     }
 
 
-    public function compileRoutes( $difinitions)
+    /**
+     * @param $difinitions
+     * @return array　
+     */
+    public function compileRoutes($difinitions)
     {
         $routes = array();
 
@@ -59,7 +63,7 @@ class Router implements RouterInterface
         foreach ($this->routes as $pattrn=>$params) {
 
 //          変換済みのルーティング配列は$routesプロパティに格納されている→正規表現を用いてマッチング
-            if ($preg_match('#^' . $pattrn . '&#',$path_info, $matches)){
+            if (preg_match('#^' . $pattrn . '&#',$path_info, $matches)){
 
 //              マッチした場合array_merge関数でマージ→$params関数にルーティングパラメータとして格納
                 $params = array_merge($params,$matches);
