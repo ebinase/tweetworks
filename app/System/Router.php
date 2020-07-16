@@ -6,6 +6,7 @@ use App\System\Interfaces\RouterInterface;
 
 class Router implements RouterInterface
 {
+    protected $routes;
     //==============================================================================
     //コンストラクタ
     //==============================================================================
@@ -17,7 +18,7 @@ class Router implements RouterInterface
 
     /**
      * @param $difinitions
-     * @return array　
+     * @return array
      */
     public function compileRoutes($difinitions)
     {
@@ -25,18 +26,18 @@ class Router implements RouterInterface
 
         foreach ($difinitions as $url => $params){
 //            URLの区切り文字はスラッシュ→explode()関数でスラッシュごとに分割
-            $token = explode('/',ltrim($url,'/'));
-            foreach($token as $i =>$token){
+            $tokens = explode('/',ltrim($url,'/'));
+            foreach($tokens as $i =>$token){
 //                strposは、該当する文字列が見つからなかった場合は、falseを返す
                 if (0=== strpos($token,':')){
-                    $Name = substr($token,1);
+                    $name = substr($token,1);
 //                    分割した値の中にコロンで始まる文字列があった場合、ここで正規表現の形に変換
                     $token = '(?P<' . $Name . '>[^/]+)';
                 }
-                $token[$i] = $token;
+                $tokens[$i] = $token;
             }
 //            分割したURLをサイドスラッシュで繋げ、変換すみの値として$routes変数に格納
-            $pattern = '/' .implode('/',$token);
+            $pattern = '/' .implode('/',$tokens);
             $routes[$pattern]=$params;
         }
 
