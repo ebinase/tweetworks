@@ -38,12 +38,22 @@ abstract class Cotroller
         if ($this->needsAuth($action_name) && ! $this->session->isAuthenticated()) {
             throw new UnauthorizedException();
         }
-
         return $this->$action_name($params);
     }
 
-    //Viewクラスを呼び出して$contentを返してもらう
-    protected function render($variables = [], $template = null, $layoute = 'layout')
+    /**
+     * Viewクラスを呼び出して$contentを返してもらう
+     *
+     * 記法は基本的にlaravel準拠(違うのはレイアウトがある場合にそのパスを書く必要があるくらい)
+     * パスはtweetworks/resources/views/以降を記述
+     * 記入例：$this->render('index',['name' => 'James'], 'layout/lauout');
+     *
+     * @param string $path テンプレートのパス
+     * @param array $variables (省略可)画面表示したい変数等を連想配列(テンプレートの変数名 => 変数など)の形で
+     * @param string|false $layoute_path (省略可)レイアウトのパス
+     * @return string
+     */
+    protected function render(string $path , array $variables = [], $layoute_path = false)
     {
         //render()のパスはresourcesのフォルダ構成'hoge/foo'
         $defaults = [
@@ -54,14 +64,16 @@ abstract class Cotroller
 
         $view = new View($this->application->getViewDir(), $defaults);
 
-        //FIXME: この辺、多分修正必要(理解できてない)
-        if(is_null($template)) {
-            $template = $this->action_name;
-        }
+        // ↓テンプレート名を省略可能にする必要性を感じないためコメントアウト
+        // $pathが入力されてなかったらアクション名を自動で代入してあげる
+//        if(is_null($path)) {
+//            $path = $this->action_name;
+//        }
 
-        $path = $this->controller_name. '/' . $template;
+        // フォルダ構成を/views/アクション名/ビューファイル.phpに固定するのは悪手
+        // $path = $this->controller_name. '/' . $template;
 
-        return $view->render($path, $variables, $layoute);
+        return $view->render($path, $variables, $layoute_path);
     }
 
     //==============================================================================

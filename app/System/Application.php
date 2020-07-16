@@ -76,6 +76,8 @@ class Application
             $this->render404Page($e);
 
         } catch (UnauthorizedException $e) {
+            //認証エラーが出たらログイン画面へ
+            // FIXME: loginアクションを作成してから見直す。
             list($controller, $action) = $this->login_action;
             $this->runAction($controller, $action);
         }
