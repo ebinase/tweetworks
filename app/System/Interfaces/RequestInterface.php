@@ -6,8 +6,8 @@ interface RequestInterface
 {
     //単純メソッド
     function isPost();
-    function getGet();
-    function getPost();
+    function getGet($name);
+    function getPost($name);
     function getHost();
     function isSsl(): bool;
     function getRequestUri();

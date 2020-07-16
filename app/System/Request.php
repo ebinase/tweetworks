@@ -48,7 +48,7 @@ class Request implements RequestInterface{
         return $_SERVER['REQUEST_URI'];
     }
 
-    function getPathInfo()
+    public function getPathInfo()
     {
         $base_url = $this->getBaseUrl();
         $request_uri = $this->getRequestUri();
@@ -61,7 +61,7 @@ class Request implements RequestInterface{
         return $path_info;
     }
 
-    function getBaseUrl()
+    public function getBaseUrl()
     {
         $script_name = $_SERVER['SCRIPT_NAME'];
 

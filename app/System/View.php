@@ -19,7 +19,7 @@ class View
         $this->layout_variables[$name] = $value;
     }
 
-    public function render($_path, $_variables =[], $_layout = false)
+    public function render($_path, $_variables =[], $_layout_path = false)
     {
         $_file = $this->base_dir . '/' . $_path . '.php';
 
@@ -33,9 +33,22 @@ class View
 
         $content = ob_get_clean();
 
-        if ($_layout) {
+        // レイアウトファイルが有るなら更に読み込む
+        /* その場合のレイアウトファイルのイメージは
+        <html>
+            <head>いろいろ記述</head>
+            <body>
+                <header>共通のヘッダー</header>
+                <div><?= $_content ?></div>
+                <footer>共通のフッター</footer>
+            </body>
+        </html>
+        先にrender()でアクションの結果をもとに$_contentの内容を作ってしまってから
+        それをレイアウトに組み込む作業をこの下部のrender()で行う
+        */
+        if ($_layout_path) {
             $content = $this->render(
-                $_layout,
+                $_layout_path,
                 array_merge($this->layout_variables, ['_content' => $content])
             );
         }
