@@ -32,7 +32,7 @@ class Router implements RouterInterface
                 if (0=== strpos($token,':')){
                     $name = substr($token,1);
 //                    分割した値の中にコロンで始まる文字列があった場合、ここで正規表現の形に変換
-                    $token = '(?P<' . $Name . '>[^/]+)';
+                    $token = '(?P<' . $name . '>[^/]+)';
                 }
                 $tokens[$i] = $token;
             }
