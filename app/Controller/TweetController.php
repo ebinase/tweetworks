@@ -3,14 +3,11 @@
 
 namespace App\Controller;
 
+use App\System\Cotroller;
 
-class TweetController
+
+class TweetController extends Cotroller
 {
-    public function __construct()
-    {
-        print 'tweetCoontrollerだよ';
-    }
-
     public function tweet(){
         print 'ついーと';
     }

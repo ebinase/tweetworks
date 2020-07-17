@@ -8,9 +8,15 @@ function getWebRoutes() {
             //'auth' => true/false,
             // 'name' => 'hoge' / false
         ],
-        '/foo' => [
-            'controller' => 'foo',
-            'action' => 'foo',
+        '/foo/:random' => [
+            'controller' => 'tweet',
+            'action' => 'tweet',
+            //'auth' => true/false,
+            // 'name' => 'hoge' / false
+        ],
+        '/tweet' => [
+            'controller' => 'tweet',
+            'action' => 'tweet',
             //'auth' => true/false,
             // 'name' => 'hoge' / false
         ]
