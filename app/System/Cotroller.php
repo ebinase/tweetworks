@@ -50,10 +50,10 @@ abstract class Cotroller
      *
      * @param string $path テンプレートのパス
      * @param array $variables (省略可)画面表示したい変数等を連想配列(テンプレートの変数名 => 変数など)の形で
-     * @param string|false $layoute_path (省略可)レイアウトのパス
+     * @param string|false $layout_path (省略可)レイアウトのパス
      * @return string
      */
-    protected function render(string $path , array $variables = [], $layoute_path = false)
+    protected function render(string $path , array $variables = [], $layout_path = false)
     {
         //render()のパスはresourcesのフォルダ構成'hoge/foo'
         $defaults = [
@@ -73,7 +73,7 @@ abstract class Cotroller
         // フォルダ構成を/views/アクション名/ビューファイル.phpに固定するのは悪手
         // $path = $this->controller_name. '/' . $template;
 
-        return $view->render($path, $variables, $layoute_path);
+        return $view->render($path, $variables, $layout_path);
     }
 
     //==============================================================================
