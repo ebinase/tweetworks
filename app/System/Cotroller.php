@@ -18,7 +18,6 @@ abstract class Cotroller
 
     public function __construct(Application $application)
     {
-        //コントローラ名いらんくね？
         $this->controller_name = strtolower(substr(get_class($this), 0, -10));
 
         $this->application = $application;

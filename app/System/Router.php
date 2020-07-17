@@ -37,7 +37,7 @@ class Router implements RouterInterface
                 $tokens[$i] = $token;
             }
 //            分割したURLをサイドスラッシュで繋げ、変換すみの値として$routes変数に格納
-            $pattern = '/' .implode('/',$tokens);
+            $pattern = '/' . implode('/', $tokens);
             $routes[$pattern]=$params;
         }
 
@@ -60,19 +60,17 @@ class Router implements RouterInterface
 //        PATH_INFOの先頭がスラッシュ出ない場合、先頭にスラッシュを付与
         if ('/' !== substr($path_info,0,1)){
             $path_info  = '/' . $path_info;
-    }
-        foreach ($this->routes as $pattrn=>$params) {
-
-//          変換済みのルーティング配列は$routesプロパティに格納されている→正規表現を用いてマッチング
-            if (preg_match('#^' . $pattrn . '&#',$path_info, $matches)){
-
-//              マッチした場合array_merge関数でマージ→$params関数にルーティングパラメータとして格納
-                $params = array_merge($params,$matches);
-                return  $params;
-            }
-
-            return false;
         }
 
+        foreach ($this->routes as $pattern=>$params) {
+//          変換済みのルーティング配列は$routesプロパティに格納されている→正規表現を用いてマッチング
+            if (preg_match('#^' . $pattern . '$#', $path_info, $matches)){
+//              マッチした場合array_merge関数でマージ→$params関数にルーティングパラメータとして格納
+                $params = array_merge($params, $matches);
+                return  $params;
+            }
+        }
+
+        return false;
     }
 }

@@ -13,8 +13,6 @@ class Request implements RequestInterface{
     {
         $base_url = $this->getBaseUrl();
         $request_uri = $this->getRequestUri();
-        consoleLogger("base_url: $base_url");
-        consoleLogger("requestUri: $request_uri");
 
         // クエリ文字(?~~)を含む場合は削除
         $query_position = strpos($request_uri, '?');
