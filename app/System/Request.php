@@ -5,6 +5,53 @@ namespace App\System;
 use App\System\Interfaces\RequestInterface;
 
 class Request implements RequestInterface{
+
+    //==============================================================================
+    //getPathInfo(ベースURL以降の文字列を返す)
+    //==============================================================================
+    public function getPathInfo()
+    {
+        $base_url = $this->getBaseUrl();
+        $request_uri = $this->getRequestUri();
+        consoleLogger("base_url: $base_url");
+        consoleLogger("requestUri: $request_uri");
+
+        // クエリ文字(?~~)を含む場合は削除
+        $query_position = strpos($request_uri, '?');
+        if ($query_position !== false){
+            $request_uri = substr($request_uri, 0, $query_position);
+        }
+
+        //リクエストURIからベースURLを取り除いたものを返す
+        return (string)substr($request_uri,strlen($base_url));
+    }
+
+    public function getBaseUrl()
+    {
+        // SCRIPT_NAMEについては
+        //https://kaworu.jpn.org/kaworu/2008-01-31-1.php 参照
+        $script_name = $_SERVER['SCRIPT_NAME'];
+        $request_uri = $this->getRequestUri();
+
+        if (0 === strpos($request_uri, $script_name)){
+            // リクエストにフロントコントローラ(index.php)が含まれていたらそのまま返す。
+            return $script_name;
+        } elseif (0 === strpos($request_uri, dirname($script_name))){
+            // フロントコントローラが含まれていなかったら一番最後のスラッシュを取り除く
+            return  rtrim(dirname($script_name), '/');
+        }
+
+        return '';
+    }
+
+    //==============================================================================
+    //その他ラッピングメソッド
+    //==============================================================================
+    public function getRequestUri()
+    {
+        return $_SERVER['REQUEST_URI'];
+    }
+
     public function isPost()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {
@@ -41,36 +88,5 @@ class Request implements RequestInterface{
            return true;
        }
        return false;
-    }
-
-    public function getRequestUri()
-    {
-        return $_SERVER['REQUEST_URI'];
-    }
-
-    public function getPathInfo()
-    {
-        $base_url = $this->getBaseUrl();
-        $request_uri = $this->getRequestUri();
-
-        if (false != ($pos = strpos($request_uri,'?'))){
-            $request_uri = substr($request_uri,0,$pos);
-            }
-        $path_info = (string)substr($request_uri,strlen($base_url));
-
-        return $path_info;
-    }
-
-    public function getBaseUrl()
-    {
-        $script_name = $_SERVER['SCRIPT_NAME'];
-
-        $request_uri = $this->getRequestUri();
-
-        if (0 === strpos($request_uri,dirname($script_name))){
-            return $script_name;
-        }elseif (0 === strpos($request_uri,dirname($script_name))){
-            return  rtrim(dirname($script_name), '/');}
-        return '';
     }
 }

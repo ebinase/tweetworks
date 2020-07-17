@@ -117,7 +117,7 @@ class Application
     protected function render404Page($e)
     {
         $this->response->setStatusCode(404, 'Not Found');
-        $message = $this->isDebugMode() ? $e->getMessage : 'Page not Found';
+        $message = $this->isDebugMode() ? $e->getMessage() : 'Page not Found';
         $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
 
         $this->response->setContent(<<<EOF
