@@ -4,21 +4,20 @@ function getWebRoutes() {
         '/hoge' => [
             'controller' => 'hoge',
             'action' => 'hoge',
-            //todo: ログインの要不要とルートの名前を持たせる
-            //'auth' => true/false,
-            // 'name' => 'hoge' / false
+            'auth' => 0,
+            'name' => 'hoge',
         ],
         '/foo/:random' => [
             'controller' => 'tweet',
-            'action' => 'tweet',
-            //'auth' => true/false,
-            // 'name' => 'hoge' / false
+            'action' => 'eweet',
+            'auth' => 0,
+            'name' => null,
         ],
         '/tweet' => [
             'controller' => 'tweet',
             'action' => 'tweet',
-            //'auth' => true/false,
-            // 'name' => 'hoge' / false
+            'auth' => 1,
+            'name' => 'hoge',
         ]
     ];
 }

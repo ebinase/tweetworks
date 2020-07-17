@@ -83,7 +83,7 @@ abstract class Cotroller
     protected function forward404()
     {
         throw new HttpNotFoundException(
-            'Forwarded 404 page from ' . $this->controller_name. '/' . $this->action_name
+            "{$this->controller_name}->{$this->action_name} method does not exist."
         );
     }
 
@@ -140,11 +140,11 @@ abstract class Cotroller
     //==============================================================================
     // 認証系
     //==============================================================================
-    protected function needsAuth($action_name)
+    protected function needsAuth($action_name):bool
     {
-        $needAuth = $this->auth_actions === true
+        $needsAuth = $this->auth_actions === true
             || is_array($this->auth_actions) && in_array($action_name, $this->auth_actions);
-        if($needAuth) {
+        if($needsAuth) {
             return true;
         }
         return false;
