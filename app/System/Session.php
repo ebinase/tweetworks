@@ -25,7 +25,7 @@ class Session implements SessionInterface
         $_SESSION[$name] = $value;
     }
 
-    function get(string $name, $default = null)
+    public function get(string $name, $default = null)
     {
         if (isset($_SESSION[$name])){
             return $_SESSION[$name];
@@ -34,7 +34,7 @@ class Session implements SessionInterface
 
     }
 
-    function remove(string $name)
+    public function remove(string $name)
     {
         unset($_SESSION[$name]);
 
@@ -46,7 +46,7 @@ class Session implements SessionInterface
         $_SESSION = array();
     }
 
-    function regenerate($destroy = true):void
+    public function regenerate($destroy = true):void
     {
         // TODO: Implement regenerate() method.
         if (!self::$sessionIdRegenerated){
@@ -56,14 +56,14 @@ class Session implements SessionInterface
         }
     }
 
-    function setAuthenticated($bool)
+    public function setAuthenticated($bool)
     {
         $this->set('_authenticated',(bool)$bool);
 
         $this->regenerate();
     }
 
-    function isAuthenticated()
+    public function isAuthenticated()
     {
         return $this->get('_authenticated',false);
     }

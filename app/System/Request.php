@@ -80,6 +80,7 @@ class Request implements RequestInterface{
         }
         return  $_SERVER['SERVER_NAME'];
     }
+
     public function isSsl(): bool
     {
        if (isset($_SERVER['HTTPS']) && $_SERVER['HTTPS'] === 'on'){
