@@ -7,38 +7,38 @@ use App\System\Interfaces\ResponseInterface;
 class Response implements ResponseInterface
 {
 
-    protected $content;
-    protected $status_code = 200;
-    protected $status_text ='OK';
-    protected $http_headers = array();
+    protected $_content;
+    protected $_status_code = 200;
+    protected $_status_text ='OK';
+    protected $_http_headers = array();
 
 
 
     public function setContent(string $content)
     {
-        $this->content = $content;
+        $this->_content = $content;
     }
 
     public function setStatusCode(string $status_code, string $status_text='')
     {
-        $this->status_code = $status_code;
-        $this->status_text = $status_text;
+        $this->_status_code = $status_code;
+        $this->_status_text = $status_text;
     }
 
     public function setHttpHeader(string $name, string $value)
     {
-        $this->http_headers[$name] = $value;
+        $this->_http_headers[$name] = $value;
     }
 
 //    FIXME :void
     public function send(): void
     {
-        header('HTTP/1.1 ' . $this->status_code . ' ' . $this->status_text);
+        header('HTTP/1.1 ' . $this->_status_code . ' ' . $this->_status_text);
 
-        foreach ($this->http_headers as $name => $value){
+        foreach ($this->_http_headers as $name => $value){
             header($name . ':' . $value);
         }
 
-        echo $this->content;
+        echo $this->_content;
     }
 }

@@ -5,13 +5,12 @@ namespace App\System;
 //Applicationはデータのやり取りをしないため、Interfaceは導入しない。
 class Application
 {
-    protected $debug = false;
-    protected $request;
-    protected $response;
-    protected $session;
-    protected $router;
+    protected $_debug = false;
+    protected $_request;
+    protected $_response;
+    protected $_session;
+    protected $_router;
 
-    protected $login_action = [];
 
     //==============================================================================
     //コンストラクタ
@@ -25,21 +24,21 @@ class Application
     protected function setDebugMode($debug)
     {
         if ($debug) {
-            $this->debug = true;
+            $this->_debug = true;
             ini_set('display_errors', 1);
             error_reporting(-1);
         } else {
-            $this->debug = false;
+            $this->_debug = false;
             ini_set('display_errors', 0);
         }
     }
 
     protected function initialize()
     {
-        $this->request = new Request();
-        $this->response = new Response();
-        $this->session = new Session();
-        $this->router = new Router($this->registerRoutes());
+        $this->_request = new Request();
+        $this->_response = new Response();
+        $this->_session = new Session();
+        $this->_router = new Router($this->_registerRoutes());
     }
 
     /**
@@ -47,7 +46,7 @@ class Application
      *
      * @return array
      */
-    protected function registerRoutes(): array
+    protected function _registerRoutes(): array
     {
         require_once  $this->getRouteDir() . '/web.php';
         // FIXME: 関数ではなくシンプルに配列として読み込めないものか・・・
@@ -62,47 +61,47 @@ class Application
     {
         //最後のsend()以外はtry~catch文中に記述
         try {
-            $params = $this->router->resolve($this->request->getPathInfo());
+            $params = $this->_router->resolve($this->_request->getPathInfo());
             if($params === false) {
-                throw new HttpNotFoundException("No route found for {$this->request->getPathInfo()}.");
+                throw new HttpNotFoundException("No route found for {$this->_request->getPathInfo()}.");
             }
 
             $controller = $params['controller'];
             $action = $params['action'];
 
-            $this->runAction($controller, $action, $params);
+            $this->_runAction($controller, $action, $params);
 
         } catch (HttpNotFoundException $e) {
-            $this->render404Page($e);
+            $this->_render404Page($e);
 
         } catch (UnauthorizedException $e) {
             //認証エラーが出たらログイン画面へ
             // FIXME: login画面への移行に修正。
             // $this->runAction($controller, $action);
-            $this->render404Page($e);
+            $this->_render404Page($e);
         }
 
-        $this->response->send();
+        $this->_response->send();
     }
 
-    protected function runAction(string $controller_name, string $action_name, array $params = [])
+    protected function _runAction(string $controller_name, string $action_name, array $params = [])
     {
         //名前空間を考慮して完全修飾名にする
         //参考：https://sousaku-memo.net/php-system/1417
         $controller_class = '\\App\\Controller\\' . ucfirst($controller_name) . 'Controller';
 
-        $controller = $this->findController($controller_class);
+        $controller = $this->_findController($controller_class);
         if($controller === false) {
             throw new HttpNotFoundException("{$controller_class} is not found.");
         }
 
         $content = $controller->run($action_name, $params);
 
-        $this->response->setContent($content);
+        $this->_response->setContent($content);
     }
 
     //// $controller_classと同名のコントローラをインスタンス化して返す
-    protected function findController(string $controller_class)
+    protected function _findController(string $controller_class)
     {
         // FIXME: パーフェクトPHP 237ページの記述は必要なのか考える。
         // 下記は、ファイルが読み込めるかどうかで処理を分離せずに、簡易版とした
@@ -114,13 +113,13 @@ class Application
         }
     }
 
-    protected function render404Page($e)
+    protected function _render404Page($e)
     {
-        $this->response->setStatusCode(404, 'Not Found');
+        $this->_response->setStatusCode(404, 'Not Found');
         $message = $this->isDebugMode() ? $e->getMessage() : 'Page not Found';
         $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
 
-        $this->response->setContent(<<<EOF
+        $this->_response->setContent(<<<EOF
 <!DOCTYPE html>
 <html lang="ja">
 <head>
@@ -142,22 +141,22 @@ EOF
     //==============================================================================
     public function isDebugMode()
     {
-        return $this->debug;
+        return $this->_debug;
     }
 
     public function getRequest()
     {
-        return $this->request;
+        return $this->_request;
     }
 
     public function getResponse()
     {
-        return $this->response;
+        return $this->_response;
     }
 
     public function getSession()
     {
-        return $this->session;
+        return $this->_session;
     }
 
     public function getRootDir()

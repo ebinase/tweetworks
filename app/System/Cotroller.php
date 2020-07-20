@@ -5,34 +5,34 @@ namespace App\System;
 abstract class Cotroller
 {
     //エラー通知用
-    protected $controller_name;
-    protected $action_name;
+    protected $_controller_name;
+    protected $_action_name;
     //インスタンス
-    protected $application;
-    protected $request;
-    protected $response;
-    protected $session;
+    protected $_application;
+    protected $_request;
+    protected $_response;
+    protected $_session;
 
 
     public function __construct(Application $application)
     {
-        $this->controller_name = strtolower(substr(get_class($this), 0, -10));
+        $this->_controller_name = strtolower(substr(get_class($this), 0, -10));
 
-        $this->application = $application;
-        $this->request = $application->getRequest();
-        $this->response = $application->getResponse();
-        $this->session = $application->getSession();
+        $this->_application = $application;
+        $this->_request = $application->getRequest();
+        $this->_response = $application->getResponse();
+        $this->_session = $application->getSession();
     }
 
     public function run(string $action_name, array $params = [])
     {
-        $this->action_name = $action_name;
+        $this->_action_name = $action_name;
 
         if(! method_exists($this, $action_name)) {
-            $this->forward404();
+            $this->_forward404();
         }
 
-        if ($this->needsAuth($params) && ! $this->session->isAuthenticated()) {
+        if ($this->_needsAuth($params) && ! $this->_session->isAuthenticated()) {
             //TODO: ログイン後に見ていた画面に戻る機能(laravelのold()関数)
             throw new UnauthorizedException("you are not authorized.");
         }
@@ -55,12 +55,12 @@ abstract class Cotroller
     {
         //render()のパスはresourcesのフォルダ構成'hoge/foo'
         $defaults = [
-            'request' => $this->request,
-            'base_url' => $this->request->getBaseUrl(),
-            'session' => $this->session,
+            'request' => $this->_request,
+            'base_url' => $this->_request->getBaseUrl(),
+            'session' => $this->_session,
         ];
 
-        $view = new View($this->application->getViewDir(), $defaults);
+        $view = new View($this->_application->getViewDir(), $defaults);
 
         // ↓テンプレート名を省略可能にする必要性を感じないためコメントアウト
         // $pathが入力されてなかったらアクション名を自動で代入してあげる
@@ -80,35 +80,35 @@ abstract class Cotroller
     //==============================================================================
     //指定された名前のメソッドがコントローラ内に存在しない時、
     //例外でApplicationのtry~catch文に捕捉させる
-    protected function forward404()
+    protected function _forward404()
     {
         throw new HttpNotFoundException(
-            "{$this->controller_name}->{$this->action_name} method does not exist."
+            "{$this->_controller_name}->{$this->_action_name} method does not exist."
         );
     }
 
-    protected function redirect(string $url)
+    protected function _redirect(string $url)
     {
         //ベースURL以降を指定された場合(例：/user/hogehoge)
         if (! preg_match('#https?://#', $url)) {
-            $protocol = $this->request->isSsl() ? 'https://' : 'http://';
-            $host = $this->request->getHost();
-            $base_url = $this->request->getBaseUrl();
+            $protocol = $this->_request->isSsl() ? 'https://' : 'http://';
+            $host = $this->_request->getHost();
+            $base_url = $this->_request->getBaseUrl();
 
             $url = $protocol . $host . $base_url . $url;
         }
 
-        $this->response->setStatusCode(302, 'Found');
-        $this->response->setHttpHeader('Location', $url);
+        $this->_response->setStatusCode(302, 'Found');
+        $this->_response->setHttpHeader('Location', $url);
     }
 
     //==============================================================================
     // CSRF対策
     //==============================================================================
-    protected function generateCsrfToken($form_name)
+    protected function _generateCsrfToken($form_name)
     {
         $key = 'csrf_tokens/' . $form_name;
-        $tokens = $this->session->get($key, []);
+        $tokens = $this->_session->get($key, []);
         if(count($tokens) >= 10) {
             array_shift($tokens);
         }
@@ -117,20 +117,20 @@ abstract class Cotroller
         $token = sha1($form_name. session_id() . microtime());
         $tokens[] = $token;
 
-        $this->session->set($key, $tokens);
+        $this->_session->set($key, $tokens);
 
         return $token;
     }
 
     //tokenをチェックして、一致したらその使用されたトークンを削除してそれ以外を戻してあげる
-    protected function checkCsrfToken($form_name, $token)
+    protected function _checkCsrfToken($form_name, $token)
     {
         $key = 'csrf_tokens/' . $form_name;
-        $tokens = $this->session->get($key, []);
+        $tokens = $this->_session->get($key, []);
 
         if (($pos = array_search($token, $tokens, true)) !== false) {
             unset($tokens[$pos]);
-            $this->session->set($key, $tokens);
+            $this->_session->set($key, $tokens);
 
             return true;
         }
@@ -143,7 +143,7 @@ abstract class Cotroller
     //==============================================================================
     //FIXME:ログイン認証は絶対外部化したほうがいい
 
-    protected function needsAuth($params):bool
+    protected function _needsAuth($params):bool
     {
         if ($params['auth'] == '1') {
             return true;

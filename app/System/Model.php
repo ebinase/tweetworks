@@ -6,21 +6,21 @@ use App\System\Interfaces\ModelInterface;
 
 abstract class Model implements ModelInterface
 {
-    protected $db;
-    protected $tableName;
+    protected $_db;
+    protected $_tableName;
 
     //==============================================================================
     //コンストラクタ
     //==============================================================================
     public function __construct()
     {
-        $this->db = $this->getDbConnection($this->getConnectParam());
-        if ($this->db !== null) {
+        $this->_db = $this->_getDbConnection($this->_getConnectParam());
+        if ($this->_db !== null) {
             //自作ログ関数
             consoleLogger('接続完了');
         }
         consoleLogger('接続完了');
-        $this->setTableName();
+        $this->_setTableName();
     }
 
     /**
@@ -29,7 +29,7 @@ abstract class Model implements ModelInterface
      *
      * @return array
      */
-    protected function getConnectParam()
+    protected function _getConnectParam()
     {
         // FIXME: 関数ではなくシンプルに配列として読み込めないものか・・・
         require_once  "../config/database.php";
@@ -42,7 +42,7 @@ abstract class Model implements ModelInterface
      * @param array $param
      * @return object $db
      */
-    protected function getDbConnection(array $param)
+    protected function _getDbConnection(array $param)
     {
         try {
             $db = new \PDO($param['dsn'], $param['user'], $param['password']);
@@ -55,7 +55,7 @@ abstract class Model implements ModelInterface
     }
 
     //モデルで扱うテーブル名を継承先で登録する抽象クラス
-    protected abstract function setTableName();
+    protected abstract function _setTableName();
 
     //==============================================================================
     //クエリ簡易実行メソッド
@@ -63,7 +63,7 @@ abstract class Model implements ModelInterface
 
     public function execute(string $sql, array $params = [])
     {
-        $statement = $this->db->prepare($sql);
+        $statement = $this->_db->prepare($sql);
         $statement->execute($params);
         return $statement;
     }

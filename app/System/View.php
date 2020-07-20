@@ -4,27 +4,27 @@ namespace App\System;
 
 class View
 {
-    protected $base_dir;
-    protected $defaults;
-    protected $layout_variables = [];
+    protected $_base_dir;
+    protected $_defaults;
+    protected $_layout_variables = [];
 
     public function __construct($base_dir, $defaults = [])
     {
-        $this->base_dir = $base_dir;
-        $this->defaults = $defaults;
+        $this->_base_dir = $base_dir;
+        $this->_defaults = $defaults;
     }
 
     public function setLayoutVar($name, $value)
     {
-        $this->layout_variables[$name] = $value;
+        $this->_layout_variables[$name] = $value;
     }
 
     public function render($_path, $_variables =[], $_layout_path = false)
     {
-        $_file = $this->base_dir . '/' . $_path . '.php';
+        $_file = $this->_base_dir . '/' . $_path . '.php';
 
         //変数展開
-        extract(array_merge($this->defaults, $_variables));
+        extract(array_merge($this->_defaults, $_variables));
 
         ob_start();
         ob_implicit_flush(0);
@@ -49,7 +49,7 @@ class View
         if ($_layout_path) {
             $content = $this->render(
                 $_layout_path,
-                array_merge($this->layout_variables, ['_content' => $content])
+                array_merge($this->_layout_variables, ['_content' => $content])
             );
         }
 

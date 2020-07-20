@@ -6,13 +6,14 @@ use App\System\Interfaces\RouterInterface;
 
 class Router implements RouterInterface
 {
-    protected $routes;
+    protected $_routes;
+
     //==============================================================================
     //コンストラクタ
     //==============================================================================
     public function __construct(array $difinitions)
     {
-        $this->routes = $this->compileRoutes($difinitions);
+        $this->_routes = $this->compileRoutes($difinitions);
     }
 
 
@@ -64,7 +65,7 @@ class Router implements RouterInterface
             $path_info  = '/' . $path_info;
         }
 
-        foreach ($this->routes as $pattern=>$params) {
+        foreach ($this->_routes as $pattern=> $params) {
             print 'パターン：' . '#^' . $pattern . '$#   ';
             print 'path_info：' . $path_info . ' ||  ';
 //          変換済みのルーティング配列は$routesプロパティに格納されている→正規表現を用いてマッチング
