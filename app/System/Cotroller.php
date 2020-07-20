@@ -70,6 +70,8 @@ abstract class Cotroller
 
         // フォルダ構成を/views/アクション名/ビューファイル.phpに固定するのは悪手
         // $path = $this->controller_name. '/' . $template;
+//        ha
+
 
         return $view->render($path, $variables, $layout_path);
     }
