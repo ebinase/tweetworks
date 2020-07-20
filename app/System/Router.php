@@ -26,13 +26,13 @@ class Router implements RouterInterface
 
         foreach ($difinitions as $url => $params){
 //            URLの区切り文字はスラッシュ→explode()関数でスラッシュごとに分割
-            $tokens = explode('/',ltrim($url,'/'));
+            $tokens = explode('/', ltrim($url,'/'));
             foreach($tokens as $i =>$token){
 //                strposは、該当する文字列が見つからなかった場合は、falseを返す
                 if (0=== strpos($token,':')){
                     $name = substr($token,1);
 //                    分割した値の中にコロンで始まる文字列があった場合、ここで正規表現の形に変換
-                    $token = '(?P<' . $name . '>[^/]+)';
+                    $token = '(?<' . $name . '>[^/]+)';
                 }
                 $tokens[$i] = $token;
             }
@@ -41,10 +41,12 @@ class Router implements RouterInterface
             $routes[$pattern]=$params;
         }
 
+        print '正規表現変換後のルート</br>';
+        print_r($routes);
+
         return $routes;
 
     }
-
     //==============================================================================
     // Appllicationから呼び出すresolveメソッド
     //==============================================================================
@@ -63,10 +65,20 @@ class Router implements RouterInterface
         }
 
         foreach ($this->routes as $pattern=>$params) {
+            print 'パターン：' . '#^' . $pattern . '$#   ';
+            print 'path_info：' . $path_info . ' ||  ';
 //          変換済みのルーティング配列は$routesプロパティに格納されている→正規表現を用いてマッチング
+//          #→正規表現のスラッシュ(/)と同じ役割
+//          (?<name>) → 名前付きサブパターン(以下のurlの少しスクロールした所の「変更履歴」参照)
+//          https://www.php.net/manual/ja/function.preg-match.php
             if (preg_match('#^' . $pattern . '$#', $path_info, $matches)){
 //              マッチした場合array_merge関数でマージ→$params関数にルーティングパラメータとして格納
                 $params = array_merge($params, $matches);
+
+                print '</br></br>正規表現マッチング後の配列</br>';
+                print_r($params);
+                print '</br></br>';
+
                 return  $params;
             }
         }

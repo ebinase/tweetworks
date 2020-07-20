@@ -13,8 +13,6 @@ abstract class Cotroller
     protected $response;
     protected $session;
 
-    //FIXME:ログイン認証は絶対外部化したほうがいい
-    protected $auth_actions = [];
 
     public function __construct(Application $application)
     {
@@ -34,8 +32,9 @@ abstract class Cotroller
             $this->forward404();
         }
 
-        if ($this->needsAuth($action_name) && ! $this->session->isAuthenticated()) {
-            throw new UnauthorizedException();
+        if ($this->needsAuth($params) && ! $this->session->isAuthenticated()) {
+            //TODO: ログイン後に見ていた画面に戻る機能(laravelのold()関数)
+            throw new UnauthorizedException("you are not authorized.");
         }
         return $this->$action_name($params);
     }
@@ -137,16 +136,19 @@ abstract class Cotroller
         return false;
     }
 
+
     //==============================================================================
     // 認証系
     //==============================================================================
-    protected function needsAuth($action_name):bool
+    //FIXME:ログイン認証は絶対外部化したほうがいい
+
+    protected function needsAuth($params):bool
     {
-        $needsAuth = $this->auth_actions === true
-            || is_array($this->auth_actions) && in_array($action_name, $this->auth_actions);
-        if($needsAuth) {
+        if ($params['auth'] == '1') {
             return true;
+        } elseif ($params['auth'] == '0') {
+            return false;
         }
-        return false;
+        throw new HttpNotFoundException("'auth' parameter in web.php is not correct.");
     }
 }
