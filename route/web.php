@@ -7,15 +7,15 @@ function getWebRoutes() {
             'auth' => 0,
             'name' => 'hoge',
         ],
-        '/foo/:random' => [
+        '/foo/:user_id' => [
             'controller' => 'tweet',
-            'action' => 'eweet',
+            'action' => 'tweet',
             'auth' => 0,
             'name' => null,
         ],
         '/tweet' => [
             'controller' => 'tweet',
-            'action' => 'tweet',
+            'action' => 'eweet',
             'auth' => 1,
             'name' => 'hoge',
         ]
