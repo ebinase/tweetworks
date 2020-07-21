@@ -19,7 +19,6 @@ abstract class Model implements ModelInterface
             //自作ログ関数
             consoleLogger('接続完了');
         }
-        consoleLogger('接続完了');
         $this->_setTableName();
     }
 
@@ -32,7 +31,9 @@ abstract class Model implements ModelInterface
     protected function _getConnectParam()
     {
         // FIXME: 関数ではなくシンプルに配列として読み込めないものか・・・
-        require_once  "../config/database.php";
+        $dir = str_replace('/app/System/Model.php', '', __FILE__) . '/config/database.php';
+        require_once  $dir;
+
         return connectParam();
     }
 
