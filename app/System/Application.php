@@ -171,7 +171,7 @@ EOF
 
     public function getViewDir()
     {
-        return $this->getRootDir() . '/resources';
+        return $this->getRootDir() . '/resources/views';
     }
 
     public function getModelDir()
