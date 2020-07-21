@@ -9,6 +9,6 @@ use App\System\Cotroller;
 class TweetController extends Cotroller
 {
     public function tweet($params){
-        return 'これはTweetControllerのtweetアクションだよ';
+        return $this->render('test',$params);
     }
 }
