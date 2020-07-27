@@ -6,12 +6,11 @@ namespace Database\migration;
 
 use App\System\CreateTable;
 
-class CreateUserTable extends CreateTable
+class CreateUsersTable extends CreateTable
 {
     public static function getQuerySentence(): string
     {
         return <<< EOF
- 
     create table users
 (
 	id int(10) auto_increment,

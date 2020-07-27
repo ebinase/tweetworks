@@ -12,11 +12,11 @@ class CreateFavoritesTable extends CreateTable
     {
         return <<< EOF
 
-create table tweets
+create table favorites
 (
     user_id int(10) not null,
     tweet_id int(10) not null,
-    updated_at TIMESTAMP not null
+    updated_at TIMESTAMP
 );
 EOF;
     }

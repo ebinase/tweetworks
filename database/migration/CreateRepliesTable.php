@@ -11,7 +11,7 @@ class CreateRepliesTable extends CreateTable
     public static function getQuerySentence(): string
     {
         return <<< EOF
-create table tweets
+create table replies
 (
 	tweet_id int(10) not null,
 	reply_to_id int(10) not null,

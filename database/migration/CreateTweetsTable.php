@@ -4,7 +4,7 @@ namespace Database\migration;
 
 use App\System\CreateTable;
 
-class CreateTweetTable extends CreateTable
+class CreateTweetsTable extends CreateTable
 {
     public static function getQuerySentence(): string
     {

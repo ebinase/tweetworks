@@ -10,7 +10,11 @@ class Migration extends \App\System\Model
 
     public function up()
     {
-        $sqls[] = CreateTweetTable::getQuerySentence();
+        $sqls[] = CreateFavoritesTable::getQuerySentence();
+        $sqls[] = CreateFollowsTable::getQuerySentence();
+        $sqls[] = CreateRepliesTable::getQuerySentence();
+        $sqls[] = CreateTweetsTable::getQuerySentence();
+        $sqls[] = CreateUsersTable::getQuerySentence();
 
         foreach ($sqls as $sql) {
             $this->_db->query($sql);

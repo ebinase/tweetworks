@@ -11,7 +11,7 @@ class CreateFollowsTable extends CreateTable
     public static function getQuerySentence(): string
     {
         return <<< EOF
-create table tweets
+create table follows
 (
 	following_id int(10) not null,
 	followed_id int(10) not null,

@@ -18,6 +18,12 @@ function getWebRoutes() {
             'action' => 'eweet',
             'auth' => 1,
             'name' => 'hoge',
+        ],
+        '/migrate' => [
+            'controller' => 'migrate',
+            'action' => 'migrate',
+            'auth' => 0,
+            'name' => 'null',
         ]
     ];
 }
