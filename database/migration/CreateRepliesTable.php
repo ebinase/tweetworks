@@ -15,7 +15,7 @@ create table replies
 (
 	tweet_id int(10) not null,
 	reply_to_id int(10) not null,
-	created_at TIMESTAMP not null
+	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 EOF;
     }

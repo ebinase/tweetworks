@@ -20,4 +20,6 @@ class Migration extends \App\System\Model
             $this->_db->query($sql);
         }
     }
+
+
 }

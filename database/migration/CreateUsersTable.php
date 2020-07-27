@@ -19,8 +19,8 @@ class CreateUsersTable extends CreateTable
 	unique_name varchar(30) not null,
 	password varchar(256) not null,
 	token char(16) not null,
-	created_at TIMESTAMP not null,
-	updated_at TIMESTAMP,
+	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
+	updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	constraint users_pk
 		primary key (id)
 );
