@@ -16,7 +16,7 @@ create table favorites
 (
     user_id int(10) not null,
     tweet_id int(10) not null,
-    updated_at TIMESTAMP
+    created_at TIMESTAMP not null
 );
 EOF;
     }
