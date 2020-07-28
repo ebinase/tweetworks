@@ -113,7 +113,7 @@ abstract class Cotroller
             array_shift($tokens);
         }
 
-        //FIXME:　トークンの暗号化の仕方
+        //FIXME:　トークンの暗号化の仕方(しっかりとした乱数生成器を用いる)
         $token = sha1($form_name. session_id() . microtime());
         $tokens[] = $token;
 

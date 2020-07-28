@@ -15,12 +15,21 @@ class Tweet extends Model
     }
 
     //==============================================================================
-    //アクションごとのデータ取得用メソッド
+    //アクションごとのデータ操作メソッド
     //==============================================================================
     public function getAllTweet()
     {
         $sql = 'SELECT * FROM tweets';
         return $this->fetchAll($sql);
+    }
+
+    public function insert($user_id, $text)
+    {
+        $sql = 'INSERT INTO tweets (user_id, text) VALUES (:user_id, :text)';
+        $stt = $this->smartExecute($sql, [
+            ':user_id' =>  $user_id,
+            ':text' => $text,
+        ]);
     }
 
 }
