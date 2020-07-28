@@ -6,7 +6,7 @@ use App\System\CreateTable;
 
 class CreateTweetsTable extends CreateTable
 {
-    public static function getQuerySentence(): string
+    public static function getCreateQuery(): string
     {
         return <<< EOF
 create table tweets

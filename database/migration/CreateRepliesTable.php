@@ -8,7 +8,7 @@ use App\System\CreateTable;
 
 class CreateRepliesTable extends CreateTable
 {
-    public static function getQuerySentence(): string
+    public static function getCreateQuery(): string
     {
         return <<< EOF
 create table replies

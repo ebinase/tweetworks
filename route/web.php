@@ -24,6 +24,12 @@ function getWebRoutes() {
             'action' => 'migrate',
             'auth' => 0,
             'name' => 'null',
+        ],
+        '/refresh' => [
+            'controller' => 'migrate',
+            'action' => 'refresh',
+            'auth' => 0,
+            'name' => 'null',
         ]
     ];
 }
