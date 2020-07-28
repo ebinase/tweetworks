@@ -8,10 +8,9 @@ use App\System\CreateTable;
 
 class CreateFavoritesTable extends CreateTable
 {
-    public static function getQuerySentence(): string
+    public static function getCreateQuery(): string
     {
         return <<< EOF
-
 create table favorites
 (
     user_id int(10) not null,

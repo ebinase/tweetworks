@@ -13,4 +13,12 @@ class MigrateController extends Cotroller
 
         return "migration完了";
     }
+
+    public function refresh()
+    {
+        $migration = new \Database\migration\Migration();
+        $migration->refresh();
+
+        return "refresh完了";
+    }
 }
