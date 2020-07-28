@@ -39,11 +39,8 @@ class Router implements RouterInterface
             }
 //            分割したURLをサイドスラッシュで繋げ、変換すみの値として$routes変数に格納
             $pattern = '/' . implode('/', $tokens);
-            $routes[$pattern]=$params;
+            $routes[$pattern] = $params;
         }
-
-        print '正規表現変換後のルート</br>';
-        print_r($routes);
 
         return $routes;
 
@@ -66,8 +63,6 @@ class Router implements RouterInterface
         }
 
         foreach ($this->_routes as $pattern=> $params) {
-            print 'パターン：' . '#^' . $pattern . '$#   ';
-            print 'path_info：' . $path_info . ' ||  ';
 //          変換済みのルーティング配列は$routesプロパティに格納されている→正規表現を用いてマッチング
 //          #→正規表現のスラッシュ(/)と同じ役割
 //          (?<name>) → 名前付きサブパターン(以下のurlの少しスクロールした所の「変更履歴」参照)
@@ -75,10 +70,6 @@ class Router implements RouterInterface
             if (preg_match('#^' . $pattern . '$#', $path_info, $matches)){
 //              マッチした場合array_merge関数でマージ→$params関数にルーティングパラメータとして格納
                 $params = array_merge($params, $matches);
-
-                print '</br></br>正規表現マッチング後の配列</br>';
-                print_r($params);
-                print '</br></br>';
 
                 return  $params;
             }
