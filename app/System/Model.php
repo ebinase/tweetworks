@@ -62,7 +62,7 @@ abstract class Model implements ModelInterface
     //クエリ簡易実行メソッド
     //==============================================================================
 
-    public function execute(string $sql, array $params = [])
+    public function smartExecute(string $sql, array $params = [])
     {
         $statement = $this->_db->prepare($sql);
         $statement->execute($params);
@@ -71,11 +71,11 @@ abstract class Model implements ModelInterface
 
     public function fetch(string $sql, array $params = [])
     {
-        return $this->execute($sql, $params)->fetch(\PDO::FETCH_ASSOC);
+        return $this->smartExecute($sql, $params)->fetch(\PDO::FETCH_ASSOC);
     }
 
     public function fetchAll(string $sql, array $params = [])
     {
-        return $this->execute($sql, $params)->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->smartExecute($sql, $params)->fetchAll(\PDO::FETCH_ASSOC);
     }
 }

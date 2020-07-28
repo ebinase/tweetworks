@@ -14,7 +14,7 @@ class Response implements ResponseInterface
 
 
 
-    public function setContent(string $content)
+    public function setContent($content)
     {
         $this->_content = $content;
     }

@@ -48,7 +48,6 @@ class Session implements SessionInterface
 
     public function regenerate($destroy = true):void
     {
-        // TODO: Implement regenerate() method.
         if (!self::$sessionIdRegenerated){
         session_regenerate_id($destroy);
 

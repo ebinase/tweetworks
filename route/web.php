@@ -7,16 +7,16 @@ function getWebRoutes() {
             'auth' => 0,
             'name' => 'hoge',
         ],
-        '/foo/:user_id' => [
+        '/home' => [
             'controller' => 'tweet',
-            'action' => 'tweet',
+            'action' => 'home',
             'auth' => 0,
             'name' => null,
         ],
         '/tweet' => [
             'controller' => 'tweet',
-            'action' => 'eweet',
-            'auth' => 1,
+            'action' => 'tweet',
+            'auth' => 0,
             'name' => 'hoge',
         ],
         '/migrate' => [
