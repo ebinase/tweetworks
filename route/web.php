@@ -13,9 +13,9 @@ function getWebRoutes() {
             'auth' => 0,
             'name' => null,
         ],
-        '/tweet' => [
+        '/tweet/post' => [
             'controller' => 'tweet',
-            'action' => 'tweet',
+            'action' => 'post',
             'auth' => 0,
             'name' => 'hoge',
         ],

@@ -13,6 +13,8 @@ abstract class Cotroller
     protected $_response;
     protected $_session;
 
+    protected $_errors;
+
 
     public function __construct(Application $application)
     {
@@ -22,6 +24,7 @@ abstract class Cotroller
         $this->_request = $application->getRequest();
         $this->_response = $application->getResponse();
         $this->_session = $application->getSession();
+        $this->_errors = $application->getErrors();
     }
 
     public function run(string $action_name, array $params = [])

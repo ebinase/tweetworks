@@ -11,6 +11,7 @@ class Application
     protected $_session;
     protected $_router;
 
+    protected $_errors;
 
     //==============================================================================
     //コンストラクタ
@@ -39,6 +40,8 @@ class Application
         $this->_response = new Response();
         $this->_session = new Session();
         $this->_router = new Router($this->_registerRoutes());
+
+        $this->_errors = new Errors($this->_session);
     }
 
     /**
@@ -157,6 +160,11 @@ EOF
     public function getSession()
     {
         return $this->_session;
+    }
+
+    public function getErrors()
+    {
+        return $this->_errors;
     }
 
     public function getRootDir()

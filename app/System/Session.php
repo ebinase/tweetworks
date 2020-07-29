@@ -20,12 +20,12 @@ class Session implements SessionInterface
     }
 
 
-    public function set(string $name, string $value)
+    public function set($name, $value)
     {
         $_SESSION[$name] = $value;
     }
 
-    public function get(string $name, $default = null)
+    public function get($name, $default = null)
     {
         if (isset($_SESSION[$name])){
             return $_SESSION[$name];

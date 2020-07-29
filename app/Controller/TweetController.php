@@ -9,15 +9,14 @@ class TweetController extends Cotroller
 {
     public function post($params)
     {
-        if ($this->_request->isPost()){
+        if (! $this->_request->isPost()){
             $this->_forward404();
         }
 
         //TODO:CSRF対策
 
-        $errors = [];
         //テキストのバリデーション
-        $text = $this->_request->get('text');
+        $text = $this->_request->getPost('text', '');
         if (!strlen($text)) {
             $errors['text'] = '１文字以上入力してください。';
         } elseif (mb_strlen($text) > 140) {
@@ -30,14 +29,19 @@ class TweetController extends Cotroller
             $tweet->insert($user_id, $text);
             return $this->_redirect('/home');
         }
-        // TODO: エラーハンドラの実装
-        return 'エラー出たよ';
+
+        $this->_errors->set('text', $errors['text']);
+        return $this->_redirect('/home');;
 
     }
 
     public function home()
     {
-        return 'ここはhome';
+        $message = 'ここはhome';
+        if($this->_errors->errorExists()) {
+            $message = $this->_errors->getMessage('text');
+        }
+        return $message;
     }
 
 }
