@@ -18,7 +18,7 @@ class CreateUsersTable extends CreateTable
 	email varchar(256) not null,
 	unique_name varchar(30) not null,
 	password varchar(256) not null,
-	token char(16) not null,
+	remenber_token char(16) DEFAULT null,
 	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,
 	updated_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
 	constraint users_pk
@@ -29,7 +29,7 @@ create unique index users_email_uindex
 	on users (email);
 
 create unique index users_token_uindex
-	on users (token);
+	on users (remenber_token);
 
 create unique index users_unique_name_uindex
 	on users (unique_name);

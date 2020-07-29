@@ -82,6 +82,9 @@ class Application
             // FIXME: login画面への移行に修正。
             // $this->runAction($controller, $action);
             $this->_render404Page($e);
+
+        }  catch (\PDOException $e) {
+            $this->_render500Page($e);
         }
 
         $this->_response->send();
@@ -131,6 +134,28 @@ class Application
 </head>
 <body>
 <h1>404</h1>
+{$message}
+</body>
+</html>
+EOF
+        );
+    }
+
+    protected function _render500Page($e)
+    {
+        $this->_response->setStatusCode(500, 'Internal Server Error');
+        $message = $this->isDebugMode() ? $e->getMessage() : 'Internal Server Error';
+        $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
+
+        $this->_response->setContent(<<<EOF
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Internal Server Error</title>
+</head>
+<body>
+<h1>500</h1>
 {$message}
 </body>
 </html>

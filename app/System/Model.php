@@ -45,14 +45,9 @@ abstract class Model implements ModelInterface
      */
     protected function _getDbConnection(array $param)
     {
-        try {
-            $db = new \PDO($param['dsn'], $param['user'], $param['password']);
-            $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-            return $db;
-        } catch (\PDOException $e) {
-            //FIXME:エラーページに飛ばす
-            exit($e->getMessage());
-        }
+        $db = new \PDO($param['dsn'], $param['user'], $param['password']);
+        $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
+        return $db;
     }
 
     //モデルで扱うテーブル名を継承先で登録する抽象クラス
@@ -77,5 +72,23 @@ abstract class Model implements ModelInterface
     public function fetchAll(string $sql, array $params = [])
     {
         return $this->smartExecute($sql, $params)->fetchAll(\PDO::FETCH_ASSOC);
+    }
+
+    public function smartInsert(array $params)
+    {
+        $culumns = '';
+        $holders = '';
+        // 配列をもとにSQL文の一部とbindValueで使用する配列を作成する。
+        foreach ($params as $key => $param) {
+            $culumns .= "{$key}, ";
+            $holders .= ":{$key}, ";
+            $bindValues[":{$key}"] = $param;
+        }
+        $culumns = rtrim($culumns, ', ');
+        $holders = rtrim($holders, ', ');
+
+        //例:  'INSERT INTO tweets (user_id, text) VALUES (:user_id, :text)';
+        $sql = "INSERT INTO {$this->_tableName} ({$culumns}) VALUES ($holders)";
+        return $this->smartExecute($sql, $bindValues);
     }
 }
