@@ -11,6 +11,7 @@ class Application
     protected $_session;
     protected $_router;
 
+    protected $_errors;
 
     //==============================================================================
     //コンストラクタ
@@ -39,6 +40,8 @@ class Application
         $this->_response = new Response();
         $this->_session = new Session();
         $this->_router = new Router($this->_registerRoutes());
+
+        $this->_errors = new Errors($this->_session);
     }
 
     /**
@@ -79,6 +82,9 @@ class Application
             // FIXME: login画面への移行に修正。
             // $this->runAction($controller, $action);
             $this->_render404Page($e);
+
+        }  catch (\PDOException $e) {
+            $this->_render500Page($e);
         }
 
         $this->_response->send();
@@ -135,6 +141,28 @@ EOF
         );
     }
 
+    protected function _render500Page($e)
+    {
+        $this->_response->setStatusCode(500, 'Internal Server Error');
+        $message = $this->isDebugMode() ? $e->getMessage() : 'Internal Server Error';
+        $message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
+
+        $this->_response->setContent(<<<EOF
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <title>Internal Server Error</title>
+</head>
+<body>
+<h1>500</h1>
+{$message}
+</body>
+</html>
+EOF
+        );
+    }
+
 
     //==============================================================================
     //その他のゲッター達
@@ -157,6 +185,11 @@ EOF
     public function getSession()
     {
         return $this->_session;
+    }
+
+    public function getErrors()
+    {
+        return $this->_errors;
     }
 
     public function getRootDir()

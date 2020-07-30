@@ -1,0 +1,487 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="BranchesTreeState">
+    <expand>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </expand>
+    <select>
+      <path>
+        <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:ebinase" type="e8cecc67:BranchNodeDescriptor" />
+      </path>
+    </select>
+  </component>
+  <component name="ChangeListManager">
+    <list default="true" id="e9eaf466-6d27-4eb7-a513-3f1d524d6ec9" name="Default Changelist" comment="Errorsクラスの実装">
+      <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.php" afterDir="false" />
+    </list>
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="ComposerSettings" doNotAsk="true" synchronizationState="SYNCHRONIZE">
+    <pharConfigPath>$PROJECT_DIR$/composer.json</pharConfigPath>
+    <execution />
+  </component>
+  <component name="Git.Settings">
+    <option name="RECENT_BRANCH_BY_REPOSITORY">
+      <map>
+        <entry key="$PROJECT_DIR$" value="hondare" />
+      </map>
+    </option>
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="RESET_MODE" value="SOFT" />
+    <option name="SET_USER_NAME_GLOBALLY" value="false" />
+  </component>
+  <component name="ProjectId" id="1eI9tcR17f44fDGwfPJB0ZVtNCa" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
+  <component name="ProjectViewState">
+    <option name="hideEmptyMiddlePackages" value="true" />
+    <option name="showLibraryContents" value="true" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="DatabaseDriversLRU" value="mysql" />
+    <property name="RunOnceActivity.OpenProjectViewOnStart" value="true" />
+    <property name="RunOnceActivity.ShowReadmeOnStart" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="nodejs_package_manager_path" value="npm" />
+    <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
+    <property name="settings.editor.selected.configurable" value="SQL Dialects" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/public" />
+      <recent name="$PROJECT_DIR$/route" />
+      <recent name="$PROJECT_DIR$" />
+      <recent name="$PROJECT_DIR$/app" />
+      <recent name="$PROJECT_DIR$/app/System" />
+    </key>
+  </component>
+  <component name="SvnConfiguration">
+    <configuration />
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e9eaf466-6d27-4eb7-a513-3f1d524d6ec9" name="Default Changelist" comment="" />
+      <created>1593998455196</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1593998455196</updated>
+      <workItem from="1593998456385" duration="122000" />
+      <workItem from="1593998835984" duration="2252000" />
+      <workItem from="1594012297143" duration="4960000" />
+      <workItem from="1594259966557" duration="307000" />
+      <workItem from="1594279901047" duration="6371000" />
+      <workItem from="1594288722691" duration="6273000" />
+      <workItem from="1594349393680" duration="867000" />
+      <workItem from="1594354132604" duration="18000" />
+      <workItem from="1594354176792" duration="14420000" />
+      <workItem from="1594551143256" duration="7037000" />
+      <workItem from="1594604933644" duration="7985000" />
+      <workItem from="1594622280663" duration="14215000" />
+      <workItem from="1594688293407" duration="41614000" />
+      <workItem from="1594910923084" duration="793000" />
+      <workItem from="1594913193926" duration="20722000" />
+      <workItem from="1595207138773" duration="21099000" />
+      <workItem from="1595296553237" duration="10471000" />
+      <workItem from="1595379792069" duration="3046000" />
+      <workItem from="1595816425390" duration="5901000" />
+      <workItem from="1595825934184" duration="15000" />
+      <workItem from="1595826112564" duration="3948000" />
+      <workItem from="1595834882008" duration="1337000" />
+      <workItem from="1595837734987" duration="1615000" />
+      <workItem from="1595839854301" duration="293000" />
+      <workItem from="1595840227537" duration="866000" />
+      <workItem from="1595841127700" duration="7946000" />
+      <workItem from="1595901044702" duration="2925000" />
+      <workItem from="1595904703301" duration="16116000" />
+      <workItem from="1595986777867" duration="45000" />
+      <workItem from="1595986826514" duration="4581000" />
+      <workItem from="1595993756961" duration="324000" />
+    </task>
+    <task id="LOCAL-00001" summary="Modelクラスの完成&#10;&#10;その他、monologのインストール、ブラウザ上にログを表示する自作関数など">
+      <created>1594622444641</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1594622444641</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Applicationクラス完成">
+      <created>1594695772244</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1594695772244</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Controller, Viewの完成。Applicationクラス修正。">
+      <created>1594715045271</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1594715045271</updated>
+    </task>
+    <task id="LOCAL-00004" summary="Controller, Applicationクラス修正">
+      <created>1594775038727</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1594775038727</updated>
+    </task>
+    <task id="LOCAL-00005" summary="細かな修正・コメント追加">
+      <created>1594861216136</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1594861216137</updated>
+    </task>
+    <task id="LOCAL-00006" summary="renderメソッドの修正">
+      <created>1594861284675</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1594861284675</updated>
+    </task>
+    <task id="LOCAL-00007" summary="Application.phpの404エラーメッセージ表示修正">
+      <created>1594957029574</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1594957029574</updated>
+    </task>
+    <task id="LOCAL-00008" summary="getPathInfo関連の修正">
+      <created>1594957201928</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1594957201928</updated>
+    </task>
+    <task id="LOCAL-00009" summary="誤字の修正">
+      <created>1594957931565</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1594957931565</updated>
+    </task>
+    <task id="LOCAL-00010" summary="デバッグモードをクエリでオンオフ可能に">
+      <created>1594962617416</created>
+      <option name="number" value="00010" />
+      <option name="presentableId" value="LOCAL-00010" />
+      <option name="project" value="LOCAL" />
+      <updated>1594962617416</updated>
+    </task>
+    <task id="LOCAL-00011" summary="軽微な修正">
+      <created>1594973989463</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1594973989463</updated>
+    </task>
+    <task id="LOCAL-00012" summary="ルーティング機能の修正">
+      <created>1594974176944</created>
+      <option name="number" value="00012" />
+      <option name="presentableId" value="LOCAL-00012" />
+      <option name="project" value="LOCAL" />
+      <updated>1594974176944</updated>
+    </task>
+    <task id="LOCAL-00013" summary="軽微な修正">
+      <created>1594981864468</created>
+      <option name="number" value="00013" />
+      <option name="presentableId" value="LOCAL-00013" />
+      <option name="project" value="LOCAL" />
+      <updated>1594981864468</updated>
+    </task>
+    <task id="LOCAL-00014" summary="ログイン判定機能とその例外処理の実装">
+      <created>1595228941748</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1595228941748</updated>
+    </task>
+    <task id="LOCAL-00015" summary="関数と変数の命名規則の変更">
+      <created>1595233074099</created>
+      <option name="number" value="00015" />
+      <option name="presentableId" value="LOCAL-00015" />
+      <option name="project" value="LOCAL" />
+      <updated>1595233074099</updated>
+    </task>
+    <task id="LOCAL-00016" summary="viewファイルの追加">
+      <created>1595233837744</created>
+      <option name="number" value="00016" />
+      <option name="presentableId" value="LOCAL-00016" />
+      <option name="project" value="LOCAL" />
+      <updated>1595233837744</updated>
+    </task>
+    <task id="LOCAL-00017" summary="Modelの設定ファイルのディレクトリ取得方法を変更">
+      <created>1595319642394</created>
+      <option name="number" value="00017" />
+      <option name="presentableId" value="LOCAL-00017" />
+      <option name="project" value="LOCAL" />
+      <updated>1595319642394</updated>
+    </task>
+    <task id="LOCAL-00018" summary="ツイートテーブルのマイグレーション作成">
+      <created>1595822485678</created>
+      <option name="number" value="00018" />
+      <option name="presentableId" value="LOCAL-00018" />
+      <option name="project" value="LOCAL" />
+      <updated>1595822485678</updated>
+    </task>
+    <task id="LOCAL-00019" summary="マイグレーション関係">
+      <created>1595833552503</created>
+      <option name="number" value="00019" />
+      <option name="presentableId" value="LOCAL-00019" />
+      <option name="project" value="LOCAL" />
+      <updated>1595833552503</updated>
+    </task>
+    <task id="LOCAL-00020" summary="MigrateController.phpの追加">
+      <created>1595835418409</created>
+      <option name="number" value="00020" />
+      <option name="presentableId" value="LOCAL-00020" />
+      <option name="project" value="LOCAL" />
+      <updated>1595835418409</updated>
+    </task>
+    <task id="LOCAL-00021" summary="マイグレーションの修正 / gitignore修正">
+      <created>1595839373401</created>
+      <option name="number" value="00021" />
+      <option name="presentableId" value="LOCAL-00021" />
+      <option name="project" value="LOCAL" />
+      <updated>1595839373401</updated>
+    </task>
+    <task id="LOCAL-00022" summary="gitignoreのミスの修正">
+      <created>1595840667081</created>
+      <option name="number" value="00022" />
+      <option name="presentableId" value="LOCAL-00022" />
+      <option name="project" value="LOCAL" />
+      <updated>1595840667081</updated>
+    </task>
+    <task id="LOCAL-00023" summary="マイグレーションの修正">
+      <created>1595841744742</created>
+      <option name="number" value="00023" />
+      <option name="presentableId" value="LOCAL-00023" />
+      <option name="project" value="LOCAL" />
+      <updated>1595841744742</updated>
+    </task>
+    <task id="LOCAL-00024" summary=".gitignoreの修正">
+      <created>1595841773985</created>
+      <option name="number" value="00024" />
+      <option name="presentableId" value="LOCAL-00024" />
+      <option name="project" value="LOCAL" />
+      <updated>1595841773985</updated>
+    </task>
+    <task id="LOCAL-00025" summary="マイグレーションの修正">
+      <created>1595843754212</created>
+      <option name="number" value="00025" />
+      <option name="presentableId" value="LOCAL-00025" />
+      <option name="project" value="LOCAL" />
+      <updated>1595843754212</updated>
+    </task>
+    <task id="LOCAL-00026" summary=".gitignoreの反映">
+      <created>1595843890549</created>
+      <option name="number" value="00026" />
+      <option name="presentableId" value="LOCAL-00026" />
+      <option name="project" value="LOCAL" />
+      <updated>1595843890549</updated>
+    </task>
+    <task id="LOCAL-00027" summary="Migrationにrefresh機能追加">
+      <created>1595899182500</created>
+      <option name="number" value="00027" />
+      <option name="presentableId" value="LOCAL-00027" />
+      <option name="project" value="LOCAL" />
+      <updated>1595899182500</updated>
+    </task>
+    <task id="LOCAL-00028" summary="ルーティング情報の画面表示削除">
+      <created>1595901337307</created>
+      <option name="number" value="00028" />
+      <option name="presentableId" value="LOCAL-00028" />
+      <option name="project" value="LOCAL" />
+      <updated>1595901337307</updated>
+    </task>
+    <task id="LOCAL-00029" summary="Tweetアクションの雛形と、細かい修正">
+      <created>1595918582421</created>
+      <option name="number" value="00029" />
+      <option name="presentableId" value="LOCAL-00029" />
+      <option name="project" value="LOCAL" />
+      <updated>1595918582421</updated>
+    </task>
+    <task id="LOCAL-00030" summary="Errorsクラスの実装">
+      <created>1595986698405</created>
+      <option name="number" value="00030" />
+      <option name="presentableId" value="LOCAL-00030" />
+      <option name="project" value="LOCAL" />
+      <updated>1595986698405</updated>
+    </task>
+    <option name="localTasksCounter" value="31" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="2" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="ebinase" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+    <option name="oldMeFiltersMigrated" value="true" />
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="RELOAD_CONTEXT" value="false" />
+    <MESSAGE value="Controller, Applicationクラス修正" />
+    <MESSAGE value="細かな修正・コメント追加" />
+    <MESSAGE value="renderメソッドの修正" />
+    <MESSAGE value="Application.phpの404エラーメッセージ表示修正" />
+    <MESSAGE value="getPathInfo関連の修正" />
+    <MESSAGE value="誤字の修正" />
+    <MESSAGE value="デバッグモードをクエリでオンオフ可能に" />
+    <MESSAGE value="ルーティング機能の修正" />
+    <MESSAGE value="軽微な修正" />
+    <MESSAGE value="ログイン判定機能とその例外処理の実装" />
+    <MESSAGE value="関数と変数の命名規則の変更" />
+    <MESSAGE value="viewファイルの追加" />
+    <MESSAGE value="Modelの設定ファイルのディレクトリ取得方法を変更" />
+    <MESSAGE value="ツイートテーブルのマイグレーション作成" />
+    <MESSAGE value="マイグレーション関係" />
+    <MESSAGE value="MigrateController.phpの追加" />
+    <MESSAGE value="マイグレーションの修正 / gitignore修正" />
+    <MESSAGE value="gitignoreのミスの修正" />
+    <MESSAGE value=".gitignoreの修正" />
+    <MESSAGE value="マイグレーションの修正" />
+    <MESSAGE value=".gitignoreの反映" />
+    <MESSAGE value="Migrationにrefresh機能追加" />
+    <MESSAGE value="ルーティング情報の画面表示削除" />
+    <MESSAGE value="Tweetアクションの雛形と、細かい修正" />
+    <MESSAGE value="Errorsクラスの実装" />
+    <option name="LAST_COMMIT_MESSAGE" value="Errorsクラスの実装" />
+  </component>
+  <component name="WindowStateProjectService">
+    <state x="440" y="190" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1595896494044">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="440" y="190" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595896494044" />
+    <state x="636" y="214" key="#com.intellij.ide.util.MemberChooser" timestamp="1595939598653">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="636" y="214" key="#com.intellij.ide.util.MemberChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1595939598653" />
+    <state x="528" y="268" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1594688255408">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="528" y="268" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1594688255408" />
+    <state x="678" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1595986141242">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="678" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595986141242" />
+    <state x="578" y="279" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1594285164785">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="578" y="279" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1920.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1594285164785" />
+    <state x="100" y="30" width="1480" height="1020" key="DiffContextDialog" timestamp="1595293179742">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="100" y="30" width="1480" height="1020" key="DiffContextDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595293179742" />
+    <state x="100" y="84" width="1480" height="931" key="DiffContextDialog/0.23.1680.959@0.23.1680.959" timestamp="1594862684805" />
+    <state width="1126" height="295" key="GridCell.Tab.0.bottom" timestamp="1595820813129">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1126" height="295" key="GridCell.Tab.0.bottom/0.0.1680.1050@0.0.1680.1050" timestamp="1595820813129" />
+    <state width="1126" height="295" key="GridCell.Tab.0.center" timestamp="1595820813128">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1126" height="295" key="GridCell.Tab.0.center/0.0.1680.1050@0.0.1680.1050" timestamp="1595820813128" />
+    <state width="1126" height="295" key="GridCell.Tab.0.left" timestamp="1595820813127">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1126" height="295" key="GridCell.Tab.0.left/0.0.1680.1050@0.0.1680.1050" timestamp="1595820813127" />
+    <state width="1126" height="295" key="GridCell.Tab.0.right" timestamp="1595820813129">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state width="1126" height="295" key="GridCell.Tab.0.right/0.0.1680.1050@0.0.1680.1050" timestamp="1595820813129" />
+    <state x="168" y="94" key="MergeDialog" timestamp="1595315781880">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="168" y="94" key="MergeDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595315781880" />
+    <state x="536" y="258" key="NewPhpClassDialog" timestamp="1595993953061">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="536" y="258" key="NewPhpClassDialog/-1920.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1594287369115" />
+    <state x="536" y="258" key="NewPhpClassDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595993953061" />
+    <state x="658" y="455" key="NewPhpFileDialog" timestamp="1595833785798">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="658" y="455" key="NewPhpFileDialog/-1920.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1594285253050" />
+    <state x="658" y="455" key="NewPhpFileDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595833785798" />
+    <state x="349" y="164" key="SettingsEditor" timestamp="1595896407885">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="349" y="164" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1595896407885" />
+    <state x="100" y="100" width="1480" height="850" key="ShowDiffWithBranchDialog" timestamp="1595399933119">
+      <screen x="0" y="23" width="1680" height="959" />
+    </state>
+    <state x="100" y="100" width="1480" height="850" key="ShowDiffWithBranchDialog/0.23.1680.959@0.23.1680.959" timestamp="1595399933119" />
+    <state x="440" y="265" key="Vcs.Push.Dialog.v2" timestamp="1595986706717">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="440" y="265" key="Vcs.Push.Dialog.v2/0.0.1680.1050@0.0.1680.1050" timestamp="1595986706717" />
+    <state x="619" y="266" key="VcsDiffUtil.ChangesDialog" timestamp="1595842050286">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="619" y="266" key="VcsDiffUtil.ChangesDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595842050286" />
+    <state x="738" y="407" width="337" height="237" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1" timestamp="1595838032726">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="738" y="407" width="337" height="237" key="com.intellij.database.actions.DdlActions$DeleteProvider2$1/0.0.1680.1050@0.0.1680.1050" timestamp="1595838032726" />
+    <state x="525" y="156" width="627" height="726" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog" timestamp="1595821863686">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="525" y="156" width="627" height="726" key="com.intellij.database.view.ui.AbstractDbRefactoringDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595821863686" />
+    <state x="631" y="446" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1595900216988">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="631" y="446" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1680.1050@0.0.1680.1050" timestamp="1595900216988" />
+    <state x="561" y="342" key="com.jetbrains.php.test.PhpNewTestDialog" timestamp="1594364299261">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="561" y="342" key="com.jetbrains.php.test.PhpNewTestDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1594364299261" />
+    <state x="594" y="245" key="git4idea.branch.GitSmartOperationDialog" timestamp="1595315754029">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="594" y="245" key="git4idea.branch.GitSmartOperationDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595315754029" />
+    <state x="503" y="231" width="672" height="678" key="search.everywhere.popup" timestamp="1594795022307">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="503" y="231" width="672" height="678" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1594795022307" />
+    <state x="570" y="444" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1595841505496">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="570" y="444" key="vcs.readOnlyHandler.ReadOnlyStatusDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595841505496" />
+  </component>
+</project>
