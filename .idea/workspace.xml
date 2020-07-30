@@ -19,13 +19,18 @@
     <select>
       <path>
         <item name="ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="LOCAL_ROOT" type="e8cecc67:BranchNodeDescriptor" />
-        <item name="BRANCH:ebinase" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="REMOTE_ROOT" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="GROUP_NODE:origin" type="e8cecc67:BranchNodeDescriptor" />
+        <item name="BRANCH:origin/master" type="e8cecc67:BranchNodeDescriptor" />
       </path>
     </select>
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e9eaf466-6d27-4eb7-a513-3f1d524d6ec9" name="Default Changelist" comment="Errorsクラスの実装">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/tweetworks.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/tweetworks.iml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/app/System/View.php" beforeDir="false" afterPath="$PROJECT_DIR$/app/System/View.php" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/public/index.php" beforeDir="false" afterPath="$PROJECT_DIR$/public/index.php" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -40,12 +45,17 @@
   <component name="Git.Settings">
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="hondare" />
+        <entry key="$PROJECT_DIR$" value="master" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
     <option name="RESET_MODE" value="SOFT" />
     <option name="SET_USER_NAME_GLOBALLY" value="false" />
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration">
+    <include_path>
+      <path value="$PROJECT_DIR$/vendor/composer" />
+    </include_path>
   </component>
   <component name="ProjectId" id="1eI9tcR17f44fDGwfPJB0ZVtNCa" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
@@ -61,15 +71,15 @@
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="nodejs_package_manager_path" value="npm" />
     <property name="php.override.implement.member.chooser.php.doc" value="NONE" />
-    <property name="settings.editor.selected.configurable" value="SQL Dialects" />
+    <property name="settings.editor.selected.configurable" value="preferences.sourceCode.PHP" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/app/Controller" />
       <recent name="$PROJECT_DIR$/public" />
       <recent name="$PROJECT_DIR$/route" />
       <recent name="$PROJECT_DIR$" />
       <recent name="$PROJECT_DIR$/app" />
-      <recent name="$PROJECT_DIR$/app/System" />
     </key>
   </component>
   <component name="SvnConfiguration">
@@ -113,6 +123,8 @@
       <workItem from="1595986777867" duration="45000" />
       <workItem from="1595986826514" duration="4581000" />
       <workItem from="1595993756961" duration="324000" />
+      <workItem from="1595994723818" duration="15208000" />
+      <workItem from="1596071124267" duration="7601000" />
     </task>
     <task id="LOCAL-00001" summary="Modelクラスの完成&#10;&#10;その他、monologのインストール、ブラウザ上にログを表示する自作関数など">
       <created>1594622444641</created>
@@ -324,7 +336,28 @@
       <option name="project" value="LOCAL" />
       <updated>1595986698405</updated>
     </task>
-    <option name="localTasksCounter" value="31" />
+    <task id="LOCAL-00031" summary="既存のクラスの機能の向上&#10;&#10;500ページ表示、smartInsert()など。">
+      <created>1596019467302</created>
+      <option name="number" value="00031" />
+      <option name="presentableId" value="LOCAL-00031" />
+      <option name="project" value="LOCAL" />
+      <updated>1596019467302</updated>
+    </task>
+    <task id="LOCAL-00032" summary="ユーザー登録機能の追加">
+      <created>1596019524969</created>
+      <option name="number" value="00032" />
+      <option name="presentableId" value="LOCAL-00032" />
+      <option name="project" value="LOCAL" />
+      <updated>1596019524969</updated>
+    </task>
+    <task id="LOCAL-00033" summary=".ideaフォルダを.gitignoreから除外&#10;&#10;pullするたびにデータベース設定などがIDEから消えるため。">
+      <created>1596019598396</created>
+      <option name="number" value="00033" />
+      <option name="presentableId" value="LOCAL-00033" />
+      <option name="project" value="LOCAL" />
+      <updated>1596019598396</updated>
+    </task>
+    <option name="localTasksCounter" value="34" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -341,7 +374,7 @@
                   <entry key="branch">
                     <value>
                       <list>
-                        <option value="ebinase" />
+                        <option value="origin/master" />
                       </list>
                     </value>
                   </entry>
@@ -356,9 +389,6 @@
   </component>
   <component name="VcsManagerConfiguration">
     <option name="RELOAD_CONTEXT" value="false" />
-    <MESSAGE value="Controller, Applicationクラス修正" />
-    <MESSAGE value="細かな修正・コメント追加" />
-    <MESSAGE value="renderメソッドの修正" />
     <MESSAGE value="Application.phpの404エラーメッセージ表示修正" />
     <MESSAGE value="getPathInfo関連の修正" />
     <MESSAGE value="誤字の修正" />
@@ -381,34 +411,37 @@
     <MESSAGE value="ルーティング情報の画面表示削除" />
     <MESSAGE value="Tweetアクションの雛形と、細かい修正" />
     <MESSAGE value="Errorsクラスの実装" />
-    <option name="LAST_COMMIT_MESSAGE" value="Errorsクラスの実装" />
+    <MESSAGE value="既存のクラスの機能の向上&#10;&#10;500ページ表示、smartInsert()など。" />
+    <MESSAGE value="ユーザー登録機能の追加" />
+    <MESSAGE value=".ideaフォルダを.gitignoreから除外&#10;&#10;pullするたびにデータベース設定などがIDEから消えるため。" />
+    <option name="LAST_COMMIT_MESSAGE" value=".ideaフォルダを.gitignoreから除外&#10;&#10;pullするたびにデータベース設定などがIDEから消えるため。" />
   </component>
   <component name="WindowStateProjectService">
-    <state x="440" y="190" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1595896494044">
+    <state x="440" y="190" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1596002212918">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="440" y="190" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595896494044" />
-    <state x="636" y="214" key="#com.intellij.ide.util.MemberChooser" timestamp="1595939598653">
+    <state x="440" y="190" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1596002212918" />
+    <state x="636" y="214" key="#com.intellij.ide.util.MemberChooser" timestamp="1596000347562">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="636" y="214" key="#com.intellij.ide.util.MemberChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1595939598653" />
+    <state x="636" y="214" key="#com.intellij.ide.util.MemberChooser/0.0.1680.1050@0.0.1680.1050" timestamp="1596000347562" />
     <state x="528" y="268" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog" timestamp="1594688255408">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="528" y="268" key="#com.intellij.openapi.updateSettings.impl.PluginUpdateInfoDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1594688255408" />
-    <state x="678" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1595986141242">
+    <state x="678" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog" timestamp="1596001117034">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="678" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595986141242" />
+    <state x="678" y="0" key="#com.intellij.refactoring.rename.AutomaticRenamingDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1596001117034" />
     <state x="578" y="279" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog" timestamp="1594285164785">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="578" y="279" key="#com.intellij.refactoring.safeDelete.UnsafeUsagesDialog/-1920.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1594285164785" />
-    <state x="100" y="30" width="1480" height="1020" key="DiffContextDialog" timestamp="1595293179742">
-      <screen x="0" y="0" width="1680" height="1050" />
+    <state x="100" y="30" width="1480" height="1020" key="DiffContextDialog" timestamp="1596074512149">
+      <screen x="0" y="23" width="1680" height="959" />
     </state>
-    <state x="100" y="30" width="1480" height="1020" key="DiffContextDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595293179742" />
-    <state x="100" y="84" width="1480" height="931" key="DiffContextDialog/0.23.1680.959@0.23.1680.959" timestamp="1594862684805" />
+    <state x="100" y="30" width="1480" height="1020" key="DiffContextDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1596073875299" />
+    <state x="100" y="30" width="1480" height="1020" key="DiffContextDialog/0.23.1680.959@0.23.1680.959" timestamp="1596074512149" />
     <state width="1126" height="295" key="GridCell.Tab.0.bottom" timestamp="1595820813129">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
@@ -429,24 +462,28 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="168" y="94" key="MergeDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595315781880" />
-    <state x="536" y="258" key="NewPhpClassDialog" timestamp="1595993953061">
+    <state x="536" y="258" key="NewPhpClassDialog" timestamp="1596000183403">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="536" y="258" key="NewPhpClassDialog/-1920.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1594287369115" />
-    <state x="536" y="258" key="NewPhpClassDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595993953061" />
-    <state x="658" y="455" key="NewPhpFileDialog" timestamp="1595833785798">
+    <state x="536" y="258" key="NewPhpClassDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1596000183403" />
+    <state x="658" y="455" key="NewPhpFileDialog" timestamp="1596006007009">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="658" y="455" key="NewPhpFileDialog/-1920.0.1920.1080/0.0.1680.1050@0.0.1680.1050" timestamp="1594285253050" />
-    <state x="658" y="455" key="NewPhpFileDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595833785798" />
-    <state x="349" y="164" key="SettingsEditor" timestamp="1595896407885">
+    <state x="658" y="455" key="NewPhpFileDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1596006007009" />
+    <state x="349" y="164" key="SettingsEditor" timestamp="1596000317854">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="349" y="164" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1595896407885" />
+    <state x="349" y="164" key="SettingsEditor/0.0.1680.1050@0.0.1680.1050" timestamp="1596000317854" />
     <state x="100" y="100" width="1480" height="850" key="ShowDiffWithBranchDialog" timestamp="1595399933119">
       <screen x="0" y="23" width="1680" height="959" />
     </state>
     <state x="100" y="100" width="1480" height="850" key="ShowDiffWithBranchDialog/0.23.1680.959@0.23.1680.959" timestamp="1595399933119" />
+    <state x="633" y="236" key="VCS.ChangeListViewerDialog" timestamp="1596073882690">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="633" y="236" key="VCS.ChangeListViewerDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1596073882690" />
     <state x="440" y="265" key="Vcs.Push.Dialog.v2" timestamp="1595986706717">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
@@ -471,14 +508,22 @@
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
     <state x="561" y="342" key="com.jetbrains.php.test.PhpNewTestDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1594364299261" />
-    <state x="594" y="245" key="git4idea.branch.GitSmartOperationDialog" timestamp="1595315754029">
+    <state x="594" y="245" key="git4idea.branch.GitSmartOperationDialog" timestamp="1596020057821">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="594" y="245" key="git4idea.branch.GitSmartOperationDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1595315754029" />
-    <state x="503" y="231" width="672" height="678" key="search.everywhere.popup" timestamp="1594795022307">
+    <state x="594" y="245" key="git4idea.branch.GitSmartOperationDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1596020057821" />
+    <state x="616" y="431" key="git4idea.ui.GitStashDialog" timestamp="1596020403921">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
-    <state x="503" y="231" width="672" height="678" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1594795022307" />
+    <state x="616" y="431" key="git4idea.ui.GitStashDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1596020403921" />
+    <state x="578" y="378" key="git4idea.ui.GitUnstashDialog" timestamp="1596073919801">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="578" y="378" key="git4idea.ui.GitUnstashDialog/0.0.1680.1050@0.0.1680.1050" timestamp="1596073919801" />
+    <state x="503" y="231" width="672" height="678" key="search.everywhere.popup" timestamp="1596005403465">
+      <screen x="0" y="0" width="1680" height="1050" />
+    </state>
+    <state x="503" y="231" width="672" height="678" key="search.everywhere.popup/0.0.1680.1050@0.0.1680.1050" timestamp="1596005403465" />
     <state x="570" y="444" key="vcs.readOnlyHandler.ReadOnlyStatusDialog" timestamp="1595841505496">
       <screen x="0" y="0" width="1680" height="1050" />
     </state>
