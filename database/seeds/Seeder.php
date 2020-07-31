@@ -4,9 +4,6 @@ namespace Database\seeds;
 
 class Seeder
 {
-
-
-
     public function run()
     {
 //        スコープ定義演算子FavoritesTableSeederのseedメソッドにアクセス
@@ -15,9 +12,6 @@ class Seeder
         RepliesTableSeeder::seed();
         TweetsTableSeeder::seed();
         UsersTableSeeder::seed();
-
-
-
     }
 
 }
