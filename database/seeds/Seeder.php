@@ -2,24 +2,19 @@
 
 namespace Database\seeds;
 
-class Seeder extends \App\System\Model
+class Seeder
 {
 
-    public function _setTableName()
-    {
 
-    }
 
     public function run()
     {
-//        FIXME:よくわかってない。HogeTableSeederクラスのgetSeederQueryメソッドの返り値（？）を$sqls　に配列として入れたい。
-        $sqls[] =  FavoritesTableSeeder::getSeederQuery();
-        $sqls[] =  FollowsTableSeeder::getSeederQuery();
-        $sqls[] =  RepliesTableSeeder::getSeederQuery();
-        $sqls[] =  TweetsTableSeeder::getSeederQuery();
-        $sqls[] =  UsersTableSeeder::getSeederQuery();
-
-//        FIXME:ここの処理は？
+//        スコープ定義演算子FavoritesTableSeederのseedメソッドにアクセス
+        FavoritesTableSeeder::seed();
+        FollowsTableSeeder::seed();
+        RepliesTableSeeder::seed();
+        TweetsTableSeeder::seed();
+        UsersTableSeeder::seed();
 
 
 

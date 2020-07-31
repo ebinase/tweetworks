@@ -2,20 +2,22 @@
 
 namespace Database\seeds;
 
+use App\Model\Tweet;
 
-class TweetsTableSeeder extends Seeder
+class TweetsTableSeeder
 {
-    public static function getSeederQuery()
+
+    public static function seed()
     {
-        for ($i = 1; $i <= 100; $i++){
-            $now =\Carbon\Carbon::now();
-            $tweets = [
+        $tweet = new Tweet();
+
+        for ($i = 1; $i <= 100; $i++) {
+
+            $tweet->smartInsert([
                 'id' => $i,
                 'user_id' => random_int(1, 10000000000),
-                'text' => 'hogehogetweet'.$i,
-                'created_at' => $now
-            ];
+                'text' => 'こんにちは' .$i,
+            ]);
         }
-        return $tweets;
     }
 }

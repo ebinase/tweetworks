@@ -2,21 +2,21 @@
 
 namespace Database\seeds;
 
+use App\Model\Follow;
 
-class FollowsTableSeeder extends Seeder
+class FollowsTableSeeder
 {
-    public static function getSeederQuery()
+    public static function seed()
     {
-        for ($i = 1; $i <= 100; $i++) {
-            $now = \Carbon\Carbon::now();
-            $follows = [
-                'following_id' => random_int(1, 10000000000),
-                'followed_id' => random_int(1, 10000000000),
-                'created_at' => $now
-            ];
-        }
-        return $follows;
+        $follow = new Follow();
 
+        for ($i = 1; $i <= 100; $i++) {
+
+            $follow->smartInsert([
+                'following_id' => random_int(1, 10000000000),
+                'followed_id' => random_int(1, 10000000000)
+            ]);
+        }
 
     }
 }

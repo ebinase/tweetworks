@@ -30,15 +30,22 @@ function getWebRoutes() {
         ],
 
         '/migrate' => [
-            'controller' => 'migrate',
+            'controller' => 'database',
             'action' => 'migrate',
             'auth' => 0,
             'name' => 'null',
         ],
 
         '/refresh' => [
-            'controller' => 'migrate',
+            'controller' => 'database',
             'action' => 'refresh',
+            'auth' => 0,
+            'name' => 'null',
+        ],
+
+        '/seed' => [
+            'controller' => 'database',
+            'action' => 'seed',
             'auth' => 0,
             'name' => 'null',
         ]

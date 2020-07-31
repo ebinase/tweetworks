@@ -2,19 +2,25 @@
 
 namespace Database\seeds;
 
-class FavoritesTableSeeder extends Seeder
+ use App\Model\Favorite;
+
+ class FavoritesTableSeeder
 {
-    public static function getSeederQuery()
+
+    public static function seed()
     {
-        for ($i = 1; $i <= 100; $i++){
-            $now =\Carbon\Carbon::now();
-            $favorites = [
+        $favorite = new Favorite();
+
+        for ($i = 1; $i <= 100; $i++) {
+
+            $favorite->smartInsert([
                 'user_id' => random_int(1, 10000000000),
-                'tweet_id' => $i,
-                'created_at' => $now
-            ];
+                'tweet_id' => $i
+            ]);
         }
-    return $favorites;
+
+
 
     }
+
 }
