@@ -4,7 +4,7 @@ namespace App\Controller;
 
 use App\System\Cotroller;
 
-class MigrateController extends Cotroller
+class DatabaseController extends Cotroller
 {
     public function migrate()
     {
@@ -21,4 +21,14 @@ class MigrateController extends Cotroller
 
         return "refresh完了";
     }
+
+    public function seed()
+    {
+        $seed = new \Database\seeds\Seeder();
+        $seed->run();
+
+        return "seed完了";
+
+    }
+
 }
