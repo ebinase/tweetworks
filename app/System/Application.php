@@ -92,6 +92,8 @@ class Application
 
     protected function _runAction(string $controller_name, string $action_name, array $params = [])
     {
+        //TODO: app/Controller/Authなどのディレクトリ内のコントローラーにも対応させる
+        // 現状では下記の名前空間のせいで/Controller直下しか呼び出せない
         //名前空間を考慮して完全修飾名にする
         //参考：https://sousaku-memo.net/php-system/1417
         $controller_class = '\\App\\Controller\\' . ucfirst($controller_name) . 'Controller';

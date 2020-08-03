@@ -37,11 +37,7 @@ class TweetController extends Cotroller
 
     public function home()
     {
-        $message = 'ここはhome';
-        if($this->_errors->errorExists()) {
-            $message = $this->_errors->getMessage('text');
-        }
-        return $message;
+        return $this->render('home');
     }
 
 }

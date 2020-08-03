@@ -12,4 +12,10 @@ class User extends Model
         $this->_tableName = 'users';
     }
 
+    public function fetchByUniqueName($unique_name) {
+        $sql = "SELECT * FROM {$this->_tableName} WHERE unique_name = :unique_name";
+        return $this->fetch($sql, [
+            ':unique_name' => $unique_name,
+        ]);
+    }
 }

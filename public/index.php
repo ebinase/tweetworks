@@ -10,5 +10,5 @@ if ($_GET['debugMode'] == 'on') {
     $isDebugMode = true;
 }
 //Application呼び出し
-$application = new Application($isDebugMode);
+$application = new Application(true);
 $application->run();
