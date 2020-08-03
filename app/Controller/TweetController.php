@@ -30,7 +30,7 @@ class TweetController extends Cotroller
             return $this->_redirect('/home');
         }
 
-        $this->_errors->set('text', $errors['text']);
+        $this->_messenger->setError('text', $errors['text']);
         return $this->_redirect('/home');;
 
     }

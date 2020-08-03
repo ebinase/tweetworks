@@ -11,7 +11,7 @@ class RegisterController extends Cotroller
     {
         return $this->render('sign-up', [
             '_token' => $this->_generateCsrfToken('sign-up'),
-            'error' => $this->_errors->getAllErrors(),
+            'error' => $this->_messenger->getAllErrors(),
         ]);
     }
 
@@ -25,7 +25,7 @@ class RegisterController extends Cotroller
         // CSRF対策
         $token = $this->_request->getPost('_token');
         if(! $this->_checkCsrfToken('sign-up', $token)) {
-            $this->_errors->set('general', 'エラーが発生しました。');
+            $this->_messenger->setError('general', 'エラーが発生しました。');
             $this->_redirect('/sign-up');
         }
 
@@ -59,7 +59,7 @@ class RegisterController extends Cotroller
         // CSRF対策
         $token = $this->_request->getPost('_token');
         if(! $this->_checkCsrfToken('confirm', $token)) {
-            $this->_errors->set('general', 'エラーが発生しました。はじめからやり直してください。');
+            $this->_messenger->setError('general', 'エラーが発生しました。はじめからやり直してください。');
             $this->_redirect('/sign-up');
         }
 

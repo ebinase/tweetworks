@@ -36,7 +36,7 @@ class LoginController extends Cotroller
         // CSRF対策
         $token = $this->_request->getPost('_token');
         if(! $this->_checkCsrfToken('login', $token)) {
-            $this->_errors->set('csrf', 'エラーが発生しました。はじめからやり直してください。');
+            $this->_messenger->setError('csrf', 'エラーが発生しました。はじめからやり直してください。');
             $this->_redirect('/login');
         }
 
@@ -59,7 +59,7 @@ class LoginController extends Cotroller
 
         //　認証に失敗したらログインページにリダイレクト
         // TODO:スロットル機能(ログイン試行回数制限)機能
-        $this->_errors->set('login', 'ログイン情報が間違っています。');
+        $this->_messenger->setError('login', 'ログイン情報が間違っています。');
         return $this->_redirect('/login');
     }
 
