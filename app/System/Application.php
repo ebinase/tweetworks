@@ -2,6 +2,11 @@
 
 namespace App\System;
 
+use App\System\Components\Messenger;
+use App\System\Exceptions\HttpNotFoundException;
+use App\System\Exceptions\UnauthorizedException;
+
+
 //Applicationはデータのやり取りをしないため、Interfaceは導入しない。
 class Application
 {
@@ -11,7 +16,7 @@ class Application
     protected $_session;
     protected $_router;
 
-    protected $_errors;
+    protected $_messenger;
 
     //==============================================================================
     //コンストラクタ
@@ -41,7 +46,7 @@ class Application
         $this->_session = new Session();
         $this->_router = new Router($this->_registerRoutes());
 
-        $this->_errors = new Errors($this->_session);
+        $this->_messenger = new Messenger($this->_session);
     }
 
     /**
@@ -174,24 +179,24 @@ EOF
         return $this->_debug;
     }
 
-    public function getRequest()
+    public function getRequest(): Request
     {
         return $this->_request;
     }
 
-    public function getResponse()
+    public function getResponse(): Response
     {
         return $this->_response;
     }
 
-    public function getSession()
+    public function getSession(): Session
     {
         return $this->_session;
     }
 
-    public function getErrors()
+    public function getMessenger(): Messenger
     {
-        return $this->_errors;
+        return $this->_messenger;
     }
 
     public function getRootDir()

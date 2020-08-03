@@ -2,6 +2,9 @@
 
 namespace App\System;
 
+use App\System\Exceptions\HttpNotFoundException;
+use App\System\Exceptions\UnauthorizedException;
+
 abstract class Cotroller
 {
     //エラー通知用
@@ -13,7 +16,7 @@ abstract class Cotroller
     protected $_response;
     protected $_session;
 
-    protected $_errors;
+    protected $_messenger;
 
 
     public function __construct(Application $application)
@@ -24,7 +27,7 @@ abstract class Cotroller
         $this->_request = $application->getRequest();
         $this->_response = $application->getResponse();
         $this->_session = $application->getSession();
-        $this->_errors = $application->getErrors();
+        $this->_messenger = $application->getMessenger();
     }
 
     public function run(string $action_name, array $params = [])
