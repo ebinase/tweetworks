@@ -2,22 +2,50 @@
 function getWebRoutes() {
     return [
         '/sign-up' => [
-            'controller' => 'account',
-            'action' => 'signUp',
+            'controller' => 'register',
+            'action' => 'showSighupPage',
             'auth' => 0,
             'name' => 'hoge',
         ],
 
         '/sign-up/confirm' => [
-            'controller' => 'account',
+            'controller' => 'register',
             'action' => 'confirm',
             'auth' => 0,
             'name' => null,
         ],
 
         '/sign-up/register' => [
-            'controller' => 'account',
+            'controller' => 'register',
             'action' => 'register',
+            'auth' => 0,
+            'name' => null,
+        ],
+
+        '/login' => [
+            'controller' => 'login',
+            'action' => 'showLoginForm',
+            'auth' => 0,
+            'name' => null,
+        ],
+
+        '/login/auth' => [
+            'controller' => 'login',
+            'action' => 'auth',
+            'auth' => 0,
+            'name' => null,
+        ],
+
+        '/logout' => [
+            'controller' => 'login',
+            'action' => 'logout',
+            'auth' => 0,
+            'name' => null,
+        ],
+
+        '/home' => [
+            'controller' => 'tweet',
+            'action' => 'home',
             'auth' => 0,
             'name' => null,
         ],

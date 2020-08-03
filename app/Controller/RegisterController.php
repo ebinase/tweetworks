@@ -5,9 +5,9 @@ namespace App\Controller;
 use App\Model\User;
 use App\System\Cotroller;
 
-class AccountController extends Cotroller
+class RegisterController extends Cotroller
 {
-    public function signUp()
+    public function showSighupPage()
     {
         return $this->render('sign-up', [
             '_token' => $this->_generateCsrfToken('sign-up'),
@@ -33,7 +33,6 @@ class AccountController extends Cotroller
         $name = $this->_request->getPost('name');
         $email = $this->_request->getPost('email');
         $unique_name = $this->_request->getPost('unique_name');
-        print $unique_name;
         $password = $this->_request->getPost('password');
 
         $secret = '';
@@ -66,13 +65,17 @@ class AccountController extends Cotroller
 
         // TODO:バリデーションそれからエスケープ処理
 
-        // TODO: パスワードのハッシュ化＆できればソルトもつける
+        // パスワードにランダムなソルトをつけた上でハッシュ化
+        // 第２引数をDEFAULTにすると各PHPのバージョンに最適な暗号化形式を自動選択
+        $hash_pass = password_hash($this->_request->getPost('password'), PASSWORD_DEFAULT);
+
+        // Userモデルを呼び出して登録処理
         $user = new User();
         $user->smartInsert([
             'name' => $this->_request->getPost('name'),
             'email' => $this->_request->getPost('email'),
             'unique_name' => $this->_request->getPost('unique_name'),
-            'password' => $this->_request->getPost('password'),
+            'password' => $hash_pass,
         ]);
 
         return $this->_redirect('/home');
