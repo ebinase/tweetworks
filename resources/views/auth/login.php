@@ -11,5 +11,5 @@
     <input type="hidden" name="_token" value="<?= $this->escape($_token);?>">
     <label>TW ID：@<input type="text" name="unique_name"></label>
     <label>password：<input type="password" name="password"></label>
-    <input type="submit" value="確認画面へ">
+    <input type="submit" value="ログイン">
 </form>

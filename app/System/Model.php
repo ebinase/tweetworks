@@ -91,4 +91,10 @@ abstract class Model implements ModelInterface
         $sql = "INSERT INTO {$this->_tableName} ({$culumns}) VALUES ($holders)";
         return $this->smartExecute($sql, $bindValues);
     }
+
+    public function deleteById($id)
+    {
+        $sql = "DELETE FROM {$this->_tableName} WHERE id = {$id}";
+        return $this->smartExecute($sql);
+    }
 }
