@@ -57,6 +57,13 @@ function getWebRoutes() {
             'name' => 'hoge',
         ],
 
+        '/tweet/delete' => [
+            'controller' => 'tweet',
+            'action' => 'delete',
+            'auth' => 0,
+            'name' => 'hoge',
+        ],
+
         '/migrate' => [
             'controller' => 'database',
             'action' => 'migrate',
