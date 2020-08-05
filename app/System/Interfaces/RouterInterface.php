@@ -4,8 +4,6 @@ namespace App\System\Interfaces;
 
 interface RouterInterface
 {
-    function __construct(array $difinitions);
-
-    //requestクラスから$path_infoを受け取ってルーティング定義配列とマッチング
-    function resolve(string $path_info);
+    //要求されたパスとルーティング定義配列とをマッチング
+    static function resolve(array $difinitions, string $required_path);
 }

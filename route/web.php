@@ -1,88 +1,26 @@
 <?php
-function getWebRoutes() {
-    return [
-        '/sign-up' => [
-            'controller' => 'register',
-            'action' => 'showSighupPage',
-            'auth' => 0,
-            'name' => 'hoge',
-        ],
 
-        '/sign-up/confirm' => [
-            'controller' => 'register',
-            'action' => 'confirm',
-            'auth' => 0,
-            'name' => null,
-        ],
+use App\System\Route;
 
-        '/sign-up/register' => [
-            'controller' => 'register',
-            'action' => 'register',
-            'auth' => 0,
-            'name' => null,
-        ],
+function registerWebRoutes(Route $route)
+{
 
-        '/login' => [
-            'controller' => 'login',
-            'action' => 'showLoginForm',
-            'auth' => 0,
-            'name' => null,
-        ],
+    $route->get('/sign-up', 'register', 'showSignupPage');
+    $route->post('/sign-up/confirm', 'register', 'confirm');
+    $route->post('/sign-up/register', 'register', 'register');
 
-        '/login/auth' => [
-            'controller' => 'login',
-            'action' => 'auth',
-            'auth' => 0,
-            'name' => null,
-        ],
+    $route->get('/login', 'login', 'showLoginForm');
+    $route->post('/login/auth', 'login', 'auth');
 
-        '/logout' => [
-            'controller' => 'login',
-            'action' => 'logout',
-            'auth' => 0,
-            'name' => null,
-        ],
+    $route->post('/logout', 'login', 'logout');
 
-        '/home' => [
-            'controller' => 'tweet',
-            'action' => 'home',
-            'auth' => 0,
-            'name' => null,
-        ],
+    $route->get('/home', 'tweet', 'home');
 
-        '/tweet/post' => [
-            'controller' => 'tweet',
-            'action' => 'post',
-            'auth' => 0,
-            'name' => 'hoge',
-        ],
+    $route->post('/tweet/post', 'tweet', 'post', 1);
+    $route->post('/tweet/delete', 'tweet', 'delete', 1);
 
-        '/tweet/delete' => [
-            'controller' => 'tweet',
-            'action' => 'delete',
-            'auth' => 0,
-            'name' => 'hoge',
-        ],
+    $route->get('/migrate', 'database', 'migrate');
+    $route->get('/refresh', 'database', 'refresh');
+    $route->get('/seed', 'database', 'seed');
 
-        '/migrate' => [
-            'controller' => 'database',
-            'action' => 'migrate',
-            'auth' => 0,
-            'name' => 'null',
-        ],
-
-        '/refresh' => [
-            'controller' => 'database',
-            'action' => 'refresh',
-            'auth' => 0,
-            'name' => 'null',
-        ],
-
-        '/seed' => [
-            'controller' => 'database',
-            'action' => 'seed',
-            'auth' => 0,
-            'name' => 'null',
-        ]
-    ];
 }
