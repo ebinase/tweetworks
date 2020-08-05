@@ -8,7 +8,7 @@ class Route implements Interfaces\RouteInterface
     private $_routesArray;
     private $_params; // array または false
 
-    public function getDifinition()
+    public function getDifinitions()
     {
         return $this->_routesArray;
     }
