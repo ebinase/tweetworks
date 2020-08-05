@@ -15,7 +15,7 @@ class TweetsTableSeeder
 
             $tweet->smartInsert([
                 'id' => $i,
-                'user_id' => random_int(1, 100),
+                'user_id' => random_int(1, 20),
                 'text' => 'こんにちは' .$i,
             ]);
         }

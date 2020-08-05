@@ -10,7 +10,7 @@ class UsersTableSeeder
     {
         $user = new User();
 
-        for ($i = 1; $i <= 100; $i++) {
+        for ($i = 1; $i <= 20; $i++) {
 
             $user->smartInsert([
                 'id' => $i,
