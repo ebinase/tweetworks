@@ -7,14 +7,13 @@ use App\System\Exceptions\HttpNotFoundException;
 use App\System\Exceptions\UnauthorizedException;
 
 
-//Applicationはデータのやり取りをしないため、Interfaceは導入しない。
 class Application
 {
     protected $_debug = false;
     protected $_request;
     protected $_response;
     protected $_session;
-    protected $_router;
+    protected $_route;
 
     protected $_messenger;
 
@@ -23,8 +22,14 @@ class Application
     //==============================================================================
     public function __construct($debug = false)
     {
+        // デバッグモードのオンオフを設定
         $this->setDebugMode($debug);
+        // アプリケーションで保持しておくインスタンスの生成
         $this->initialize();
+        // 要求されたURLに関する情報をRouteクラスに設定
+        $this->setupRouteParams();
+
+        //これらの処理が済んだらApplicationインスタンスごとKernelに引き渡される。
     }
 
     protected function setDebugMode($debug)
@@ -44,21 +49,39 @@ class Application
         $this->_request = new Request();
         $this->_response = new Response();
         $this->_session = new Session();
-        $this->_router = new Router($this->_registerRoutes());
+        $this->_route = new Route();
 
         $this->_messenger = new Messenger($this->_session);
     }
 
     /**
+     * クライアントに要求されたパスに関する情報だけを取得しRouteクラスに保存
+     * @param void
+     * @return void
+     */
+    protected function setupRouteParams(){
+        // $_routeにルーティング定義配列を登録する。
+        $this->_registerRoutes();
+        //ルーティング定義配列とクライアントから要求されたパスを取得
+        $difinitions = $this->_route->getDifinitions();
+        $required_path = $this->_request->getPathInfo();
+
+        //Routerクラスのresolveメソッドで今回要求されたパスに関する情報だけを抜き出す
+        $params = Router::resolve($difinitions, $required_path);
+        //ルートに関する情報を管理するRouteクラスに保存
+        $this->_route->setParams($params);
+    }
+
+    /**
      * ルーティング定義配列を読み込み
      *
-     * @return array
+     * @return void
      */
-    protected function _registerRoutes(): array
+    protected function _registerRoutes() :void
     {
         require_once  $this->getRouteDir() . '/web.php';
         // FIXME: 関数ではなくシンプルに配列として読み込めないものか・・・
-        return getWebRoutes();
+        registerWebRoutes($this->_route);
     }
 
 
@@ -69,7 +92,7 @@ class Application
     {
         //最後のsend()以外はtry~catch文中に記述
         try {
-            $params = $this->_router->resolve($this->_request->getPathInfo());
+            $params = $this->_route->getParams();
             if($params === false) {
                 throw new HttpNotFoundException("No route found for {$this->_request->getPathInfo()}.");
             }
@@ -170,6 +193,10 @@ EOF
         );
     }
 
+    public function send() {
+        $this->_response->send();
+    }
+
 
     //==============================================================================
     //その他のゲッター達
@@ -187,6 +214,11 @@ EOF
     public function getResponse(): Response
     {
         return $this->_response;
+    }
+
+    public function getRoute()
+    {
+        return $this->_route;
     }
 
     public function getSession(): Session

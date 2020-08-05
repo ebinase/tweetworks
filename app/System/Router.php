@@ -6,22 +6,25 @@ use App\System\Interfaces\RouterInterface;
 
 class Router implements RouterInterface
 {
-    protected $_routes;
-
-    //==============================================================================
-    //コンストラクタ
-    //==============================================================================
-    public function __construct(array $difinitions)
-    {
-        $this->_routes = $this->compileRoutes($difinitions);
+    /**
+     * 要求されたパスとルーティング定義配列とをマッチング
+     *
+     * @param array $difinitions
+     * @param string $required_path
+     * @return array $params
+     */
+    public static function resolve(array $difinitions, string $required_path) {
+        $routes = self::_compileRoutes($difinitions);
+        return self::_match($routes, $required_path);
     }
 
-
     /**
+     * ルーティング定義配列のワイルドカード(:hoge)を正規表現にマッチする形に変換
+     *
      * @param $difinitions
      * @return array
      */
-    public function compileRoutes($difinitions)
+    protected static function _compileRoutes($difinitions)
     {
         $routes = array();
 
@@ -50,24 +53,25 @@ class Router implements RouterInterface
     //==============================================================================
 
     /**
-     * requestクラスから$path_infoを受け取ってルーティング定義配列とマッチング
+     * $path_infoを受け取ってルーティング定義配列とマッチング
      *
-     * @param string $path_info
-     * @return mixed $params アクション名などの配列またはnull
+     * @param array $routes
+     * @param string $required_path
+     * @return array | false $params アクション名などの配列またはfalse
      */
-    public function resolve(string $path_info)
+    private static function _match(array $routes, string $required_path)
     {
 //        PATH_INFOの先頭がスラッシュ出ない場合、先頭にスラッシュを付与
-        if ('/' !== substr($path_info,0,1)){
-            $path_info  = '/' . $path_info;
+        if ('/' !== substr($required_path,0,1)){
+            $required_path  = '/' . $required_path;
         }
 
-        foreach ($this->_routes as $pattern=> $params) {
+        foreach ($routes as $pattern=> $params) {
 //          変換済みのルーティング配列は$routesプロパティに格納されている→正規表現を用いてマッチング
 //          #→正規表現のスラッシュ(/)と同じ役割
 //          (?<name>) → 名前付きサブパターン(以下のurlの少しスクロールした所の「変更履歴」参照)
 //          https://www.php.net/manual/ja/function.preg-match.php
-            if (preg_match('#^' . $pattern . '$#', $path_info, $matches)){
+            if (preg_match('#^' . $pattern . '$#', $required_path, $matches)){
 //              マッチした場合array_merge関数でマージ→$params関数にルーティングパラメータとして格納
                 $params = array_merge($params, $matches);
 

@@ -14,6 +14,7 @@ abstract class Cotroller
     protected $_application;
     protected $_request;
     protected $_response;
+    protected $_route;
     protected $_session;
 
     protected $_messenger;
@@ -26,6 +27,7 @@ abstract class Cotroller
         $this->_application = $application;
         $this->_request = $application->getRequest();
         $this->_response = $application->getResponse();
+        $this->_route = $application->getRoute();
         $this->_session = $application->getSession();
         $this->_messenger = $application->getMessenger();
     }
@@ -97,15 +99,21 @@ abstract class Cotroller
     {
         //ベースURL以降を指定された場合(例：/user/hogehoge)
         if (! preg_match('#https?://#', $url)) {
-            $protocol = $this->_request->isSsl() ? 'https://' : 'http://';
-            $host = $this->_request->getHost();
-            $base_url = $this->_request->getBaseUrl();
-
-            $url = $protocol . $host . $base_url . $url;
+            $url = $this->_fullUrl($url);
         }
 
         $this->_response->setStatusCode(302, 'Found');
         $this->_response->setHttpHeader('Location', $url);
+    }
+
+    // ベースURL以降のurlをフルバージョンのurlに変換
+    protected function _fullUrl($uri)
+    {
+        $protocol = $this->_request->isSsl() ? 'https://' : 'http://';
+        $host = $this->_request->getHost();
+        $base_url = $this->_request->getBaseUrl();
+
+        return $protocol . $host . $base_url . $uri;
     }
 
     //==============================================================================
