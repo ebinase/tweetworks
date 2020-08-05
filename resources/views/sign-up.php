@@ -20,3 +20,6 @@
     </div>
     <input type="submit" value="確認画面へ">
 </form>
+<div>
+    <a href="./login">ログイン</a>
+</div>

@@ -17,7 +17,7 @@ class UsersTableSeeder
                 'name' => 'name'. $i,
                 'email' => 'name'. $i . '@example.com',
                 'unique_name' => 'unique_name'. $i,
-                'password' => 'password',
+                'password' => password_hash('password', PASSWORD_DEFAULT),
             ]);
         }
     }

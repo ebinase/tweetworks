@@ -28,7 +28,13 @@ class DatabaseController extends Cotroller
         $seed->run();
 
         return "seed完了";
+    }
 
+    public function refreshAndSeed() {
+        print $this->refresh() . '<br>';
+        print $this->seed() . '<br>';
+
+        return 'refresh&seed完了<br><a href="http://localhost/tweetworks/public/home">ホームへ</a>';
     }
 
 }

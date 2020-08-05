@@ -86,6 +86,12 @@ class TweetController extends Cotroller
 
     public function home()
     {
+        // ログインチェック
+        if (! $this->_session->isAuthenticated()) {
+            $this->_messenger->setError('login', 'ログインが必要です');
+            return $this->_redirect('/login');
+        }
+
         $_token['tweet/post'] = $this->_generateCsrfToken('tweet/post');
         $_token['tweet/delete'] = $this->_generateCsrfToken('tweet/delete');
         return $this->render('home', [

@@ -42,7 +42,8 @@ abstract class Cotroller
 
         if ($this->_needsAuth($params) && ! $this->_session->isAuthenticated()) {
             //TODO: ログイン後に見ていた画面に戻る機能(laravelのold()関数)
-            throw new UnauthorizedException("you are not authorized.");
+//            throw new UnauthorizedException("you are not authorized.");
+            return $this->_redirect('/login');
         }
         return $this->$action_name($params);
     }
