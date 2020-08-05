@@ -64,9 +64,9 @@ abstract class Cotroller
     {
         //render()のパスはresourcesのフォルダ構成'hoge/foo'
         $defaults = [
-            'request' => $this->_request,
-            'base_url' => $this->_request->getBaseUrl(),
-            'session' => $this->_session,
+            '_request' => $this->_request,
+            '_url' => $this->_route->mapFullUrls($this->_request->getBaseUrl()),
+            '_session' => $this->_session,
         ];
 
         $view = new View($this->_application->getViewDir(), $defaults);

@@ -49,7 +49,7 @@ class Application
         $this->_request = new Request();
         $this->_response = new Response();
         $this->_session = new Session();
-        $this->_route = new Route();
+        $this->_route = new Route($this->_request->getBaseUrl());
 
         $this->_messenger = new Messenger($this->_session);
     }
@@ -216,7 +216,7 @@ EOF
         return $this->_response;
     }
 
-    public function getRoute()
+    public function getRoute(): Route
     {
         return $this->_route;
     }

@@ -53,4 +53,13 @@ class Route implements Interfaces\RouteInterface
     {
         // TODO: Implement redirect() method.
     }
+
+    function mapFullUrls($base_url)
+    {
+        $urls = [];
+        foreach ($this->_routesArray as $key => $value) {
+            $urls[$key] = $base_url . $key;
+        }
+        return $urls;
+    }
 }
