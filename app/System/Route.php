@@ -48,4 +48,9 @@ class Route implements Interfaces\RouteInterface
     {
         $this->_params = $params;
     }
+
+    function redirect($to)
+    {
+        // TODO: Implement redirect() method.
+    }
 }

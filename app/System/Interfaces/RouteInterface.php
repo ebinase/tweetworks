@@ -10,4 +10,5 @@ interface RouteInterface
     function get($url, $controller, $action, $auth = 0, $name = null);
     function post($url, $controller, $action, $auth = 0, $name = null);
 
+    function redirect($to);
 }

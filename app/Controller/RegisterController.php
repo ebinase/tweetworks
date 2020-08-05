@@ -7,7 +7,7 @@ use App\System\Cotroller;
 
 class RegisterController extends Cotroller
 {
-    public function showSighupPage()
+    public function showSignupPage()
     {
         return $this->render('sign-up', [
             '_token' => $this->_generateCsrfToken('sign-up'),
