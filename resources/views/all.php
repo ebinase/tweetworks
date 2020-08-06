@@ -17,14 +17,10 @@ foreach ($data as $datum) {?>
 </tr>
 </table>
 
-
-
     <div>
-        <a href="<?= $_url('/tweet/delete/<?= $tweet_id ?>') ?>">ツイート詳細表示へ</a>
-
+        <a href="/tweetworks/public/detail/<?= $datum['id'] ?>">ツイート詳細表示へ</a>
     </div>
     <br>
-
 <?php
 }
 ?>

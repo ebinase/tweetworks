@@ -105,7 +105,6 @@ class TweetController extends Controller
         $data =$tweet->getAllTweet();
 
         return $this->render('all', [
-
               'data' => $data,
         ]);
     }
@@ -114,17 +113,10 @@ class TweetController extends Controller
     {
         $tweet  = new Tweet();
         $data = $tweet->getDetailTweet($params);
-        var_dump($params);
-
 
         return $this->render('detail', [
-
-            'data' => $data,
-
-        ]
-    );
-
-
+            'data' => $data
+            ]
+        );
     }
-
 }
