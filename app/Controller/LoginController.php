@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Model\User;
-use App\System\Cotroller;
+use App\System\Controller;
 
-class LoginController extends Cotroller
+class LoginController extends Controller
 {
     public function showLoginForm() {
         // ログイン済みの場合はホームに飛ばす

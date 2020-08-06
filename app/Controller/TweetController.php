@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Model\Tweet;
-use App\System\Cotroller;
+use App\System\Controller;
 
-class TweetController extends Cotroller
+class TweetController extends Controller
 {
     public function post($params)
     {

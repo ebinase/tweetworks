@@ -2,9 +2,9 @@
 
 namespace App\Controller;
 
-use App\System\Cotroller;
+use App\System\Controller;
 
-class DatabaseController extends Cotroller
+class DatabaseController extends Controller
 {
     public function migrate()
     {
