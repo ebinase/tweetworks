@@ -23,13 +23,16 @@ class Tweet extends Model
         return $this->fetchAll($sql);
     }
 
-//    public function insert($user_id, $text)
-//    {
-//        $sql = 'INSERT INTO tweets (user_id, text) VALUES (:user_id, :text)';
-//        $stt = $this->smartExecute($sql, [
-//            ':user_id' =>  $user_id,
-//            ':text' => $text,
-//        ]);
-//    }
+    public function getDetailTweet($params)
+    {
+        $id = $params['tweet_id'];
+
+        $sql = 'SELECT * FROM tweets where id = :tweet_id ;';
+
+        return $this->fetch($sql,[
+            ':tweet_id' => $id
+        ]);
+
+    }
 
 }
