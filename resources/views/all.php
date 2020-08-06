@@ -1,9 +1,7 @@
 <h1>全ツイート一覧</h1>
 
 <?php
-foreach ($data as $datum)
-{
-?>
+foreach ($data as $datum) {?>
 <table>
 <tr>
     <th>id</th><td><?= $datum['id'] ?></td>
@@ -19,17 +17,10 @@ foreach ($data as $datum)
 </tr>
 </table>
 
-<?php
 
-    $tweet_id = $datum['id'] ;
-    var_dump($tweet_id);
-  ?>
 
     <div>
-<!--        <a href="./detail/--><?//= $tweet_id ?><!--">ツイート詳細表示へ</a>-->
-<!--        <a href="./detail/--><?//= $tweet_id ?><!--">ツイート詳細表示へ</a>-->
-        <a href="./detail/1">ツイート詳細表示へ</a>
-
+        <a href="<?= $_url('/tweet/delete/<?= $tweet_id ?>') ?>">ツイート詳細表示へ</a>
 
     </div>
     <br>

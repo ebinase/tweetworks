@@ -1,23 +1,23 @@
 <h1>ツイート詳細</h1>
 
+<table>
+    <tr>
+        <th>id</th><td><?= $data['id'] ?></td>
+    </tr>
+    <tr>
+        <th>user_id</th><td><?= $data['user_id'] ?></td>
+    </tr>
+    <tr>
+        <th>ツイート内容</th><td><?= $data['text'] ?></td>
+    </tr>
+    <tr>
+        <th>日時</th><td><?= $data['created_at'] ?></td>
+    </tr>
+</table>
 
-    <table>
-        <tr>
-            <th>id</th><td><?= $id ?></td>
-        </tr>
-        <tr>
-            <th>user_id</th><td>@<?= $user_id ?></td>
-        </tr>
-        <tr>
-            <th>ツイート内容</th><td><?= $text ?></td>
-        </tr>
-        <tr>
-            <th>日時</th><td><?= $created_at ?></td>
-        </tr>
-    </table>
 
 <!--削除ボタン-->
-<form action="./tweet/delete" method="post" onsubmit="return check()">
+<form action="<?= $_url('/tweet/delete') ?>" method="post" onsubmit="return check()">
     <input type="hidden" name="_token" value="<?= $this->escape($_token['tweet/delete']);?>">
     <input type="hidden" name="tweet_id" value="102">
     <input type="submit" value="削除">

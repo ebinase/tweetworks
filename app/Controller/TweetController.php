@@ -93,4 +93,32 @@ class TweetController extends Cotroller
         ]);
     }
 
+    public function all()
+    {
+        $tweet  = new Tweet();
+        $data =$tweet->getAllTweet();
+
+        return $this->render('all', [
+
+              'data' => $data,
+        ]);
+    }
+
+    public function detail($params)
+    {
+        $tweet  = new Tweet();
+        $data = $tweet->getDetailTweet($params);
+        var_dump($params);
+
+
+        return $this->render('detail', [
+
+            'data' => $data,
+
+        ]
+    );
+
+
+    }
+
 }
