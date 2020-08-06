@@ -5,7 +5,7 @@ namespace App\System;
 use App\System\Exceptions\HttpNotFoundException;
 use App\System\Exceptions\UnauthorizedException;
 
-abstract class Cotroller
+abstract class Controller
 {
     //エラー通知用
     protected $_controller_name;

@@ -3,9 +3,9 @@
 namespace App\Controller;
 
 use App\Model\User;
-use App\System\Cotroller;
+use App\System\Controller;
 
-class RegisterController extends Cotroller
+class RegisterController extends Controller
 {
     public function showSignupPage()
     {

@@ -3,6 +3,7 @@
 <!--    <li><a href="./login">ログイン</a></li>-->
     <li><a href="<?=$_url['/logout'];?>">ログアウト</a></li>
     <li><a href="<?=$_url['/sign-up'];?>">ユーザー登録</a></li>
+    <li><a href="/tweetworks/public/user/unique_name1">ユーザーページ</a></li>
 </ul>
 <form action="<?=$_url['/tweet/post'];?>" method="post">
     <input type="hidden" name="_token" value="<?= $this->escape($_token['tweet/post']);?>">
