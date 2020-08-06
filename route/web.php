@@ -16,6 +16,13 @@ function registerWebRoutes(Route $route)
 
     $route->get('/home', 'tweet', 'home', 1);
 
+    // ユーザーページ
+    $route->get('/user/:unique_name', 'user', 'index');
+
+    // タイムライン表示
+    $route->get('/all', 'tweet', 'all');
+    $route->get('/detail/:tweet_id', 'tweet', 'detail');
+
     $route->post('/tweet/post', 'tweet', 'post', 1);
     $route->post('/tweet/delete', 'tweet', 'delete', 1);
 
