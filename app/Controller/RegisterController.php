@@ -35,6 +35,17 @@ class RegisterController extends Controller
         $unique_name = $this->_request->getPost('unique_name');
         $password = $this->_request->getPost('password');
 
+        // emailの重複チェック
+        $user = new User();
+        $sql = 'select email from users where email = :email;';
+        $existing_email = $user->fetchAll($sql, [
+            ':email' => $email,
+        ]);
+        // 重複が存在したら登録ページにリダイレクト
+        if (count($existing_email) > 0) {
+            $this->_redirect('/sign-up');
+        }
+
         $secret = '';
         for ( $i = 0; $i < mb_strlen($password); $i++) {
             $secret .= '*';
