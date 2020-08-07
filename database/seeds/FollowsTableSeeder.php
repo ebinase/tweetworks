@@ -23,14 +23,17 @@ class FollowsTableSeeder
         // followed_id < user_id
 
 //      TODO:↑  following_id　も < user_idだと思ったので、とりあえず$i <= 19;にしてみました
+        //蛯名：↑「フォローを行う人」はユーザー全員だからfollowing_id <= user_id
 
-        for($i = 1; $i <= 19; $i++){
-
+        for($i = 1; $i <= 20; $i++){
+            //ユーザーひとりがフォローする人数は0人から20人で完全にランダム
+            $num = random_int(0, 20);
+            for ($j = 1; $j <= $num; $j++) {
                 $follow->smartInsert([
                     'following_id' => $i,
-                    'followed_id' => $i,
-
+                    'followed_id' => $j,
                 ]);
+            }
         }
 
 

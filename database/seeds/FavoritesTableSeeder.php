@@ -23,13 +23,16 @@ namespace Database\seeds;
         // (user 20人　✕　ひとり100ツイート)
 
 //        TODO:Tweetの方で20*20=400ツイートに変更した
-        for($i = 1; $i <= 20; $i++){
-
+        //蛯名：一人のユーザーが同じツイートを複数回いいねはできないので重複が出ないようにした
+        for($user_i = 1; $user_i <= 20; $user_i++) {
+            for ($tweet_j = 1; $tweet_j <= 30; $tweet_j++) {
                 $favorite->smartInsert([
-                    'tweet_id' => random_int(1, 400),
-                    'user_id' => $i,
+                    'user_id' => $user_i,
+                    // 10刻みでその間のランダムな数字を生成(1~10, 11~20, ・・・)
+                    'tweet_id' => ($tweet_j - 1) * 10 + random_int(1,10),
                 ]);
             }
+        }
 
 
 
