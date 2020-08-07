@@ -13,7 +13,7 @@ class UsersTableSeeder
         for ($i = 1; $i <= 20; $i++) {
 
             $user->smartInsert([
-                'id' => $i,
+//                'id' => $i,
                 'name' => 'name'. $i,
                 'email' => 'name'. $i . '@example.com',
                 'unique_name' => 'unique_name'. $i,

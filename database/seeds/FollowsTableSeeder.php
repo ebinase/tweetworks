@@ -21,15 +21,16 @@ class FollowsTableSeeder
         //↑せやね、ただし自分自身はフォローしないから
         // following_id <= user_id
         // followed_id < user_id
-        for($i = 1; $i <= 20; $i++){
-            for ($j = 1; $j <= 100; $j++) {
+
+//      TODO:↑  following_id　も < user_idだと思ったので、とりあえず$i <= 19;にしてみました
+
+        for($i = 1; $i <= 19; $i++){
 
                 $follow->smartInsert([
-                    'following_id' => $j,
-                    'followed_id' => $j,
+                    'following_id' => $i,
+                    'followed_id' => $i,
 
                 ]);
-            }
         }
 
 
