@@ -4,8 +4,9 @@ namespace App\System;
 
 use App\System\Exceptions\HttpNotFoundException;
 use App\System\Exceptions\UnauthorizedException;
+use App\System\Interfaces\ControllerInterface;
 
-abstract class Controller
+abstract class Controller implements ControllerInterface
 {
     //エラー通知用
     protected $_controller_name;
@@ -32,11 +33,12 @@ abstract class Controller
         $this->_messenger = $application->getMessenger();
     }
 
-    public function run(string $action_name, array $params = [])
+    public function run(string $action_name, array $params = []): string
     {
         $this->_action_name = $action_name;
 
         if(! method_exists($this, $action_name)) {
+            //TODO: このメソッド廃止。エラー管理は一括でKernelへ
             $this->_forward404();
         }
 

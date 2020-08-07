@@ -12,9 +12,4 @@ interface RouteInterface
 
     function setParams($params);
     function getParams();
-
-    function redirect($to);
-
-    function mapFullUrls($base_url);
-
 }

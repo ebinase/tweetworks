@@ -2,7 +2,9 @@
 
 namespace App\System;
 
-class View
+use App\System\Interfaces\ViewInterface;
+
+class View implements ViewInterface
 {
     protected $_base_dir;
     protected $_defaults;
@@ -21,7 +23,7 @@ class View
     }
 
     //変数展開を行うため、変数名の重複がないように引数にはアンダースコアをつける
-    public function render($_path, $_variables =[], $_layout_path = false)
+    public function render($_path, $_variables =[], $_layout_path = false): string
     {
         $_file = $this->_base_dir . '/' . $_path . '.php';
 

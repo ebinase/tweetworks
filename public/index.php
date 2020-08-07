@@ -1,5 +1,6 @@
 <?php
 
+use App\Kernel;
 use App\System\Application;
 
 require_once '../vendor/autoload.php';
@@ -11,4 +12,8 @@ if ($_GET['debugMode'] == 'on') {
 }
 //Application呼び出し
 $application = new Application(true);
-$application->run();
+
+$kernel = new Kernel($application);
+$kernel->handle();
+
+$application->send();

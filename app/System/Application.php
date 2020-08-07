@@ -5,9 +5,12 @@ namespace App\System;
 use App\System\Components\Messenger;
 use App\System\Exceptions\HttpNotFoundException;
 use App\System\Exceptions\UnauthorizedException;
+use App\System\Interfaces\Core\ApplicationInterface;
+use App\System\Interfaces\Core\SingletonInterface;
+use App\System\Interfaces\Core\HandlerInterface;
 
 
-class Application
+class Application implements SingletonInterface, HandlerInterface, ApplicationInterface
 {
     protected $_debug = false;
     protected $_request;
@@ -49,7 +52,7 @@ class Application
         $this->_request = new Request();
         $this->_response = new Response();
         $this->_session = new Session();
-        $this->_route = new Route($this->_request->getBaseUrl());
+        $this->_route = new Route();
 
         $this->_messenger = new Messenger($this->_session);
     }
@@ -88,7 +91,7 @@ class Application
     //==============================================================================
     //すべての処理の起点
     //==============================================================================
-    public function run()
+    public function run(): Application
     {
         //最後のsend()以外はtry~catch文中に記述
         try {
@@ -100,7 +103,7 @@ class Application
             $controller = $params['controller'];
             $action = $params['action'];
 
-            $this->_runAction($controller, $action, $params);
+            $content = $this->_runAction($controller, $action, $params);
 
         } catch (HttpNotFoundException $e) {
             $this->_render404Page($e);
@@ -115,7 +118,9 @@ class Application
             $this->_render500Page($e);
         }
 
-        $this->_response->send();
+        $this->_response->setContent($content);
+
+        return $this;
     }
 
     protected function _runAction(string $controller_name, string $action_name, array $params = [])
@@ -131,9 +136,7 @@ class Application
             throw new HttpNotFoundException("{$controller_class} is not found.");
         }
 
-        $content = $controller->run($action_name, $params);
-
-        $this->_response->setContent($content);
+        return $controller->run($action_name, $params);
     }
 
     //// $controller_classと同名のコントローラをインスタンス化して返す
