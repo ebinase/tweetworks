@@ -18,6 +18,9 @@ class FollowsTableSeeder
 //            ]);
 //        }
 //TODO:following_id,Followed_id はuserの数以下(<=user_id)？？
+        //↑せやね、ただし自分自身はフォローしないから
+        // following_id <= user_id
+        // followed_id < user_id
         for($i = 1; $i <= 20; $i++){
             for ($j = 1; $j <= 100; $j++) {
 

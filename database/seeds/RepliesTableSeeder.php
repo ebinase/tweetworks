@@ -18,9 +18,16 @@ class RepliesTableSeeder
 //            ]);
 //        }
 
+        // TODO:$iと$jの数値見直し
+        // 返信の数は3個くらいでいいと思う
+
+        // TODO:リプライへのリプライも登録してほしい
+        // ツイート
+        // ↑リプライ１
+        //   ↑リプライ2
+        // 的な。
         for($i = 1; $i <= 20; $i++){
             for ($j = 1; $j <= 100; $j++) {
-
                 $reply->smartInsert([
                     'tweet_id' => $i,
                     'reply_to_id' => $j,
