@@ -32,7 +32,7 @@ class FollowsTableSeeder
                 //ユーザーidが重複してなかったら登録
                 if ($i != $j) {
                     $follow->smartInsert([
-                        'following_id' => 1,
+                        'following_id' =>$i,
                         'followed_id' => $j,
                     ]);
                 }
