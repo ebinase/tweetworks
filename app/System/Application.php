@@ -20,17 +20,20 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
 
     protected $_messenger;
 
-    /*  例)
-        $this->_requestRouteParams = [
-            [controller] => tweet,
-            [action] => home,
-             [method] => get,
-            [middlewares] => 1,
-            [name] => null,
-            [0] => /home ,
-        ];
+    /**
+     * @var array | false
      */
     protected $_requestRouteParams;
+    /*  例)
+        $this->_requestRouteParams = [
+            [controller]    => tweet,
+            [action]        => post,
+            [method]        => post,
+            [middlewares]   => ['auth', 'csrf'],
+            [name]          => null,
+            [0]             => /post ,
+        ];
+     */
 
     //==============================================================================
     //コンストラクタ
@@ -43,8 +46,6 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         $this->initialize();
         // 要求されたURLに関する情報をApplicationに保存
         $this->_requestRouteParams = $this->setupRouteParams();
-
-        print_r($this->_requestRouteParams);
 
         //これらの処理が済んだらApplicationインスタンスごとKernelに引き渡される。
     }

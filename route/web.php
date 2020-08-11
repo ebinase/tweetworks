@@ -8,7 +8,7 @@ function registerWebRoutes(Route $route)
 //        $route->get();
 //    });
 
-    $route->group('web', function ($route){
+    $route->group('web', function (Route $route){
         $route->get('/sign-up', 'register', 'showSignupPage');
         $route->post('/sign-up/confirm', 'register', 'confirm');
         $route->post('/sign-up/register', 'register', 'register');
@@ -18,7 +18,7 @@ function registerWebRoutes(Route $route)
 
         $route->post('/logout', 'login', 'logout');
 
-        $route->get('/home', 'tweet', 'home', 1);
+        $route->get('/home', 'tweet', 'home', ['auth']);
 
         // ユーザーページ
         $route->get('/user/:unique_name', 'user', 'index');
@@ -27,7 +27,7 @@ function registerWebRoutes(Route $route)
         $route->get('/all', 'tweet', 'all');
         $route->get('/detail/:tweet_id', 'tweet', 'detail');
 
-        $route->post('/tweet/post', 'tweet', 'post', 1);
-        $route->post('/tweet/delete', 'tweet', 'delete', 1);
+        $route->post('/tweet/post', 'tweet', 'post');
+        $route->post('/tweet/delete', 'tweet', 'delete');
     });
 }

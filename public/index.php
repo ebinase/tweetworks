@@ -10,10 +10,11 @@ $isDebugMode = false;
 if ($_GET['debugMode'] == 'on') {
     $isDebugMode = true;
 }
+
 //Application呼び出し
 $application = new Application(true);
 
 $kernel = new Kernel($application);
-$kernel->handle();
-
-$application->send();
+//$kernel->handle();
+//
+//$application->send();
