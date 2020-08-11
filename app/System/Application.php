@@ -20,6 +20,18 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
 
     protected $_messenger;
 
+    /*  例)
+        $this->_requestRouteParams = [
+            [controller] => tweet,
+            [action] => home,
+             [method] => get,
+            [middlewares] => 1,
+            [name] => null,
+            [0] => /home ,
+        ];
+     */
+    protected $_requestRouteParams;
+
     //==============================================================================
     //コンストラクタ
     //==============================================================================
@@ -29,8 +41,10 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         $this->setDebugMode($debug);
         // アプリケーションで保持しておくインスタンスの生成
         $this->initialize();
-        // 要求されたURLに関する情報をRouteクラスに設定
-        $this->setupRouteParams();
+        // 要求されたURLに関する情報をApplicationに保存
+        $this->_requestRouteParams = $this->setupRouteParams();
+
+        print_r($this->_requestRouteParams);
 
         //これらの処理が済んだらApplicationインスタンスごとKernelに引き渡される。
     }
@@ -60,7 +74,7 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
     /**
      * クライアントに要求されたパスに関する情報だけを取得しRouteクラスに保存
      * @param void
-     * @return void
+     * @return array $params
      */
     protected function setupRouteParams(){
         // $_routeにルーティング定義配列を登録する。
@@ -70,13 +84,11 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         $required_path = $this->_request->getPathInfo();
 
         //Routerクラスのresolveメソッドで今回要求されたパスに関する情報だけを抜き出す
-        $params = Router::resolve($difinitions, $required_path);
-        //ルートに関する情報を管理するRouteクラスに保存
-        $this->_route->setParams($params);
+        return Router::resolve($difinitions, $required_path);
     }
 
     /**
-     * ルーティング定義配列を読み込み
+     * ルーティング定義配列の読み込み
      *
      * @return void
      */
@@ -101,7 +113,7 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
     {
         //最後のsend()以外はtry~catch文中に記述
         try {
-            $params = $this->_route->getParams();
+            $params = $this->_requestRouteParams;
             if($params === false) {
                 throw new HttpNotFoundException("No route found for {$this->_request->getPathInfo()}.");
             }
@@ -280,4 +292,9 @@ EOF
         return self::getRootDir() . '/route';
     }
 
+    //コンストラクタで取得した現在のリクエストルートのコントローラなどの設定を配列で取得
+    public function getRequestRouteParams()
+    {
+        return $this->_requestRouteParams;
+    }
 }

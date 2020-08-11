@@ -10,6 +10,9 @@ interface ApplicationInterface
     //アプリケーション起動。デバッグモードの設定と様々なクラスのインスタンス化を行う。
     function __construct($debug = false);
 
+    //FIXME: リクエストされたルート情報の置き場所はApplicationでいいのか・・・
+    //コンストラクタで取得した現在のリクエストルートのコントローラなどの設定を配列で取得
+    function getRequestRouteParams();
 
     /**
      * リダイレクトを行う
