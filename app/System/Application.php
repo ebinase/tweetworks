@@ -52,7 +52,7 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         $this->_request = new Request();
         $this->_response = new Response();
         $this->_session = new Session();
-        $this->_route = new Route(self::getRouteDir());
+        $this->_route = new Route();
 
         $this->_messenger = new Messenger($this->_session);
     }
@@ -63,6 +63,8 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
      * @return void
      */
     protected function setupRouteParams(){
+        // $_routeにルーティング定義配列を登録する。
+        $this->_registerRoutes();
         //ルーティング定義配列とクライアントから要求されたパスを取得
         $difinitions = $this->_route->getDifinitions();
         $required_path = $this->_request->getPathInfo();
@@ -72,6 +74,25 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         //ルートに関する情報を管理するRouteクラスに保存
         $this->_route->setParams($params);
     }
+
+    /**
+     * ルーティング定義配列を読み込み
+     *
+     * @return void
+     */
+    protected function _registerRoutes() :void
+    {
+        //このあたりの読み込み処理はRouteクラスのコンストラクタでやりたいが、
+        //web.phpなどでRouteインスタンスを使う必要があるため、インスタンス化後に読み込むしか無い・・・
+
+        require_once  self::getRouteDir() . '/web.php';
+        registerWebRoutes($this->_route);
+        require_once  self::getRouteDir() . '/api.php';
+        registerApiRoutes($this->_route);
+        require_once  self::getRouteDir() . '/develop.php';
+        registerDevelopRoutes($this->_route);
+    }
+
 
     //==============================================================================
     //すべての処理の起点
