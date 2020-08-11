@@ -19,7 +19,7 @@ class Migration extends \App\System\Model
     {
         $sqls[] = CreateFavoritesTable::getCreateQuery();
         $sqls[] = CreateFollowsTable::getCreateQuery();
-        $sqls[] = CreateRepliesTable::getCreateQuery();
+//        $sqls[] = CreateRepliesTable::getCreateQuery();
         $sqls[] = CreateTweetsTable::getCreateQuery();
         $sqls[] = CreateUsersTable::getCreateQuery();
 
@@ -34,7 +34,7 @@ class Migration extends \App\System\Model
         // テーブル名をクラスで保持して自動化したい
         $sqls[] = CreateFavoritesTable::getDropQuery('favorites');
         $sqls[] = CreateFollowsTable::getDropQuery('follows');
-        $sqls[] = CreateRepliesTable::getDropQuery('replies');
+//        $sqls[] = CreateRepliesTable::getDropQuery('replies');
         $sqls[] = CreateTweetsTable::getDropQuery('tweets');
         $sqls[] = CreateUsersTable::getDropQuery('users');
 
