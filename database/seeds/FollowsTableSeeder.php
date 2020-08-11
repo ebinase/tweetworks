@@ -29,13 +29,15 @@ class FollowsTableSeeder
             //ユーザーひとりがフォローする人数は0人から20人で完全にランダム
             $num = random_int(0, 20);
             for ($j = 1; $j <= $num; $j++) {
-                $follow->smartInsert([
-                    'following_id' => $i,
-                    'followed_id' => $j,
-                ]);
+                //ユーザーidが重複してなかったら登録
+                if ($i != $j) {
+                    $follow->smartInsert([
+                        'following_id' => 1,
+                        'followed_id' => $j,
+                    ]);
+                }
             }
         }
-
 
     }
 }

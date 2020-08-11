@@ -19,7 +19,7 @@ class Migration extends \App\System\Model
     {
         $sqls[] = CreateFavoritesTable::getCreateQuery();
         $sqls[] = CreateFollowsTable::getCreateQuery();
-        $sqls[] = CreateRepliesTable::getCreateQuery();
+//        $sqls[] = CreateRepliesTable::getCreateQuery();
         $sqls[] = CreateTweetsTable::getCreateQuery();
         $sqls[] = CreateUsersTable::getCreateQuery();
 
