@@ -26,8 +26,8 @@ class FollowsTableSeeder
         //蛯名：↑「フォローを行う人」はユーザー全員だからfollowing_id <= user_id
 
         for($i = 1; $i <= 20; $i++){
-            //ユーザーひとりがフォローする人数は0人から20人で完全にランダム
-            $num = random_int(0, 20);
+            //ユーザーひとりがフォローする人数は0人から19人で完全にランダム
+            $num = random_int(0, 19);
             for ($j = 1; $j <= $num; $j++) {
                 //ユーザーidが重複してなかったら登録
                 if ($i != $j) {
