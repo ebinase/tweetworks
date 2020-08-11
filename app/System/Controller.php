@@ -71,7 +71,7 @@ abstract class Controller implements ControllerInterface
             '_session' => $this->_session,
         ];
 
-        $view = new View($this->_application->getViewDir(), $defaults);
+        $view = new View($this->_application::getViewDir(), $defaults);
 
         // ↓テンプレート名を省略可能にする必要性を感じないためコメントアウト
         // $pathが入力されてなかったらアクション名を自動で代入してあげる

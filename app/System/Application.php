@@ -9,7 +9,7 @@ use App\System\Interfaces\Core\ApplicationInterface;
 use App\System\Interfaces\Core\SingletonInterface;
 use App\System\Interfaces\Core\HandlerInterface;
 
-
+//todo: Controllerからリダイレクト系移行
 class Application implements SingletonInterface, HandlerInterface, ApplicationInterface
 {
     protected $_debug = false;
@@ -52,7 +52,7 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         $this->_request = new Request();
         $this->_response = new Response();
         $this->_session = new Session();
-        $this->_route = new Route();
+        $this->_route = new Route(self::getRouteDir());
 
         $this->_messenger = new Messenger($this->_session);
     }
@@ -63,8 +63,6 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
      * @return void
      */
     protected function setupRouteParams(){
-        // $_routeにルーティング定義配列を登録する。
-        $this->_registerRoutes();
         //ルーティング定義配列とクライアントから要求されたパスを取得
         $difinitions = $this->_route->getDifinitions();
         $required_path = $this->_request->getPathInfo();
@@ -74,19 +72,6 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         //ルートに関する情報を管理するRouteクラスに保存
         $this->_route->setParams($params);
     }
-
-    /**
-     * ルーティング定義配列を読み込み
-     *
-     * @return void
-     */
-    protected function _registerRoutes() :void
-    {
-        require_once  $this->getRouteDir() . '/web.php';
-        // FIXME: 関数ではなくシンプルに配列として読み込めないものか・・・
-        registerWebRoutes($this->_route);
-    }
-
 
     //==============================================================================
     //すべての処理の起点
@@ -150,6 +135,21 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         } else {
             return false;
         }
+    }
+
+    function redirect($path, $default = ''): string
+    {
+        // TODO: Implement redirect() method.
+    }
+
+    function render404Page(\Exception $e)
+    {
+        // TODO: Implement render404Page() method.
+    }
+
+    function render500Page(\Exception $e)
+    {
+        // TODO: Implement render500Page() method.
     }
 
     protected function _render404Page($e)
@@ -234,28 +234,29 @@ EOF
         return $this->_messenger;
     }
 
-    public function getRootDir()
+    public static function getRootDir()
     {
         return str_replace('/app/System/Application.php', '', __FILE__);
     }
 
-    public function getControllerDir()
+    public static function getControllerDir()
     {
-        return $this->getRootDir() . '/app/Controller';
+        return self::getRootDir() . '/app/Controller';
     }
 
-    public function getViewDir()
+    public static function getViewDir()
     {
-        return $this->getRootDir() . '/resources/views';
+        return self::getRootDir() . '/resources/views';
     }
 
-    public function getModelDir()
+    public static function getModelDir()
     {
-        return $this->getRootDir() . '/app/Model';
+        return self::getRootDir() . '/app/Model';
     }
 
-    public function getRouteDir()
+    public static function getRouteDir()
     {
-        return $this->getRootDir() . '/route';
+        return self::getRootDir() . '/route';
     }
+
 }
