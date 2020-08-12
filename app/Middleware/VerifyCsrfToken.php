@@ -9,13 +9,19 @@ class VerifyCsrfToken extends Middleware
 {
     public function handle(Application $application): Application
     {
-        $token = $application->getRequest()->getPost('_token');
-        //TODO:もといたフォームページへのパスの取得方法
-        //REFFERERは危険。Messengerの利用が手軽？
-        $path = '/hogehoge';
-        if(! $application->checkCsrfToken($path, $token)) {
+        //セッションに格納されたトークンを取り出すためのキーを取得
+        //今回はキー名の命名規則が「フォームの送信先のベースurl以降のパス名」なのでgetPathInfo()で自動的に取得する。
+        $key = $this->_request->getPathInfo();
+
+        //セッションとフォームのCSRFトークンを照合する
+        if(! $application->checkCsrfToken($key)) {
 //            $this->_messenger->setError('csrf', 'エラーが発生しました。はじめからやり直してください。');
-            $application->redirect($path);
+
+            //戻り先を指定(通常はフォーム画面)
+            //FIXME: Messengerの利用のほうが良さげ？？
+            $back_to = $application->getRequest()->getGet('back');
+
+            $application->redirect($back_to);
         }
         return $application;
     }

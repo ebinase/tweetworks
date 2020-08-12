@@ -16,7 +16,7 @@ function registerWebRoutes(Route $route)
         $route->post('/sign-up/register', 'register', 'register');
 
         $route->get('/login', 'login', 'showLoginForm', ['guest']);
-        $route->post('/login/auth', 'login', 'auth');
+        $route->post('/login/auth', 'login', 'auth', ['guest']);
 
         $route->post('/logout', 'login', 'logout');
 
