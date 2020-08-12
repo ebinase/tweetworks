@@ -153,6 +153,10 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         }
     }
 
+    public function send() {
+        $this->_response->send();
+    }
+
     //==============================================================================
     //リダイレクト系
     //==============================================================================
@@ -225,9 +229,41 @@ EOF
         );
     }
 
-    public function send() {
-        $this->_response->send();
+    //==============================================================================
+    // CSRF対策 //TODO:修正
+    //==============================================================================
+    public function generateCsrfToken($form_name)
+    {
+        $key = 'csrf_tokens/' . $form_name;
+        $tokens = $this->_session->get($key, []);
+        if(count($tokens) >= 10) {
+            array_shift($tokens);
+        }
+
+        //FIXME:　トークンの暗号化の仕方(しっかりとした乱数生成器を用いる)
+        $token = sha1($form_name. session_id() . microtime());
+        $tokens[] = $token;
+
+        $this->_session->set($key, $tokens);
+
+        return $token;
     }
+
+    //tokenをチェックして、一致したらその使用されたトークンを削除してそれ以外を戻してあげる
+    public function checkCsrfToken($form_name, $token)
+    {
+        $key = 'csrf_tokens/' . $form_name;
+        $tokens = $this->_session->get($key, []);
+
+        if (($pos = array_search($token, $tokens, true)) !== false) {
+            unset($tokens[$pos]);
+            $this->_session->set($key, $tokens);
+
+            return true;
+        }
+        return false;
+    }
+
 
 
     //==============================================================================

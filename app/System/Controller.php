@@ -107,6 +107,7 @@ abstract class Controller implements ControllerInterface
         return '';
     }
 
+    //TODO:消去
     // ベースURL以降のurlをフルバージョンのurlに変換
     protected function _fullUrl($uri)
     {
@@ -118,7 +119,7 @@ abstract class Controller implements ControllerInterface
     }
 
     //==============================================================================
-    // CSRF対策
+    // CSRF対策 //TODO:消去
     //==============================================================================
     protected function _generateCsrfToken($form_name)
     {
