@@ -17,11 +17,13 @@ interface ApplicationInterface
     /**
      * リダイレクトを行う
      *
-     * @param string $path フルURLでも短縮URLでも機能。
-     * @param string $default 本来は設定してもリダイレクトでは表示されないが、下記のreturnを意識させるために明示的に実装。
-     * @return string Controller->run()は必ずstringを返すように設定されているため、$defaultの文字列を返す。
+     * @param string $url フルURLでも短縮URLでも機能。
+     *
+     * 最後にexitを実行
      */
-    function redirect($path, $default = ''): string;
+    function redirect($url);
+
+    function url($uri);
 
     //Kernel、Controllerの中で使用されることを想定。
     function render404Page(\Exception $e);

@@ -9,6 +9,8 @@ function registerWebRoutes(Route $route)
 //    });
 
     $route->group('web', function (Route $route){
+      //$route->メソッド(url, controller, action, |オプション→middleware['name1','name2',...], route_name);
+
         $route->get('/sign-up', 'register', 'showSignupPage');
         $route->post('/sign-up/confirm', 'register', 'confirm');
         $route->post('/sign-up/register', 'register', 'register');
@@ -18,7 +20,7 @@ function registerWebRoutes(Route $route)
 
         $route->post('/logout', 'login', 'logout');
 
-        $route->get('/home', 'tweet', 'home', ['auth']);
+        $route->get('/home', 'tweet', 'home', ['auth', 'csrf']);
 
         // ユーザーページ
         $route->get('/user/:unique_name', 'user', 'index');

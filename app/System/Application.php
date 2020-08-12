@@ -108,34 +108,15 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
 
 
     //==============================================================================
-    //すべての処理の起点
+    //コントローラを起動してレスポンス内容をセット
     //==============================================================================
     public function run(): Application
     {
-        //最後のsend()以外はtry~catch文中に記述
-        try {
-            $params = $this->_requestRouteParams;
-            if($params === false) {
-                throw new HttpNotFoundException("No route found for {$this->_request->getPathInfo()}.");
-            }
+        $params = $this->_requestRouteParams;
+        $controller = $params['controller'];
+        $action = $params['action'];
 
-            $controller = $params['controller'];
-            $action = $params['action'];
-
-            $content = $this->_runAction($controller, $action, $params);
-
-        } catch (HttpNotFoundException $e) {
-            $this->render404Page($e);
-
-        } catch (UnauthorizedException $e) {
-            //認証エラーが出たらログイン画面へ
-            // FIXME: login画面への移行に修正。
-            // $this->runAction($controller, $action);
-            $this->render404Page($e);
-
-        }  catch (\PDOException $e) {
-            $this->render500Page($e);
-        }
+        $content = $this->_runAction($controller, $action, $params);
 
         $this->_response->setContent($content);
 
@@ -148,6 +129,7 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         // 現状では下記の名前空間のせいで/Controller直下しか呼び出せない
         //名前空間を考慮して完全修飾名にする
         //参考：https://sousaku-memo.net/php-system/1417
+//        $controller_name = str_replace('/', '\\', $controller_name);
         $controller_class = '\\App\\Controller\\' . ucfirst($controller_name) . 'Controller';
 
         $controller = $this->_findController($controller_class);
@@ -171,9 +153,31 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         }
     }
 
-    function redirect($path, $default = ''): string
+    //==============================================================================
+    //リダイレクト系
+    //==============================================================================
+
+    function redirect($url, $default = ''): void
     {
-        // TODO: Implement redirect() method.
+        //ベースURL以降を指定された場合(例：/user/hogehoge)
+        if (! preg_match('#https?://#', $url)) {
+            $url = $this->url($url);
+        }
+
+        $this->_response->setStatusCode(302, 'Found');
+        $this->_response->setHttpHeader('Location', $url);
+
+        //FIXME: ログなどを残したい場合はエラーハンドラなどを搭載する
+        exit();
+    }
+
+    public function url($uri)
+    {
+        $protocol = $this->_request->isSsl() ? 'https://' : 'http://';
+        $host = $this->_request->getHost();
+        $base_url = $this->_request->getBaseUrl();
+
+        return $protocol . $host . $base_url . $uri;
     }
 
 

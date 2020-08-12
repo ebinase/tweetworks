@@ -42,11 +42,6 @@ abstract class Controller implements ControllerInterface
             $this->_forward404();
         }
 
-        if ($this->_needsAuth($params) && ! $this->_session->isAuthenticated()) {
-            //TODO: ログイン後に見ていた画面に戻る機能(laravelのold()関数)
-//            throw new UnauthorizedException("you are not authorized.");
-            return $this->_redirect('/login');
-        }
         return $this->$action_name($params);
     }
 
@@ -98,6 +93,7 @@ abstract class Controller implements ControllerInterface
         );
     }
 
+    //TODO:消去
     protected function _redirect(string $url)
     {
         //ベースURL以降を指定された場合(例：/user/hogehoge)
@@ -107,6 +103,8 @@ abstract class Controller implements ControllerInterface
 
         $this->_response->setStatusCode(302, 'Found');
         $this->_response->setHttpHeader('Location', $url);
+
+        return '';
     }
 
     // ベースURL以降のurlをフルバージョンのurlに変換
@@ -152,21 +150,5 @@ abstract class Controller implements ControllerInterface
             return true;
         }
         return false;
-    }
-
-
-    //==============================================================================
-    // 認証系
-    //==============================================================================
-    //FIXME:ログイン認証は絶対外部化したほうがいい
-
-    protected function _needsAuth($params):bool
-    {
-        if ($params['auth'] == '1') {
-            return true;
-        } elseif ($params['auth'] == '0') {
-            return false;
-        }
-        throw new HttpNotFoundException("'auth' parameter in web.php is not correct.");
     }
 }
