@@ -9,8 +9,8 @@ class Seeder
 //        スコープ定義演算子FavoritesTableSeederのseedメソッドにアクセス
         FavoritesTableSeeder::seed();
         FollowsTableSeeder::seed();
-        RepliesTableSeeder::seed();
         TweetsTableSeeder::seed();
+//        RepliesTableSeeder::seed();
         UsersTableSeeder::seed();
     }
 
