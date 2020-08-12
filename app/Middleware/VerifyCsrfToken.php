@@ -10,7 +10,8 @@ class VerifyCsrfToken extends Middleware
     public function handle(Application $application): Application
     {
         $token = $application->getRequest()->getPost('_token');
-        //TODO:修正
+        //TODO:もといたフォームページへのパスの取得方法
+        //REFFERERは危険。Messengerの利用が手軽？
         $path = '/hogehoge';
         if(! $application->checkCsrfToken($path, $token)) {
 //            $this->_messenger->setError('csrf', 'エラーが発生しました。はじめからやり直してください。');

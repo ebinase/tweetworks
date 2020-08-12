@@ -15,6 +15,7 @@ class Authenticate implements MiddlewareInterface
             $application->redirect('/login');
         }
 
+        print '<p>Authenticate通過</p>';
         return $application;
     }
 }
