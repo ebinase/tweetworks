@@ -14,7 +14,7 @@ final class Kernel extends HttpKernel
     {
          $this->_middlewares = [
             \App\Middleware\PathExists::class,
-            \App\Middleware\CheckAccessMethod::class,
+            \App\Middleware\CheckRequestMethod::class,
         ];
 
         $this->_middlewareGroups = [

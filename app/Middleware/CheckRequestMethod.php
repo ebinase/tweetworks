@@ -6,7 +6,7 @@ use App\System\Application;
 use App\System\Exceptions\HttpNotFoundException;
 use App\System\Interfaces\Core\MiddlewareInterface;
 
-class CheckAccessMethod implements MiddlewareInterface
+class CheckRequestMethod implements MiddlewareInterface
 {
 
     public function handle(Application $application): Application
@@ -20,5 +20,8 @@ class CheckAccessMethod implements MiddlewareInterface
         if ($request_method !== $routeParam['method']) {
             throw new HttpNotFoundException('wrong request method');
         }
+
+        print '<p>CheckRequestMethod通過</p>';
+        return $application;
     }
 }
