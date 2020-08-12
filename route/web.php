@@ -15,12 +15,12 @@ function registerWebRoutes(Route $route)
         $route->post('/sign-up/confirm', 'register', 'confirm');
         $route->post('/sign-up/register', 'register', 'register');
 
-        $route->get('/login', 'login', 'showLoginForm');
+        $route->get('/login', 'login', 'showLoginForm', ['guest']);
         $route->post('/login/auth', 'login', 'auth');
 
         $route->post('/logout', 'login', 'logout');
 
-        $route->get('/home', 'tweet', 'home', ['auth', 'csrf']);
+        $route->get('/home', 'tweet', 'home', ['auth']);
 
         // ユーザーページ
         $route->get('/user/:unique_name', 'user', 'index');

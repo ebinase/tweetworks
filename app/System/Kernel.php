@@ -92,10 +92,10 @@ abstract class Kernel implements KernelInterface
                 $handler->handle($this->_application);
                 //ハンドラを初期化
                 unset($handler);
-
-                $this->_application->run();
-                //TODO: afterミドルウェアの実装方法検討
             }
+            $this->_application->run();
+            //TODO: afterミドルウェアの実装方法検討
+
         } catch (HttpNotFoundException $e) {
             $this->_application->render404Page($e);
 

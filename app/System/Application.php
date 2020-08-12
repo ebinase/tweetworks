@@ -171,6 +171,7 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         $this->_response->setStatusCode(302, 'Found');
         $this->_response->setHttpHeader('Location', $url);
 
+        $this->send();
         //FIXME: ログなどを残したい場合はエラーハンドラなどを搭載する
         exit();
     }
@@ -232,16 +233,16 @@ EOF
     //==============================================================================
     // CSRF対策 //TODO:修正
     //==============================================================================
-    public function generateCsrfToken($form_name)
+    public function generateCsrfToken($form_path)
     {
-        $key = 'csrf_tokens/' . $form_name;
+        $key = 'csrf_tokens/' . $form_path;
         $tokens = $this->_session->get($key, []);
         if(count($tokens) >= 10) {
             array_shift($tokens);
         }
 
         //FIXME:　トークンの暗号化の仕方(しっかりとした乱数生成器を用いる)
-        $token = sha1($form_name. session_id() . microtime());
+        $token = sha1($form_path. session_id() . microtime());
         $tokens[] = $token;
 
         $this->_session->set($key, $tokens);

@@ -32,8 +32,8 @@ final class Kernel extends HttpKernel
         //各コントローラのコンストラクタでRoute->middleware('hoge')で指定すると
         //下記のクラスをアクションの前に自動的に実行
         $this->_routeMiddleware = [
-//            'auth' => \App\Middleware\Authenticate::class,
-//            'guest' => \App\Middleware\RedirectIfAuthenticated::class,
+            'auth' => \App\Middleware\Authenticate::class,
+            'guest' => \App\Middleware\Guest::class,
 //            'csrf' => \App\Middleware\VerifyCsrfToken::class,
         ];
 
