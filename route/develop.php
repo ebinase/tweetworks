@@ -8,5 +8,6 @@ function registerDevelopRoutes(Route $route)
         $route->get('/migrate', 'database', 'migrate');
         $route->get('/refresh', 'database', 'refresh');
         $route->get('/seed', 'database', 'seed');
+        $route->get('/refresh-seed', 'database', 'refreshAndSeed');
     });
 }
