@@ -125,16 +125,16 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
             $content = $this->_runAction($controller, $action, $params);
 
         } catch (HttpNotFoundException $e) {
-            $this->_render404Page($e);
+            $this->render404Page($e);
 
         } catch (UnauthorizedException $e) {
             //認証エラーが出たらログイン画面へ
             // FIXME: login画面への移行に修正。
             // $this->runAction($controller, $action);
-            $this->_render404Page($e);
+            $this->render404Page($e);
 
         }  catch (\PDOException $e) {
-            $this->_render500Page($e);
+            $this->render500Page($e);
         }
 
         $this->_response->setContent($content);
@@ -176,17 +176,8 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         // TODO: Implement redirect() method.
     }
 
-    function render404Page(\Exception $e)
-    {
-        // TODO: Implement render404Page() method.
-    }
 
-    function render500Page(\Exception $e)
-    {
-        // TODO: Implement render500Page() method.
-    }
-
-    protected function _render404Page($e)
+    public function render404Page($e)
     {
         $this->_response->setStatusCode(404, 'Not Found');
         $message = $this->isDebugMode() ? $e->getMessage() : 'Page not Found';
@@ -208,7 +199,7 @@ EOF
         );
     }
 
-    protected function _render500Page($e)
+    public function render500Page($e)
     {
         $this->_response->setStatusCode(500, 'Internal Server Error');
         $message = $this->isDebugMode() ? $e->getMessage() : 'Internal Server Error';

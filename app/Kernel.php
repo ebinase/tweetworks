@@ -13,8 +13,8 @@ final class Kernel extends HttpKernel
     function _registerSettings()
     {
          $this->_middlewares = [
-            \App\Middleware\CheckPathExists::class,
-            \App\Middleware\CheckAccessMethod::class,
+            \App\Middleware\PathExists::class,
+//            \App\Middleware\CheckAccessMethod::class,
         ];
 
         $this->_middlewareGroups = [
@@ -32,9 +32,9 @@ final class Kernel extends HttpKernel
         //各コントローラのコンストラクタでRoute->middleware('hoge')で指定すると
         //下記のクラスをアクションの前に自動的に実行
         $this->_routeMiddleware = [
-            'auth' => \App\Middleware\Authenticate::class,
-            'guest' => \App\Middleware\RedirectIfAuthenticated::class,
-            'csrf' => \App\Middleware\VerifyCsrfToken::class,
+//            'auth' => \App\Middleware\Authenticate::class,
+//            'guest' => \App\Middleware\RedirectIfAuthenticated::class,
+//            'csrf' => \App\Middleware\VerifyCsrfToken::class,
         ];
 
         }

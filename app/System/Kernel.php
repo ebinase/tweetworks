@@ -5,6 +5,9 @@ namespace App\System;
 use App\System\Interfaces\Core\KernelInterface;
 use App\System\Interfaces\Core\SingletonInterface;
 
+use App\System\Exceptions\HttpNotFoundException;
+use App\System\Exceptions\UnauthorizedException;
+
 abstract class Kernel implements KernelInterface
 {
     // app/Kernel.phpで設定する
@@ -23,8 +26,6 @@ abstract class Kernel implements KernelInterface
     private $_session;
     private $_messenger;
 
-    //コンストラクタで生じたエラー取得用
-    private $_bootError = false;
 
     public function __construct(Application $application)
     {
@@ -35,7 +36,7 @@ abstract class Kernel implements KernelInterface
     }
 
     //Applicationのシングルトン機能からインスタンスを取得
-    protected function _initialize(SingletonInterface $application) {
+    protected function _initialize(Application $application) {
         $this->_application = $application;
         $this->_request = $application->getRequest();
         $this->_response = $application->getResponse();
@@ -48,35 +49,35 @@ abstract class Kernel implements KernelInterface
     abstract function _registerSettings();
 
     protected function _bootstrap() {
-        //TODO: afterミドルウェアの実装方法検討
         //$middlewares配列に追記をしていく
-        //今回のルートグループはどこか見極めてそのグループのミドルウェアを登録
         $params = $this->_application->getRequestRouteParams();
 
         /**************/print_r($params);
 
-        // ルートパラメータが存在しない時はエラーを保存しておいてインスタンス化後に404エラーを投げる
+        // ルートパラメータが存在しない時は$middlewaresを初期値のままにして即座にコンストラクタを終了。
+        // するとインスタンス化後にPathExistsミドルウェアで弾かれて404エラーが生じる。
         if ($params === false) {
-            $this->_bootError = true;
             return;
         }
 
         //ルートグループを取得(web / api / develop)
         $routeGroup = $params['group'];
 
-        /**************/ print $routeGroup;
+        /**************/ print 'ルートグループは' . $routeGroup;
 
-        /**************/print_r($this->_middlewareGroups);
-        // 各ルートグループに適用するmiddlewareを登録
+        // //今回のルートグループはどこか見極めてそのグループのミドルウェアを登録
         $this->_middlewares = array_merge($this->_middlewares, $this->_middlewareGroups[$routeGroup]);
 
         //そのルート特有のミドルウェアを登録
         foreach ($params['middlewares'] as $middleware) {
-            /**************/print $middleware;
             //$paramsに登録されたミドルウェアを追加する
-            //仮にミドルウェアが重複しても上書きされるため、問題ない
-            $this->_middlewares[] = $this->_routeMiddleware[$middleware];
+            //FIXME: ミドルウェアが重複した際の対処(優先度：低)
+            if (isset($this->_routeMiddleware[$middleware])) {
+                $this->_middlewares[] = $this->_routeMiddleware[$middleware];
+            }
         }
+
+        /**************/print '適用されるミドルウェアは';
         /**************/print_r($this->_middlewares);
     }
     
@@ -84,7 +85,20 @@ abstract class Kernel implements KernelInterface
 
     public function handle(): void
     {
-        // TODO: Implement handle() method.
+        try {
+            foreach ($this->_middlewares as $middleware) {
+                //FIXME: クロージャとかを使ってメソッドチェーンを作ってみたい
+                $handler = new $middleware;
+                $handler->handle($this->_application);
+                //ハンドラを初期化
+                unset($handler);
+            }
+
+            //$application->run();
+            //TODO: afterミドルウェアの実装方法検討
+        } catch (HttpNotFoundException $e) {
+            $this->_application->render404Page($e);
+        }
     }
 
 }

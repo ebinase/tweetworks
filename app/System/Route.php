@@ -27,7 +27,6 @@ class Route implements RouteInterface
     //形式はdifinitionsとほぼ一緒
     private $_tempArray = [];
 
-    private $_params; // array または false
 
     //==============================================================================
     //(ほぼ)コンストラクタ
@@ -52,12 +51,12 @@ class Route implements RouteInterface
         $this->_tempArray = [];
     }
 
-    public function get($url, $controller, $action, $middlewares = 0, $name = null)
+    public function get($url, $controller, $action, $middlewares = [], $name = null)
     {
         $this->_setRoutesArray($url, $controller, $action, 'get', $middlewares, $name);
     }
 
-    public function post($url, $controller, $action, $middlewares = 0, $name = null)
+    public function post($url, $controller, $action, $middlewares = [], $name = null)
     {
         $this->_setRoutesArray($url, $controller, $action, 'post', $middlewares, $name);
     }
@@ -75,8 +74,8 @@ class Route implements RouteInterface
     //REST API用簡易設定メソッド
     function resource($url, $controller, $action, $middlewares = [], $name = null)
     {
-        $this->get($url, $controller, $action, $middlewares = 0, $name = null);
-        $this->post($url, $controller, $action, $middlewares = 0, $name = null);
+        $this->get($url, $controller, $action, $middlewares = [], $name = null);
+        $this->post($url, $controller, $action, $middlewares = [], $name = null);
         $this->put($url, $controller, $action, $middlewares = [], $name = null);
         $this->delete($url, $controller, $action, $middlewares = [], $name = null);
     }

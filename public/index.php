@@ -15,6 +15,6 @@ if ($_GET['debugMode'] == 'on') {
 $application = new Application(true);
 
 $kernel = new Kernel($application);
-//$kernel->handle();
-//
-//$application->send();
+$kernel->handle();
+
+$application->send();
