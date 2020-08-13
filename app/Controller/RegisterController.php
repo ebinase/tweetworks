@@ -11,7 +11,6 @@ class RegisterController extends Controller
     {
         return $this->render('sign-up', [
             '_token' => $this->_application->generateCsrfToken('/sign-up/confirm'),
-            'error' => $this->_messenger->getAllErrors(),
         ]);
     }
 

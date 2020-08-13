@@ -18,9 +18,6 @@ abstract class Controller implements ControllerInterface
     protected $_route;
     protected $_session;
 
-    protected $_messenger;
-
-
     public function __construct(Application $application)
     {
         $this->_controller_name = strtolower(substr(get_class($this), 0, -10));
@@ -30,7 +27,6 @@ abstract class Controller implements ControllerInterface
         $this->_response = $application->getResponse();
         $this->_route = $application->getRoute();
         $this->_session = $application->getSession();
-        $this->_messenger = $application->getMessenger();
     }
 
     public function run(string $action_name, array $params = []): string
@@ -67,16 +63,6 @@ abstract class Controller implements ControllerInterface
         ];
 
         $view = new View($this->_application::getViewDir(), $defaults);
-
-        // ↓テンプレート名を省略可能にする必要性を感じないためコメントアウト
-        // $pathが入力されてなかったらアクション名を自動で代入してあげる
-//        if(is_null($path)) {
-//            $path = $this->action_name;
-//        }
-
-        // フォルダ構成を/views/アクション名/ビューファイル.phpに固定するのは悪手
-        // $path = $this->controller_name. '/' . $template;
-
 
         return $view->render($path, $variables, $layout_path);
     }

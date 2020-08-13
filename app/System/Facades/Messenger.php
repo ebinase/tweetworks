@@ -1,6 +1,6 @@
 <?php
 
-namespace App\System\Components;
+namespace App\System\Facades;
 
 use App\System\Interfaces\MessengerInterface;
 use App\System\Session;
@@ -12,6 +12,7 @@ class Messenger implements MessengerInterface
     private $_errors = [];
     private $_olds = [];
     private $_messages =[];
+    private $_from;
 
     //Sessionクラスに依存
     public function __construct(Session $session)
