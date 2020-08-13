@@ -42,6 +42,7 @@ class TweetController extends Controller
         $tweet = new tweet();
 
         // TODO: ログイン中のユーザーと削除する投稿のuser_idが等しいかチェック
+        $this->_session->get('user_id');
 
         $tweet->deleteById($tweet_id);
 
@@ -51,8 +52,8 @@ class TweetController extends Controller
     public function home()
     {
 
-        $_token['tweet/post'] = $this->_generateCsrfToken('tweet/post');
-        $_token['tweet/delete'] = $this->_generateCsrfToken('tweet/delete');
+        $_token['tweet/post'] = $this->_application->generateCsrfToken('tweet/post');
+        $_token['tweet/delete'] = $this->_application->generateCsrfToken('tweet/delete');
         return $this->render('home', [
             '_token' => $_token
         ]);
