@@ -23,13 +23,13 @@ function registerWebRoutes(Route $route)
         $route->get('/home', 'tweet', 'home', ['auth']);
 
         // ユーザーページ
-        $route->get('/user/:unique_name', 'user', 'index');
+        $route->get('/user/:unique_name', 'user', 'index', ['auth']);
 
         // タイムライン表示
         $route->get('/all', 'tweet', 'all');
         $route->get('/detail/:tweet_id', 'tweet', 'detail');
 
-        $route->post('/tweet/post', 'tweet', 'post');
-        $route->post('/tweet/delete', 'tweet', 'delete');
+        $route->post('/tweet/post', 'tweet', 'post', ['auth', 'csrf']);
+        $route->post('/tweet/delete', 'tweet', 'delete', ['auth', 'csrf']);
     });
 }

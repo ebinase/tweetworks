@@ -68,16 +68,6 @@ abstract class Controller implements ControllerInterface
 
         $view = new View($this->_application::getViewDir(), $defaults);
 
-        // ↓テンプレート名を省略可能にする必要性を感じないためコメントアウト
-        // $pathが入力されてなかったらアクション名を自動で代入してあげる
-//        if(is_null($path)) {
-//            $path = $this->action_name;
-//        }
-
-        // フォルダ構成を/views/アクション名/ビューファイル.phpに固定するのは悪手
-        // $path = $this->controller_name. '/' . $template;
-
-
         return $view->render($path, $variables, $layout_path);
     }
 
