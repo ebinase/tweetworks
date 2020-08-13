@@ -50,6 +50,10 @@ class Request implements RequestInterface{
         return $_SERVER['REQUEST_URI'];
     }
 
+    public function  getRequestMethod() {
+        return $_SERVER['REQUEST_METHOD'];
+    }
+
     public function isPost()
     {
         if ($_SERVER['REQUEST_METHOD'] === 'POST') {

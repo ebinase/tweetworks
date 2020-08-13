@@ -12,13 +12,13 @@ function registerWebRoutes(Route $route)
       //$route->メソッド(url, controller, action, |オプション→middleware['name1','name2',...], route_name);
 
         $route->get('/sign-up', 'register', 'showSignupPage');
-        $route->post('/sign-up/confirm', 'register', 'confirm');
-        $route->post('/sign-up/register', 'register', 'register');
+        $route->post('/sign-up/confirm', 'register', 'confirm', ['csrf']);
+        $route->post('/sign-up/register', 'register', 'register', ['csrf']);
 
         $route->get('/login', 'login', 'showLoginForm', ['guest']);
-        $route->post('/login/auth', 'login', 'auth');
+        $route->post('/login/auth', 'login', 'auth', ['guest']);
 
-        $route->post('/logout', 'login', 'logout');
+        $route->get('/logout', 'login', 'logout');
 
         $route->get('/home', 'tweet', 'home', ['auth']);
 

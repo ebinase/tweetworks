@@ -14,7 +14,7 @@ final class Kernel extends HttpKernel
     {
          $this->_middlewares = [
             \App\Middleware\PathExists::class,
-//            \App\Middleware\CheckAccessMethod::class,
+            \App\Middleware\CheckRequestMethod::class,
         ];
 
         $this->_middlewareGroups = [
@@ -34,7 +34,7 @@ final class Kernel extends HttpKernel
         $this->_routeMiddleware = [
             'auth' => \App\Middleware\Authenticate::class,
             'guest' => \App\Middleware\Guest::class,
-//            'csrf' => \App\Middleware\VerifyCsrfToken::class,
+            'csrf' => \App\Middleware\VerifyCsrfToken::class,
         ];
 
         }

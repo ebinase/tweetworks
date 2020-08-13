@@ -233,16 +233,16 @@ EOF
     //==============================================================================
     // CSRF対策 //TODO:修正
     //==============================================================================
-    public function generateCsrfToken($form_path)
+    public function generateCsrfToken($key)
     {
-        $key = 'csrf_tokens/' . $form_path;
+        $key = 'csrf_tokens/' . $key;
         $tokens = $this->_session->get($key, []);
         if(count($tokens) >= 10) {
             array_shift($tokens);
         }
 
         //FIXME:　トークンの暗号化の仕方(しっかりとした乱数生成器を用いる)
-        $token = sha1($form_path. session_id() . microtime());
+        $token = sha1($key. session_id() . microtime());
         $tokens[] = $token;
 
         $this->_session->set($key, $tokens);
@@ -251,9 +251,12 @@ EOF
     }
 
     //tokenをチェックして、一致したらその使用されたトークンを削除してそれ以外を戻してあげる
-    public function checkCsrfToken($form_name, $token)
+    public function checkCsrfToken($key)
     {
-        $key = 'csrf_tokens/' . $form_name;
+        //フォームから送られてきたトークンの値を取得
+        $token = $this->_request->getPost('_token');
+
+        $key = 'csrf_tokens/' . $key;
         $tokens = $this->_session->get($key, []);
 
         if (($pos = array_search($token, $tokens, true)) !== false) {

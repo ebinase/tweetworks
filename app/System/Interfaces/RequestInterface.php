@@ -5,6 +5,7 @@ namespace App\System\Interfaces;
 interface RequestInterface
 {
     //単純メソッド
+    function  getRequestMethod();
     function isPost();
     function getGet($name);
     function getPost($name);
