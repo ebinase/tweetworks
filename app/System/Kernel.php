@@ -24,7 +24,6 @@ abstract class Kernel implements KernelInterface
     private $_response;
     private $_route;
     private $_session;
-    private $_messenger;
 
 
     public function __construct(Application $application)
@@ -42,7 +41,6 @@ abstract class Kernel implements KernelInterface
         $this->_response = $application->getResponse();
         $this->_route = $application->getRoute();
         $this->_session = $application->getSession();
-        $this->_messenger = $application->getMessenger();
     }
 
     // app/Kernel.phpの設定を読み込む

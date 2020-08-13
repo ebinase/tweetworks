@@ -18,9 +18,6 @@ abstract class Controller implements ControllerInterface
     protected $_route;
     protected $_session;
 
-    protected $_messenger;
-
-
     public function __construct(Application $application)
     {
         $this->_controller_name = strtolower(substr(get_class($this), 0, -10));
@@ -30,7 +27,6 @@ abstract class Controller implements ControllerInterface
         $this->_response = $application->getResponse();
         $this->_route = $application->getRoute();
         $this->_session = $application->getSession();
-        $this->_messenger = $application->getMessenger();
     }
 
     public function run(string $action_name, array $params = []): string

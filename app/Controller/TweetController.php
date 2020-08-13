@@ -21,7 +21,6 @@ class TweetController extends Controller
         }
         if(count($errors) !== 0) {
             //エラーが生じたらメッセージを添えてタイムラインに戻る。
-            $this->_messenger->setError('text', $errors['text']);
             return $this->_redirect('/home');
         }
 

@@ -2,7 +2,6 @@
 
 namespace App\System;
 
-use App\System\Components\Messenger;
 use App\System\Exceptions\HttpNotFoundException;
 use App\System\Exceptions\UnauthorizedException;
 use App\System\Interfaces\Core\ApplicationInterface;
@@ -17,8 +16,6 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
     protected $_response;
     protected $_session;
     protected $_route;
-
-    protected $_messenger;
 
     /**
      * @var array | false
@@ -68,8 +65,6 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         $this->_response = new Response();
         $this->_session = new Session();
         $this->_route = new Route();
-
-        $this->_messenger = new Messenger($this->_session);
     }
 
     /**
@@ -298,10 +293,6 @@ EOF
         return $this->_session;
     }
 
-    public function getMessenger(): Messenger
-    {
-        return $this->_messenger;
-    }
 
     public static function getRootDir()
     {

@@ -37,7 +37,6 @@ class LoginController extends Controller
 
         //　認証に失敗したらログインページにリダイレクト
         // TODO:スロットル機能(ログイン試行回数制限)機能
-        $this->_messenger->setError('login', 'ログイン情報が間違っています。');
 
         $this->_application->redirect('/login');
     }
