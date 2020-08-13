@@ -10,24 +10,13 @@ class RegisterController extends Controller
     public function showSignupPage()
     {
         return $this->render('sign-up', [
-            '_token' => $this->_generateCsrfToken('sign-up'),
+            '_token' => $this->_application->generateCsrfToken('/sign-up/confirm'),
             'error' => $this->_messenger->getAllErrors(),
         ]);
     }
 
     public function confirm()
     {
-        // TODO: HTTP_METHOD middleware的なもので処理したい
-        if (! $this->_request->isPost()){
-            $this->_forward404();
-        }
-
-        // CSRF対策
-        $token = $this->_request->getPost('_token');
-        if(! $this->_checkCsrfToken('sign-up', $token)) {
-            $this->_messenger->setError('general', 'エラーが発生しました。');
-            $this->_redirect('/sign-up');
-        }
 
         // TODO: バリデーション
         $name = $this->_request->getPost('name');
@@ -43,7 +32,7 @@ class RegisterController extends Controller
         ]);
         // 重複が存在したら登録ページにリダイレクト
         if (count($existing_email) > 0) {
-            $this->_redirect('/sign-up');
+            $this->_application->redirect('/sign-up');
         }
 
         $secret = '';
@@ -52,7 +41,7 @@ class RegisterController extends Controller
         }
 
         return $this->render('confirm', [
-            '_token' => $this->_generateCsrfToken('confirm'),
+            '_token' => $this->_application->generateCsrfToken('sign-up/confirm'),
             'name' => $name,
             'email' => $email,
             'unique_name' => $unique_name,
@@ -63,17 +52,6 @@ class RegisterController extends Controller
 
     public function register()
     {
-        if (! $this->_request->isPost()){
-            $this->_forward404();
-        }
-
-        // CSRF対策
-        $token = $this->_request->getPost('_token');
-        if(! $this->_checkCsrfToken('confirm', $token)) {
-            $this->_messenger->setError('general', 'エラーが発生しました。はじめからやり直してください。');
-            $this->_redirect('/sign-up');
-        }
-
         // TODO:バリデーションそれからエスケープ処理
 
         // パスワードにランダムなソルトをつけた上でハッシュ化
@@ -89,6 +67,6 @@ class RegisterController extends Controller
             'password' => $hash_pass,
         ]);
 
-        return $this->_redirect('/home');
+        $this->_application->redirect('/home');
     }
 }

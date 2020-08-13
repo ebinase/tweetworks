@@ -34,7 +34,7 @@ final class Kernel extends HttpKernel
         $this->_routeMiddleware = [
             'auth' => \App\Middleware\Authenticate::class,
             'guest' => \App\Middleware\Guest::class,
-//            'csrf' => \App\Middleware\VerifyCsrfToken::class,
+            'csrf' => \App\Middleware\VerifyCsrfToken::class,
         ];
 
         }
