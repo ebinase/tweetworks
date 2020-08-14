@@ -8,7 +8,7 @@ use App\System\Interfaces\Core\MiddlewareInterface;
 class Authenticate implements MiddlewareInterface
 {
 
-    public function handle(Application $application): Application
+    public function process(Application $application): Application
     {
         //ログインしていなかったらログインページにリダイレクト
         if ($application->getSession()->isAuthenticated() === false) {

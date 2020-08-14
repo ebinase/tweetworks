@@ -30,15 +30,4 @@ class Response implements ResponseInterface
         $this->_http_headers[$name] = $value;
     }
 
-//    FIXME :void
-    public function send(): void
-    {
-        header('HTTP/1.1 ' . $this->_status_code . ' ' . $this->_status_text);
-
-        foreach ($this->_http_headers as $name => $value){
-            header($name . ':' . $value);
-        }
-
-        echo $this->_content;
-    }
 }

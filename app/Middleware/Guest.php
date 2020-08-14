@@ -8,7 +8,7 @@ use App\System\Interfaces\Core\MiddlewareInterface;
 class Guest implements MiddlewareInterface
 {
 
-    public function handle(Application $application): Application
+    public function process(Application $application): Application
     {
         //ログイン済みだったらホームにリダイレクト
         if ($application->getSession()->isAuthenticated() === true) {

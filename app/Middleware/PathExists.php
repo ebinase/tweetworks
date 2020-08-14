@@ -9,7 +9,7 @@ use App\System\Interfaces\Core\MiddlewareInterface;
 class PathExists implements MiddlewareInterface
 {
 
-    public function handle(Application $application): Application
+    public function process(Application $application): Application
     {
         //リクエストされたパスのルーティングパラメータ取得
         $params = $application->getRequestRouteParams();

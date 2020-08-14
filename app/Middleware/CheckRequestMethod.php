@@ -9,7 +9,7 @@ use App\System\Interfaces\Core\MiddlewareInterface;
 class CheckRequestMethod implements MiddlewareInterface
 {
 
-    public function handle(Application $application): Application
+    public function process(Application $application): Application
     {
         //ユーザーからのリクエストのHTTPメソッドの形式を取得(比較のため大文字から小文字に変換)
         $request_method = strtolower($application->getRequest()->getRequestMethod());

@@ -7,7 +7,7 @@ use App\System\Middleware;
 
 class VerifyCsrfToken extends Middleware
 {
-    public function handle(Application $application): Application
+    public function process(Application $application): Application
     {
         //セッションに格納されたトークンを取り出すためのキーを取得
         //今回はキー名の命名規則が「フォームの送信先のベースurl以降のパス名」なのでgetPathInfo()で自動的に取得する。

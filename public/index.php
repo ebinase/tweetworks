@@ -1,10 +1,10 @@
 <?php
 
 use App\Kernel;
-use App\System\Application;
+use App\System\Classes\Core\Application;
 
 require_once '../vendor/autoload.php';
-require_once '../app/System/Helper/consoleLogger.php';
+require_once '../app/System/Helpers/consoleLogger.php';
 
 $isDebugMode = false;
 if ($_GET['debugMode'] == 'on') {
@@ -13,8 +13,11 @@ if ($_GET['debugMode'] == 'on') {
 
 //Application呼び出し
 $application = new Application(true);
+$request = $application->getRequest();
 
-$kernel = new Kernel($application);
-$kernel->handle();
+$kernel = new Kernel($request);
+$response = $kernel->handle();
+
+$application->setResponse($response);
 
 $application->send();

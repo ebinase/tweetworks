@@ -1,7 +1,7 @@
 <?php
 
 
-namespace App\System\Interfaces;
+namespace App\System\Interfaces\HTTP;
 
 
 interface SessionInterface

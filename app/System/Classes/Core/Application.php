@@ -1,15 +1,13 @@
 <?php
 
-namespace App\System;
+namespace App\System\Classes\Core;
 
-use App\System\Exceptions\HttpNotFoundException;
-use App\System\Exceptions\UnauthorizedException;
 use App\System\Interfaces\Core\ApplicationInterface;
-use App\System\Interfaces\Core\SingletonInterface;
-use App\System\Interfaces\Core\HandlerInterface;
+
+use App\System\Router;
 
 //todo: Controllerからリダイレクト系移行
-class Application implements SingletonInterface, HandlerInterface, ApplicationInterface
+class Application implements ApplicationInterface
 {
     protected $_debug = false;
     protected $_request;
@@ -41,8 +39,8 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         $this->setDebugMode($debug);
         // アプリケーションで保持しておくインスタンスの生成
         $this->initialize();
-        // 要求されたURLに関する情報をApplicationに保存
-        $this->_requestRouteParams = $this->setupRouteParams();
+        // 要求されたURLに関する情報をRequestに保存
+        $this->_requestRouteParams = $this->perseRouteParams();
 
         //これらの処理が済んだらApplicationインスタンスごとKernelに引き渡される。
     }
@@ -72,7 +70,7 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
      * @param void
      * @return array $params
      */
-    protected function setupRouteParams(){
+    protected function perseRouteParams(){
         // $_routeにルーティング定義配列を登録する。
         $this->_registerRoutes();
         //ルーティング定義配列とクライアントから要求されたパスを取得
@@ -148,8 +146,15 @@ class Application implements SingletonInterface, HandlerInterface, ApplicationIn
         }
     }
 
-    public function send() {
-        $this->_response->send();
+    public function send(): void
+    {
+        header('HTTP/1.1 ' . $this->_status_code . ' ' . $this->_status_text);
+
+        foreach ($this->_http_headers as $name => $value){
+            header($name . ':' . $value);
+        }
+
+        echo $this->_content;
     }
 
     //==============================================================================

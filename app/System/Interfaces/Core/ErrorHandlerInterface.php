@@ -1,11 +1,12 @@
 <?php
-
 namespace App\System\Interfaces\Core;
 
 use App\System\Interfaces\RequestInterface;
 use App\System\Interfaces\ResponseInterface;
 
-interface MiddlewareInterface
+interface ErrorHandlerInterface
 {
-    public function process(RequestInterface $request, RequestHandlerInterface $next): ResponseInterface;
+    public function handle(
+        RequestInterface $request, \Exception $e
+    ):ResponseInterface;
 }
