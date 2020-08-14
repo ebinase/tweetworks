@@ -13,8 +13,8 @@ class CreateFollowsTable extends CreateTable
         return <<< EOF
 create table follows
 (
-	following_id int(10) not null,
-	followed_id int(10) not null,
+	user_id int(10) not null,
+	user_followed_id int(10) not null,
 	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 EOF;

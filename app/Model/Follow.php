@@ -12,5 +12,11 @@ class Follow extends Model
         $this->_tableName = 'follows';
     }
 
+    public function fetchByFollowUserId($followed_id) {
+        $sql = "SELECT * FROM {$this->_tableName} WHERE followed_id = :followed_id";
+        return $this->fetch($sql, [
+            ':followed_id' => $followed_id,
+        ]);
+    }
 
 }

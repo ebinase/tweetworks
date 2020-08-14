@@ -11,6 +11,7 @@ class UserController extends Controller
     public function index($params) {
         $unique_name = $params['unique_name'];
 
+
         $user = new User();
         $sql = 'SELECT * FROM users where unique_name = :unique_name';
         $user_data = $user->fetch($sql, [
@@ -28,6 +29,8 @@ class UserController extends Controller
             ':user_id' => $user_data['id']
         ]);
 
+
+
         //TODO: $tweet_dataにもユーザー情報を含める
 
         return $this->render('profile', [
@@ -35,4 +38,14 @@ class UserController extends Controller
             'tweets' => $tweet_data,
         ]);
     }
+
+//    public function getUserFollowedId($params){
+//
+//        $unique_name = $params['unique_name'];
+//        return $this->render('profile', [
+//            'unique_name' => $unique_name,
+//        ]);
+//
+//    }
+
 }

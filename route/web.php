@@ -30,4 +30,7 @@ function registerWebRoutes(Route $route)
     $route->get('/refresh', 'database', 'refresh');
     $route->get('/seed', 'database', 'seed');
     $route->get('/refresh-seed', 'database', 'refreshAndSeed');
+
+    $route->post('/follow/:user_id', 'follow', 'update', 1);
+
 }
