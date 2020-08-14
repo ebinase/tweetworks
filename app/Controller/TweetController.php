@@ -81,8 +81,12 @@ class TweetController extends Controller
         return $this->render('detail', [
             'data' => $data,
             'replies' => $replies,
-            '_token' => $this->_application->generateCsrfToken('/reply/post'),
-            ]
+            '_token' => [
+                '/reply/post' => $this->_application->generateCsrfToken('/reply/post'),
+                '/tweet/delete' => $this->_application->generateCsrfToken('/tweet/delete'),
+                ],
+            ],
+            'layouts/layout'
         );
     }
 }

@@ -22,7 +22,7 @@ class VerifyCsrfToken extends Middleware
             //戻り先を指定(通常はフォーム画面)
             //FIXME: Messengerの利用のほうが良さげ？？
 //            $back_to = $application->getRequest()->getGet('back');
-            $back_to =
+            $back_to = '/home';
             $application->redirect($back_to);
         }
         return $application;
