@@ -23,16 +23,22 @@ class Tweet extends Model
         return $this->fetchAll($sql);
     }
 
-    public function getDetailTweet($params)
+    public function getDetailTweet($tweet_id)
     {
-        $id = $params['tweet_id'];
-
         $sql = 'SELECT * FROM tweets where id = :tweet_id ;';
 
-        return $this->fetch($sql,[
-            ':tweet_id' => $id
+        return $this->fetch($sql, [
+            ':tweet_id' => $tweet_id
         ]);
 
     }
 
+    public function getReplies($tweet_id)
+    {
+        $sql = 'SELECT * FROM tweets where reply_to_id = :tweet_id ;';
+
+        return $this->fetchAll($sql, [
+            ':tweet_id' => $tweet_id,
+        ]);
+    }
 }
