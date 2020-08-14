@@ -31,5 +31,7 @@ function registerWebRoutes(Route $route)
 
         $route->post('/tweet/post', 'tweet', 'post', ['auth', 'csrf']);
         $route->post('/tweet/delete', 'tweet', 'delete', ['auth', 'csrf']);
+
+        $route->post('/reply/post', 'reply', 'post', ['auth', 'csrf']);
     });
 }
