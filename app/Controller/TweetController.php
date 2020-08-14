@@ -72,10 +72,16 @@ class TweetController extends Controller
     public function detail($params)
     {
         $tweet  = new Tweet();
-        $data = $tweet->getDetailTweet($params);
+        $tweet_id = $params['tweet_id'];
+
+        $data = $tweet->getDetailTweet($tweet_id);
+
+        $replies = $tweet->getReplies($tweet_id);
 
         return $this->render('detail', [
-            'data' => $data
+            'data' => $data,
+            'replies' => $replies,
+            '_token' => $this->_application->generateCsrfToken('/reply/post'),
             ]
         );
     }

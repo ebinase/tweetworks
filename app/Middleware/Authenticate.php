@@ -15,6 +15,11 @@ class Authenticate implements MiddlewareInterface
             $application->redirect('/login');
         }
 
+        //ログイン中のユーザーIDがセッションに記録されてなかったら再ログインしてもらう
+        if (is_null($application->getSession()->get('user_id'))) {
+            $application->redirect('/login');
+        }
+
         print '<p>Authenticate通過</p>';
         return $application;
     }
