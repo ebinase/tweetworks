@@ -1,12 +1,12 @@
 <?php
 namespace App\System\Interfaces\Core;
 
-use App\System\Interfaces\RequestInterface;
-use App\System\Interfaces\ResponseInterface;
+use App\System\Interfaces\HTTP\RequestInterface;
+use App\System\Interfaces\HTTP\ResponseInterface;
 
 interface ErrorHandlerInterface
 {
-    public function handle(
-        RequestInterface $request, \Exception $e
-    ):ResponseInterface;
+    public function __construct(RequestInterface $request, \Exception $e);
+
+    public function handle():ResponseInterface;
 }

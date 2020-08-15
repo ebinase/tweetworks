@@ -1,8 +1,8 @@
 <?php
 
-namespace App\System;
+namespace App\System\Classes\HTTP;
 
-use App\System\Interfaces\SessionInterface;
+use App\System\Interfaces\HTTP\SessionInterface;
 
 class Session implements SessionInterface
 {

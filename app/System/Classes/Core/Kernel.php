@@ -1,12 +1,9 @@
 <?php
 
-namespace App\System;
+namespace App\System\Classes\Core;
 
 use App\System\Interfaces\Core\KernelInterface;
-use App\System\Interfaces\Core\SingletonInterface;
-
-use App\System\Exceptions\HttpNotFoundException;
-use App\System\Exceptions\UnauthorizedException;
+use App\System\Interfaces\HTTP\RequestInterface;
 
 abstract class Kernel implements KernelInterface
 {
@@ -19,14 +16,9 @@ abstract class Kernel implements KernelInterface
     //==============================================================================
     //処理
     //==============================================================================
-    private $_application;
-    private $_request;
-    private $_response;
-    private $_route;
-    private $_session;
 
-
-    public function __construct(Application $application)
+    //Request、ファサードにするべき？
+    public function __construct(RequestInterface $request)
     {
         $this->_initialize($application);
 
@@ -34,13 +26,8 @@ abstract class Kernel implements KernelInterface
         $this->_bootstrap();
     }
 
-    //Applicationのシングルトン機能からインスタンスを取得
     protected function _initialize(Application $application) {
-        $this->_application = $application;
-        $this->_request = $application->getRequest();
-        $this->_response = $application->getResponse();
-        $this->_route = $application->getRoute();
-        $this->_session = $application->getSession();
+
     }
 
     // app/Kernel.phpの設定を読み込む
@@ -94,11 +81,8 @@ abstract class Kernel implements KernelInterface
             $this->_application->run();
             //TODO: afterミドルウェアの実装方法検討
 
-        } catch (HttpNotFoundException $e) {
-            $this->_application->render404Page($e);
-
-        } catch (\PDOException $e) {
-            $this->render500Page($e);
+        } catch (\Exception $e) {
+            $errorHandler = new ErrorHandler($request, $e);
         }
     }
 

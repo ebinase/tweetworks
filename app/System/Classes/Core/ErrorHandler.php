@@ -1,16 +1,25 @@
 <?php
 
-
 namespace App\System\Classes\Core;
 
+use App\System\Interfaces\Core\ErrorHandlerInterface;
 
-use App\System\Interfaces\RequestInterface;
-use App\System\Interfaces\ResponseInterface;
+use App\System\Interfaces\HTTP\RequestInterface;
+use App\System\Interfaces\HTTP\ResponseInterface;
 
-class ErrorHandler implements \App\System\Interfaces\Core\ErrorHandlerInterface
+class ErrorHandler implements ErrorHandlerInterface
 {
 
-    public function handle(RequestInterface $request, \Exception $e): ResponseInterface
+    /**
+     * ErrorHandler constructor.
+     * @param RequestInterface $request
+     * @param \Exception $e
+     */
+    public function __construct(RequestInterface $request, \Exception $e)
+    {
+    }
+
+    public function handle(): ResponseInterface
     {
         // TODO: Implement handle() method.
     }
