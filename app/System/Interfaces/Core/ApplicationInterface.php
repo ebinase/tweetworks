@@ -2,9 +2,8 @@
 
 namespace App\System\Interfaces\Core;
 
-use App\System\Exceptions\HttpNotFoundException;
-use App\System\Interfaces\RequestInterface;
-use App\System\Interfaces\ResponseInterface;
+use App\System\Interfaces\HTTP\RequestInterface;
+use App\System\Interfaces\HTTP\ResponseInterface;
 
 // 手続き型webアプリとしての入出力機能を定義するインターフェース
 //リクエスト(入力)→処理→レスポンス(出力)と手続き型のモジュールを構成する。
