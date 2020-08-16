@@ -2,10 +2,10 @@
 
 namespace App\System\Interfaces\Core;
 
-use App\System\Interfaces\RequestInterface;
-use App\System\Interfaces\ResponseInterface;
+use App\System\Interfaces\HTTP\RequestInterface;
+use App\System\Interfaces\HTTP\ResponseInterface;
 
-interface RequestHandlerInterface
+interface HttpHandlerInterface
 {
     // リクエストからレスポンスを作成する処理を実行
     function handle(RequestInterface $request): ResponseInterface;

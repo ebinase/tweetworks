@@ -7,7 +7,7 @@ use App\System\Classes\Core\Application;
 use App\System\Interfaces\RequestInterface;
 use App\System\Interfaces\ResponseInterface;
 
-class RequestHandler implements \App\System\Interfaces\Core\RequestHandlerInterface
+class HttpHandler implements \App\System\Interfaces\Core\HttpHandlerInterface
 {
 
     function handle(RequestInterface $request): ResponseInterface

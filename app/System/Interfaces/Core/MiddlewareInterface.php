@@ -2,10 +2,10 @@
 
 namespace App\System\Interfaces\Core;
 
-use App\System\Interfaces\RequestInterface;
-use App\System\Interfaces\ResponseInterface;
+use App\System\Interfaces\HTTP\RequestInterface;
+use App\System\Interfaces\HTTP\ResponseInterface;
 
 interface MiddlewareInterface
 {
-    public function process(RequestInterface $request, RequestHandlerInterface $next): ResponseInterface;
+    public function process(RequestInterface $request, HttpHandlerInterface $next): ResponseInterface;
 }

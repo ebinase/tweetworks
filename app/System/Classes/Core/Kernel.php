@@ -2,8 +2,10 @@
 
 namespace App\System\Classes\Core;
 
+use App\System\Interfaces\Core\HttpHandlerInterface;
 use App\System\Interfaces\Core\KernelInterface;
 use App\System\Interfaces\HTTP\RequestInterface;
+use App\System\Interfaces\HTTP\ResponseInterface;
 
 abstract class Kernel implements KernelInterface
 {
@@ -11,6 +13,8 @@ abstract class Kernel implements KernelInterface
     protected $_middlewares;
     protected $_middlewareGroups;
     protected $_routeMiddleware;
+
+    private $pipeline;
 
 
     //==============================================================================
@@ -51,35 +55,37 @@ abstract class Kernel implements KernelInterface
         /**************/ print 'ルートグループは' . $routeGroup;
 
         // //今回のルートグループはどこか見極めてそのグループのミドルウェアを登録
-        $this->_middlewares = array_merge($this->_middlewares, $this->_middlewareGroups[$routeGroup]);
+        $this->_middlewares = array_unshift($this->_middlewares, $this->_middlewareGroups[$routeGroup]);
 
         //そのルート特有のミドルウェアを登録
         foreach ($params['middlewares'] as $middleware) {
             //$paramsに登録されたミドルウェアを追加する
             //FIXME: ミドルウェアが重複した際の対処(優先度：低)
             if (isset($this->_routeMiddleware[$middleware])) {
-                $this->_middlewares[] = $this->_routeMiddleware[$middleware];
+                あんシフト
             }
         }
 
         /**************/print '適用されるミドルウェアは';
         /**************/print_r($this->_middlewares);
     }
-    
-    
 
-    public function handle(): void
+    public function build(HttpHandlerInterface $handler): HttpHandlerInterface
+    {
+        //初期化式
+        $composedHandler = new $handler;
+        //関数合成を行う
+        foreach ($this->middlewares as $middleware) {
+            $middlewareInstance = new $middleware;
+            $composedHandler = new MiddlewareHandler($middlewareInstance, $composedHandler);
+        }
+        return $composedHandler;
+    }
+
+    public function handle():ResponseInterface
     {
         try {
-            foreach ($this->_middlewares as $middleware) {
-                //FIXME: クロージャとかを使ってメソッドチェーンを作ってみたい
-                $handler = new $middleware;
-                $handler->handle($this->_application);
-                //ハンドラを初期化
-                unset($handler);
-            }
-            $this->_application->run();
-            //TODO: afterミドルウェアの実装方法検討
+            $this->pipeline->handle($request);
 
         } catch (\Exception $e) {
             $errorHandler = new ErrorHandler($request, $e);
