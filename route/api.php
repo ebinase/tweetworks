@@ -1,8 +1,8 @@
 <?php
 
-use App\System\Route;
+use App\System\Interfaces\RouteInterface;
 
-function registerApiRoutes(Route $route)
+function registerApiRoutes(RouteInterface $route)
 {
     $route->group('api', function ($route){
         //ルーティング処理

@@ -1,8 +1,8 @@
 <?php
 
-use App\System\Route;
+use App\System\Interfaces\RouteInterface;
 
-function registerDevelopRoutes(Route $route)
+function registerDevelopRoutes(RouteInterface $route)
 {
     $route->group('develop', function ($route){
         $route->get('/migrate', 'database', 'migrate');

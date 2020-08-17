@@ -2,11 +2,13 @@
 
 namespace App\System\Classes\Core;
 
+use App\System\Classes\Services\Service;
 use App\System\Interfaces\Core\ApplicationInterface;
 
 use App\System\Interfaces\HTTP\RequestInterface;
 use App\System\Interfaces\HTTP\ResponseInterface;
-use App\System\Router;
+use App\System\Interfaces\RouteInterface;
+use App\System\Classes\Router;
 
 //todo: Controllerからリダイレクト系移行
 class Application implements ApplicationInterface
@@ -41,9 +43,12 @@ class Application implements ApplicationInterface
         // アプリケーションで保持しておくインスタンスの生成
         $this->initialize();
         // 要求されたURLに関する情報をRequestに保存
-        $this->_requestRouteParams = $this->perseRouteParams();
+        $routeParam = $this->perseRouteParams(Service::call('request'), Service::call('route'));
 
-        //これらの処理が済んだらApplicationインスタンスごとKernelに引き渡される。
+        //FIXME: サービスロケータになってる＆コンテナの意味がなくなってる。
+        $this->_request = Service::call('request');
+        $this->_request->setRouteParam($routeParam);
+        //これらの処理が済んだらRequestがKernelに引き渡される。
     }
 
     protected function setDebugMode($debug)
@@ -60,23 +65,21 @@ class Application implements ApplicationInterface
 
     protected function initialize()
     {
-        $this->_request = new Request();
-        $this->_response = new Response();
-        $this->_session = new Session();
-        $this->_route = new Route();
+        Service::boot();
     }
 
     /**
      * クライアントに要求されたパスに関する情報だけを取得しRouteクラスに保存
-     * @param void
+     * @param RequestInterface $request
+     * @param RouteInterface $route
      * @return array $params
      */
-    protected function perseRouteParams(){
+    protected function perseRouteParams(RequestInterface $request, RouteInterface $route){
         // $_routeにルーティング定義配列を登録する。
-        $this->_registerRoutes();
+        $this->_registerRoutes($route);
         //ルーティング定義配列とクライアントから要求されたパスを取得
-        $difinitions = $this->_route->getDifinitions();
-        $required_path = $this->_request->getPathInfo();
+        $difinitions = $route->getDifinitions();
+        $required_path = $request->getPathInfo();
 
         //Routerクラスのresolveメソッドで今回要求されたパスに関する情報だけを抜き出す
         return Router::resolve($difinitions, $required_path);
@@ -85,19 +88,20 @@ class Application implements ApplicationInterface
     /**
      * ルーティング定義配列の読み込み
      *
+     * @param RouteInterface $route
      * @return void
      */
-    protected function _registerRoutes() :void
+    protected function _registerRoutes(RouteInterface $route) :void
     {
         //このあたりの読み込み処理はRouteクラスのコンストラクタでやりたいが、
         //web.phpなどでRouteインスタンスを使う必要があるため、インスタンス化後に読み込むしか無い・・・
 
         require_once  self::getRouteDir() . '/web.php';
-        registerWebRoutes($this->_route);
+        registerWebRoutes($route);
         require_once  self::getRouteDir() . '/api.php';
-        registerApiRoutes($this->_route);
+        registerApiRoutes($route);
         require_once  self::getRouteDir() . '/develop.php';
-        registerDevelopRoutes($this->_route);
+        registerDevelopRoutes($route);
     }
 
     //==============================================================================
@@ -143,7 +147,7 @@ class Application implements ApplicationInterface
 
     public static function getRootDir()
     {
-        return str_replace('/app/System/Application.php', '', __FILE__);
+        return str_replace('/app/System/Classes/Core/Application.php', '', __FILE__);
     }
 
     public static function getControllerDir()

@@ -1,6 +1,6 @@
 <?php
 
-namespace App\System;
+namespace App\System\Classes;
 
 use App\System\Exceptions\HttpNotFoundException;
 use App\System\Exceptions\UnauthorizedException;

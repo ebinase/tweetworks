@@ -13,10 +13,6 @@ interface RequestInterface
     public function isSsl(): bool;
     public function getRequestUri();
 
-    //セッションのクラスを保存
-    public function setSession(SessionInterface $session);
-    public function session(): SessionInterface;
-
     //リクエストされたルートのコントローラー等の情報
     public function setRouteParam(array $routeParam);
     public function getRouteParam() :array;

@@ -1,14 +1,14 @@
 <?php
 
-use App\System\Route;
+use App\System\Interfaces\RouteInterface;
 
-function registerWebRoutes(Route $route)
+function registerWebRoutes(RouteInterface $route)
 {
 //    $route->group('web', function ($route){
 //        $route->get();
 //    });
 
-    $route->group('web', function (Route $route){
+    $route->group('web', function (RouteInterface $route){
       //$route->メソッド(url, controller, action, |オプション→middleware['name1','name2',...], route_name);
 
         $route->get('/sign-up', 'register', 'showSignupPage');
