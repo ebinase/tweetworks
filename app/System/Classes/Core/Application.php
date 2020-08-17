@@ -26,6 +26,7 @@ class Application implements ApplicationInterface
             [method]        => post,
             [middlewares]   => ['auth', 'csrf'],
             [name]          => null,
+            [group]         => 'web',
             [0]             => /post ,
         ];
      */

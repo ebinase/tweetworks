@@ -15,11 +15,11 @@ interface RequestInterface
 
     //セッションのクラスを保存
     public function setSession(SessionInterface $session);
-    public function getSession(): SessionInterface;
+    public function session(): SessionInterface;
 
     //リクエストされたルートのコントローラー等の情報
     public function setRouteParam(array $routeParam);
-    public function getRouteParam():array ;
+    public function getRouteParam() :array;
 
     //複合メソッド
     public function getBaseUrl();

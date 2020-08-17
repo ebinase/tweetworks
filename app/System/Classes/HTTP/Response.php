@@ -1,8 +1,8 @@
 <?php
 
-namespace App\System;
+namespace App\System\Classes\HTTP;
 
-use App\System\Interfaces\ResponseInterface;
+use App\System\Interfaces\HTTP\ResponseInterface;
 
 class Response implements ResponseInterface
 {
@@ -30,4 +30,8 @@ class Response implements ResponseInterface
         $this->_http_headers[$name] = $value;
     }
 
+    public function getContent()
+    {
+        return $this->_content;
+    }
 }

@@ -10,7 +10,19 @@ use App\System\Interfaces\HTTP\ResponseInterface;
 //middlewareとhttpHandler(処理アクション)のインターフェースを変換して同列に扱えるようにするアダプタクラス
 class MiddlewareHandler implements HttpHandlerInterface
 {
+    /**
+     * このインスタンスで実行するミドルウェア
+     *
+     * @var MiddlewareInterface
+     */
     private $middleware;
+
+    /**
+     * この次に実行したいミドルウェアとハンドラが詰まったパイプライン.
+     * ミドルウェア内の$nextの中身
+     *
+     * @var HttpHandlerInterface Kernelで関数合成されたハンドラとミドルウェア
+     */
     private $handler;
 
     public function __construct(MiddlewareInterface $middleware, HttpHandlerInterface $handler)
@@ -20,6 +32,9 @@ class MiddlewareHandler implements HttpHandlerInterface
     }
 
     /**
+     * ミドルウェアを実行するとともに次に実行するパイプライン($this->handler)を渡す。
+     *  ミドルウェア内での$next->handleの実体
+     *
      * @param RequestInterface $request
      * @return ResponseInterface
      */

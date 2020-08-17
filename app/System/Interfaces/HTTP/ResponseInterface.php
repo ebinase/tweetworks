@@ -9,4 +9,6 @@ interface ResponseInterface
     function setStatusCode(string $status_code, string $status_text);
     function setHttpHeader(string $name, string $value);
 
+    //afterミドルウェア用
+    public function getContent();
 }

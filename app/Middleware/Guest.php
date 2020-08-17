@@ -2,20 +2,22 @@
 
 namespace App\Middleware;
 
-use App\System\Application;
+use App\System\Interfaces\Core\HttpHandlerInterface;
 use App\System\Interfaces\Core\MiddlewareInterface;
+use App\System\Interfaces\HTTP\RequestInterface;
+use App\System\Interfaces\HTTP\ResponseInterface;
 
 class Guest implements MiddlewareInterface
 {
 
-    public function process(Application $application): Application
+    public function process(RequestInterface $request, HttpHandlerInterface $next): ResponseInterface
     {
         //ログイン済みだったらホームにリダイレクト
-        if ($application->getSession()->isAuthenticated() === true) {
-            $application->redirect('/home');
+        if ($request->session()->isAuthenticated() === true) {
+            Route::redirect('/home');
         }
 
         print '<p>Guest通過</p>';
-        return $application;
+        return $next->handle($request);
     }
 }

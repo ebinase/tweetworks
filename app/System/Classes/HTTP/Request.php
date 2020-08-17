@@ -1,8 +1,9 @@
 <?php
 
-namespace App\System;
+namespace App\System\Classes\HTTP;
 
-use App\System\Interfaces\RequestInterface;
+use App\System\Interfaces\HTTP\RequestInterface;
+use App\System\Interfaces\HTTP\SessionInterface;
 
 class Request implements RequestInterface{
 
@@ -91,5 +92,47 @@ class Request implements RequestInterface{
            return true;
        }
        return false;
+    }
+
+    /**
+     * @param SessionInterface $session
+     * @return mixed
+     */
+    public function setSession(SessionInterface $session)
+    {
+        // TODO: Implement setSession() method.
+    }
+
+    /**
+     * @return SessionInterface
+     */
+    public function session(): SessionInterface
+    {
+        // TODO: Implement getSession() method.
+    }
+
+    /**
+     * @param array $routeParam
+     * @return mixed
+     */
+    public function setRouteParam(array $routeParam)
+    {
+        // TODO: Implement setRouteParam() method.
+    }
+
+    /**
+     * @return array
+     */
+    public function getRouteParam(): array
+    {
+        return [
+            'controller'    => 'tweet',
+            'action'        => 'post',
+            'method'        => 'post',
+            'middlewares'   => ['auth', 'csrf'],
+            'name'          => null,
+            'group'         => 'web',
+            '0'             => '/post' ,
+        ];
     }
 }

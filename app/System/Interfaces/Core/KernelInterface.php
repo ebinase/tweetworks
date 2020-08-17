@@ -9,5 +9,7 @@ interface KernelInterface
 {
     public function __construct(RequestInterface $request);
 
-    public function handle():ResponseInterface;
+    public function build():HttpHandlerInterface;
+
+    public function handle(RequestInterface $request, HttpHandlerInterface $pipeline):ResponseInterface;
 }

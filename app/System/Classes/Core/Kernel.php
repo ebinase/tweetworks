@@ -14,9 +14,6 @@ abstract class Kernel implements KernelInterface
     protected $_middlewareGroups;
     protected $_routeMiddleware;
 
-    private $pipeline;
-
-
     //==============================================================================
     //処理
     //==============================================================================
@@ -24,22 +21,16 @@ abstract class Kernel implements KernelInterface
     //Request、ファサードにするべき？
     public function __construct(RequestInterface $request)
     {
-        $this->_initialize($application);
-
         $this->_registerSettings();
-        $this->_bootstrap();
-    }
-
-    protected function _initialize(Application $application) {
-
+        $this->_bootstrap($request);
     }
 
     // app/Kernel.phpの設定を読み込む
     abstract function _registerSettings();
 
-    protected function _bootstrap() {
+    protected function _bootstrap($request) {
         //$middlewares配列に追記をしていく
-        $params = $this->_application->getRequestRouteParams();
+        $params = $request->getRouteParam();
 
         /**************/print_r($params);
 
@@ -54,15 +45,16 @@ abstract class Kernel implements KernelInterface
 
         /**************/ print 'ルートグループは' . $routeGroup;
 
-        // //今回のルートグループはどこか見極めてそのグループのミドルウェアを登録
-        $this->_middlewares = array_unshift($this->_middlewares, $this->_middlewareGroups[$routeGroup]);
+        //今回のルートグループはどこか見極めてそのグループのミドルウェアを登録
+        //TODO: middlewareGroupsの中身を書いた順とは逆に入れ替える。
+        $this->_middlewares = array_merge($this->_middlewareGroups[$routeGroup], $this->_middlewares);
 
         //そのルート特有のミドルウェアを登録
         foreach ($params['middlewares'] as $middleware) {
             //$paramsに登録されたミドルウェアを追加する
             //FIXME: ミドルウェアが重複した際の対処(優先度：低)
             if (isset($this->_routeMiddleware[$middleware])) {
-                あんシフト
+                array_unshift($this->_middlewares, $this->_routeMiddleware[$middleware]);
             }
         }
 
@@ -70,25 +62,28 @@ abstract class Kernel implements KernelInterface
         /**************/print_r($this->_middlewares);
     }
 
-    public function build(HttpHandlerInterface $handler): HttpHandlerInterface
+    //↑↑動作確認済み-----------------------------------------------------------------------------------
+
+    public function build(): HttpHandlerInterface
     {
         //初期化式
-        $composedHandler = new $handler;
+        $pipeline = new HttpHandler;
         //関数合成を行う
-        foreach ($this->middlewares as $middleware) {
+        foreach ($this->_middlewares as $middleware) {
             $middlewareInstance = new $middleware;
-            $composedHandler = new MiddlewareHandler($middlewareInstance, $composedHandler);
+            $pipeline = new MiddlewareHandler($middlewareInstance, $pipeline);
         }
-        return $composedHandler;
+        return $pipeline;
     }
 
-    public function handle():ResponseInterface
+    public function handle(RequestInterface $request, HttpHandlerInterface $pipeline):ResponseInterface
     {
         try {
-            $this->pipeline->handle($request);
+            return $pipeline->handle($request);
 
         } catch (\Exception $e) {
             $errorHandler = new ErrorHandler($request, $e);
+            return $errorHandler->handle();
         }
     }
 
