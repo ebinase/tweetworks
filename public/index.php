@@ -23,11 +23,11 @@ $kernel = new Kernel($request);
 $pipeline = $kernel->build();   //内部でnewするため依存性高め
 print '<p>パイプライン</p>';
 print_r($pipeline);
-////パイプラインを元にミドルウェアとハンドラを実行してレスポンスを生成。
-//$response = $kernel->handle($request, $pipeline);
-//
-////レスポンスをセット
-//$application->setResponse($response);
-//
-////送信
-//$application->send();
+//パイプラインを元にミドルウェアとハンドラを実行してレスポンスを生成。
+$response = $kernel->handle($request, $pipeline);
+
+//レスポンスをセット
+$application->setResponse($response);
+
+//送信
+$application->send();
