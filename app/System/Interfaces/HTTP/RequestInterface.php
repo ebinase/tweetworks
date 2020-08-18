@@ -14,8 +14,8 @@ interface RequestInterface
     public function getRequestUri();
 
     //リクエストされたルートのコントローラー等の情報
-    public function setRouteParam(array $routeParam);
-    public function getRouteParam() :array;
+    public function setRouteParam($routeParam);
+    public function getRouteParam();
 
     //複合メソッド
     public function getBaseUrl();

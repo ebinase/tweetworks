@@ -97,18 +97,17 @@ class Request implements RequestInterface{
     }
 
     /**
-     * @param array $routeParam
-     * @return mixed
+     * @param array | bool $routeParam
      */
-    public function setRouteParam(array $routeParam)
+    public function setRouteParam($routeParam)
     {
         $this->_routeParam = $routeParam;
     }
 
     /**
-     * @return array
+     * @return  array | bool $routeParam
      */
-    public function getRouteParam(): array
+    public function getRouteParam()
     {
         return $this->_routeParam;
 
