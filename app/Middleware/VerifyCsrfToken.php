@@ -20,7 +20,7 @@ class VerifyCsrfToken implements MiddlewareInterface
         $key = $request->getPathInfo();
 
         //セッションとフォームのCSRFトークンを照合する
-        if(! CSRF::checkCsrfToken($key)) {
+        if(! CSRF::check($key)) {
 //            $this->_messenger->setError('csrf', 'エラーが発生しました。はじめからやり直してください。');
 
             //FIXME: 戻り先を指定(通常はフォーム画面)

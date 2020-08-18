@@ -21,6 +21,6 @@ class Auth
     public static function id()
     {
         $session = Service::call('session');
-        return $session()->get('user_id', null);
+        return $session->get('user_id', null);
     }
 }

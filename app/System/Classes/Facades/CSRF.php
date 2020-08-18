@@ -6,7 +6,7 @@ use App\System\Classes\Services\Service;
 
 class CSRF
 {
-    public static function generateCsrfToken($key)
+    public static function generate($key)
     {
         $session = Service::call('session');
         $key = 'csrf_tokens/' . $key;
@@ -25,7 +25,7 @@ class CSRF
     }
 
     //tokenをチェックして、一致したらその使用されたトークンを削除してそれ以外を戻してあげる
-    public static function checkCsrfToken($key)
+    public static function check($key)
     {
         $request = Service::call('request');
         $session = Service::call('session');
