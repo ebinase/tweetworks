@@ -3,7 +3,10 @@
 namespace App\Controller;
 
 use App\Model\User;
-use App\System\Controller;
+use App\System\Classes\Controller;
+use App\System\Classes\Facades\CSRF;
+use App\System\Classes\Services\Service;
+use App\System\Interfaces\HTTP\RequestInterface;
 
 class LoginController extends Controller
 {
@@ -12,15 +15,15 @@ class LoginController extends Controller
         return $this->render('auth/login', [
             'unique_id' => '',
             'password' => '',
-            '_token' => $this->_application->generateCsrfToken('/login/auth'),
+            '_token' => CSRF::generate('/login/auth'),
         ]);
     }
 
-    public function auth()
+    public function auth(RequestInterface $request)
     {
         //ユーザー入力値取得
-        $unique_name = $this->_request->getPost('unique_name');
-        $password = $this->_request->getPost('password');
+        $unique_name = $request->getPost('unique_name');
+        $password = $request->getPost('password');
         //TODO: バリデーション
 
         // DBからunique_nameをキーにユーザーデータ取得(配列)
@@ -29,22 +32,24 @@ class LoginController extends Controller
 
         //パスワードが一致したらログイン処理
         if (password_verify($password, $db_data['password'])) {
-            $this->_session->setAuthenticated(true);
+            $session = Service::call('session');
+            $session->setAuthenticated(true);
             //ログイン後にユーザー関連の処理を行いやすいよう、セッションにidを登録
-            $this->_session->set('user_id' ,$db_data['id']);
-            $this->_application->redirect('/home');
+            $session->set('user_id' ,$db_data['id']);
+            return redirect('/home');
         }
 
         //　認証に失敗したらログインページにリダイレクト
         // TODO:スロットル機能(ログイン試行回数制限)機能
 
-        $this->_application->redirect('/login');
+        return redirect('/login');
     }
 
     public function logout() {
-        $this->_session->clear();
-        $this->_session->setAuthenticated(false);
+        $session = Service::call('session');
+        $session->clear();
+        $session->setAuthenticated(false);
 
-        $this->_application->redirect('/home');
+        return redirect('/home');
     }
 }
