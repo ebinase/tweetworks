@@ -5,10 +5,12 @@ namespace App\System\Interfaces\HTTP;
 interface ResponseInterface
 {
     //セッター
-    function setContent($content);
-    function setStatusCode(string $status_code, string $status_text);
-    function setHttpHeader(string $name, string $value);
+    public function setContent($content);
+    public function setStatusCode(string $status_code, string $status_text);
+    public function setHttpHeader(string $name, string $value);
 
-    //afterミドルウェア用
+    //ゲッター
     public function getContent();
+    public function getStatusCode();
+    public function getHttpHeaders();
 }

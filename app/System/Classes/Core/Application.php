@@ -149,13 +149,13 @@ class Application implements ApplicationInterface
     //==============================================================================
     public function send(): void
     {
-        header('HTTP/1.1 ' . $this->_response->_status_code . ' ' . $this->_response->_status_text);
+        header('HTTP/1.1 ' . $this->_response->getStatusCode());
 
-        foreach ($this->_response->_http_headers as $name => $value){
+        foreach ($this->_response->getHttpHeaders() as $name => $value){
             header($name . ':' . $value);
         }
 
-        echo $this->_response->_content;
+        echo $this->_response->getContent();
     }
 
 }

@@ -21,9 +21,11 @@ class Route
             $url = self::url($url);
         }
 
-        $response = Service::call('responce');
+        //レスポンスはDIコンテナを使わずに作成し、ミドルウェアなどを経由しながらKernelに返す。
+        $response = new Response;
         $response->setStatusCode(302, 'Found');
         $response->setHttpHeader('Location', $url);
+        $response->setContent('');  //不要だが明示的に記述
 
         return $response;
     }
