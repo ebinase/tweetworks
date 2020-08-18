@@ -19,11 +19,7 @@ class PathExists implements MiddlewareInterface
 
         if ($params === false) {
             //Requestクラスのクライアントからのパス情報を添えて例外を発生させる
-            throw new HttpNotFoundException(<<<EOF
- Exception caught in PathExists middleware.
- No route found for '{$request->getPathInfo()}'.
-EOF
-            );
+            throw new HttpNotFoundException("No route found for {$request->getPathInfo()}");
         }
 
         print '<p>PathExists通過</p>';

@@ -2,6 +2,8 @@
 
 namespace App\Middleware;
 
+use App\System\Classes\Facades\CSRF;
+use App\System\Classes\Facades\Route;
 use App\System\Interfaces\Core\HttpHandlerInterface;
 use App\System\Interfaces\Core\MiddlewareInterface;
 use App\System\Interfaces\HTTP\RequestInterface;
@@ -21,11 +23,11 @@ class VerifyCsrfToken implements MiddlewareInterface
         if(! CSRF::checkCsrfToken($key)) {
 //            $this->_messenger->setError('csrf', 'エラーが発生しました。はじめからやり直してください。');
 
-            //戻り先を指定(通常はフォーム画面)
-            //FIXME: Messengerの利用のほうが良さげ？？
-//            $back_to = $application->getRequest()->getGet('back');
+            //FIXME: 戻り先を指定(通常はフォーム画面)
+            //Messengerの利用のほうが良さげ？？
+//          $back_to = $application->getRequest()->getGet('back');
             $back_to = '/home';
-            Route::redirect($back_to);
+            return Route::redirect($back_to);
         }
         return $next->handle($request);
     }

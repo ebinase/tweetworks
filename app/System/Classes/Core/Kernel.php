@@ -32,8 +32,6 @@ abstract class Kernel implements KernelInterface
         //$middlewares配列に追記をしていく
         $params = $request->getRouteParam();
 
-        /**************/print_r($params);
-
         // ルートパラメータが存在しない時は$middlewaresを初期値のままにして即座にコンストラクタを終了。
         // するとインスタンス化後にPathExistsミドルウェアで弾かれて404エラーが生じる。
         if ($params === false) {

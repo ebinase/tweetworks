@@ -2,7 +2,9 @@
 
 namespace App\System\Classes\Facades;
 
-use App\System\Classes\Core\Application;
+use App\System\Classes\Services\Service;
+use App\System\Interfaces\HTTP\ResponseInterface;
+use App\System\Classes\HTTP\Response;
 
 class Route
 {
@@ -11,19 +13,19 @@ class Route
 
     }
 
-    public function redirect($to)
+    //レスポンスクラスを作成してミドルウェアとハンドラのチェーンを途中で折り返しさせる。
+    public static function redirect($url) :ResponseInterface
     {
-//ベースURL以降を指定された場合(例：/user/hogehoge)
+        //ベースURL以降を指定された場合(例：/user/hogehoge)
         if (! preg_match('#https?://#', $url)) {
-            $url = $this->url($url);
+            $url = self::url($url);
         }
 
-        $this->_response->setStatusCode(302, 'Found');
-        $this->_response->setHttpHeader('Location', $url);
+        $response = Service::call('responce');
+        $response->setStatusCode(302, 'Found');
+        $response->setHttpHeader('Location', $url);
 
-        $this->send();
-        //FIXME: ログなどを残したい場合はエラーハンドラなどを搭載する
-        exit();
+        return $response;
     }
 
     public function back()
@@ -31,11 +33,12 @@ class Route
 
     }
 
-    public function url($uri)
+    public static function url($uri)
     {
-        $protocol = $this->_request->isSsl() ? 'https://' : 'http://';
-        $host = $this->_request->getHost();
-        $base_url = $this->_request->getBaseUrl();
+        $request = Service::call('request');
+        $protocol = $request->isSsl() ? 'https://' : 'http://';
+        $host = $request->getHost();
+        $base_url = $request->getBaseUrl();
 
         return $protocol . $host . $base_url . $uri;
     }

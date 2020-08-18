@@ -2,12 +2,15 @@
 
 namespace App\System\Classes\Facades;
 
+use App\System\Classes\Services\Service;
+
 class CSRF
 {
-    public function generateCsrfToken($key)
+    public static function generateCsrfToken($key)
     {
+        $session = Service::call('session');
         $key = 'csrf_tokens/' . $key;
-        $tokens = $this->_session->get($key, []);
+        $tokens = $session->get($key, []);
         if(count($tokens) >= 10) {
             array_shift($tokens);
         }
@@ -16,23 +19,26 @@ class CSRF
         $token = sha1($key. session_id() . microtime());
         $tokens[] = $token;
 
-        $this->_session->set($key, $tokens);
+        $session->set($key, $tokens);
 
         return $token;
     }
 
     //tokenをチェックして、一致したらその使用されたトークンを削除してそれ以外を戻してあげる
-    public function checkCsrfToken($key)
+    public static function checkCsrfToken($key)
     {
+        $request = Service::call('request');
+        $session = Service::call('session');
+
         //フォームから送られてきたトークンの値を取得
-        $token = $this->_request->getPost('_token');
+        $token = $request->getPost('_token');
 
         $key = 'csrf_tokens/' . $key;
-        $tokens = $this->_session->get($key, []);
+        $tokens = $session->get($key, []);
 
         if (($pos = array_search($token, $tokens, true)) !== false) {
             unset($tokens[$pos]);
-            $this->_session->set($key, $tokens);
+            $session->set($key, $tokens);
 
             return true;
         }

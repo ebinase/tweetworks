@@ -4,7 +4,6 @@ use App\Kernel;
 use App\System\Classes\Core\Application;
 
 require_once '../vendor/autoload.php';
-require_once '../app/System/Helpers/consoleLogger.php';
 
 if ($_GET['debugMode'] == 'on') {
     $isDebugMode = true;
@@ -17,12 +16,12 @@ if ($_GET['debugMode'] == 'on') {
 //Application呼び出し
 $application = new Application($isDebugMode);
 $request = $application->getRequest();
-print_r($request);
 
 //ミドルウェアのリストを作成
 $kernel = new Kernel($request);
 //コントローラ呼び出しハンドラとミドルウェアたちをインスタンス化して一連のパイプラインを作成
 $pipeline = $kernel->build();   //内部でnewするため依存性高め
+print '<p>パイプライン</p>';
 print_r($pipeline);
 ////パイプラインを元にミドルウェアとハンドラを実行してレスポンスを生成。
 //$response = $kernel->handle($request, $pipeline);

@@ -60,4 +60,8 @@ class App
     {
         return self::rootDir() . '/config';
     }
+
+    public static function helperDir() {
+        return self::rootDir() . '/app/System/Helpers';
+    }
 }

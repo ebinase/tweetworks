@@ -2,6 +2,8 @@
 
 namespace App\Middleware;
 
+use App\System\Classes\Facades\Auth;
+use App\System\Classes\Facades\Route;
 use App\System\Interfaces\Core\HttpHandlerInterface;
 use App\System\Interfaces\Core\MiddlewareInterface;
 use App\System\Interfaces\HTTP\RequestInterface;
@@ -13,12 +15,12 @@ class Authenticate implements MiddlewareInterface
     public function process(RequestInterface $request, HttpHandlerInterface $next): ResponseInterface
     {
         //ログインしていなかったらログインページにリダイレクト
-        if ($request->session()->isAuthenticated() === false) {
-            Route::redirect('/login');
+        if (Auth::check() === false) {
+            return Route::redirect('/login');
         }
 
         //ログイン中のユーザーIDがセッションに記録されてなかったら再ログインしてもらう
-        if (is_null($request->session()->get('user_id'))) {
+        if ( is_null(Auth::id()) ) {
             Route::redirect('/login');
         }
 

@@ -2,6 +2,8 @@
 
 namespace App\Middleware;
 
+use App\System\Classes\Facades\Auth;
+use App\System\Classes\Facades\Route;
 use App\System\Interfaces\Core\HttpHandlerInterface;
 use App\System\Interfaces\Core\MiddlewareInterface;
 use App\System\Interfaces\HTTP\RequestInterface;
@@ -13,7 +15,7 @@ class Guest implements MiddlewareInterface
     public function process(RequestInterface $request, HttpHandlerInterface $next): ResponseInterface
     {
         //ログイン済みだったらホームにリダイレクト
-        if ($request->session()->isAuthenticated() === true) {
+        if (Auth::check() === true) {
             Route::redirect('/home');
         }
 

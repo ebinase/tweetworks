@@ -5,6 +5,7 @@ namespace App\System\Classes\Services;
 use Pimple\Container;
 
 use App\System\Classes\HTTP\Request;
+use App\System\Classes\HTTP\Response;
 use App\System\Classes\HTTP\Session;
 use App\System\Classes\Route;
 
@@ -23,6 +24,10 @@ class Service
 
         self::$container['request'] = function ($c) {
             return new Request();
+        };
+
+        self::$container['response'] = function ($c) {
+            return new Response();
         };
 
         self::$container['session'] = function ($c) {
