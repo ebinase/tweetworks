@@ -10,7 +10,7 @@ use App\System\Interfaces\HTTP\ResponseInterface;
 interface ApplicationInterface
 {
     //アプリケーション起動。デバッグモードの設定とURLをパースして対応するリクエストクラスを作成する。
-    public function __construct($debug = false);
+    public function __construct($isDebagMode_set_manually = false);
 
     //作成したリクエストクラスを処理部分に渡す
     public function getRequest():RequestInterface;

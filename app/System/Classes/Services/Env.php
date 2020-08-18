@@ -12,17 +12,23 @@ class Env
     //実行しなくてもget()は使えるが、Application起動時に明示的に使用
     public static function boot()
     {
-        $dotenv = Dotenv::createImmutable(App::configDir(), '.en__v.dev');
+        $dotenv = Dotenv::createImmutable(App::configDir(), '.env.dev');
         $dotenv->load();
     }
 
     //$nameに該当する.envファイルの中身を取得。万が一Applicationでboot()を実行し忘れても自動でbootしてから実行
-    public static function get($name) {
+    public static function get($name)
+    {
         if((self::$dotenv instanceof Dotenv) === false){
             self::boot();
         }
 
         return $_ENV[$name];
+    }
+
+    public static function update($name, $value)
+    {
+        $_ENV[$name] = $value;
     }
 
 }

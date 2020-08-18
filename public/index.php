@@ -6,13 +6,16 @@ use App\System\Classes\Core\Application;
 require_once '../vendor/autoload.php';
 require_once '../app/System/Helpers/consoleLogger.php';
 
-$isDebugMode = false;
 if ($_GET['debugMode'] == 'on') {
     $isDebugMode = true;
+} elseif ($_GET['debugMode'] == 'off') {
+    $isDebugMode = false;
+} else {
+    $isDebugMode = null;
 }
 
 //Application呼び出し
-$application = new Application(true);
+$application = new Application($isDebugMode);
 $request = $application->getRequest();
 print_r($request);
 

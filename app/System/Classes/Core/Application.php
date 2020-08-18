@@ -20,32 +20,17 @@ class Application implements ApplicationInterface
     protected $_request;
     protected $_response;
 
-    /**
-     * @var array | false
-     */
-    protected $_requestRouteParams;
-    /*  例)
-        $this->_requestRouteParams = [
-            [controller]    => tweet,
-            [action]        => post,
-            [method]        => post,
-            [middlewares]   => ['auth', 'csrf'],
-            [name]          => null,
-            [group]         => 'web',
-            [0]             => /post ,
-        ];
-     */
-
     //==============================================================================
     //コンストラクタ
     //==============================================================================
-    public function __construct($debug = false)
+    public function __construct($isDebagMode_set_manually = null)
     {
         try {
-            // デバッグモードのオンオフを設定
-            $this->setDebugMode($debug);
-            // アプリケーションで保持しておくインスタンスの生成
+            // アプリケーションで使用するパッケージのインスタンスの生成
             $this->initialize();
+            // デバッグモードを手動で変更(基本は.envの値を参照する)
+            $this->setDebugMode($isDebagMode_set_manually);
+
             // 要求されたURLに関する情報をRequestに保存
             $routeParam = $this->perseRouteParams(Service::call('request'), Service::call('route'));
             var_dump($routeParam);
@@ -61,14 +46,20 @@ class Application implements ApplicationInterface
         }
     }
 
-    protected function setDebugMode($debug)
+    protected function setDebugMode($isDebagMode_set_manually)
     {
-        if ($debug) {
-            $this->_debug = true;
+        //Applicationクラスに引数が設定されていたらデバッグの設定を上書き
+        if ( isset($isDebagMode_set_manually) ) {
+            $debug_mode = $isDebagMode_set_manually ? 'true' : 'false';
+            Env::update('APP_DEBUG', $debug_mode);
+        }
+
+        //何も設定されていなかったら.envのAPP_DEBUGの値に従う
+        print Env::get('APP_DEBUG');
+        if (Env::get('APP_DEBUG') == 'true') {
             ini_set('display_errors', 1);
             error_reporting(-1);
         } else {
-            $this->_debug = false;
             ini_set('display_errors', 0);
         }
     }
