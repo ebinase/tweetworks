@@ -2,43 +2,44 @@
 
 namespace App\System\Classes;
 
+use App\System\Classes\Facades\App;
+use App\System\Classes\HTTP\Response;
 use App\System\Exceptions\HttpNotFoundException;
-use App\System\Exceptions\UnauthorizedException;
 use App\System\Interfaces\ControllerInterface;
+use App\System\Interfaces\HTTP\RequestInterface;
+use App\System\Interfaces\HTTP\ResponseInterface;
 
 abstract class Controller implements ControllerInterface
 {
     //エラー通知用
     protected $_controller_name;
     protected $_action_name;
-    //インスタンス
-    protected $_application;
-    protected $_request;
-    protected $_response;
-    protected $_route;
-    protected $_session;
 
-    public function __construct(Application $application)
+    public function run(string $action_name, RequestInterface $request): ResponseInterface
     {
         $this->_controller_name = strtolower(substr(get_class($this), 0, -10));
-
-        $this->_application = $application;
-        $this->_request = $application->getRequest();
-        $this->_response = $application->getResponse();
-        $this->_route = $application->getRoute();
-        $this->_session = $application->getSession();
-    }
-
-    public function run(string $action_name, array $params = []): string
-    {
         $this->_action_name = $action_name;
 
         if(! method_exists($this, $action_name)) {
-            //TODO: このメソッド廃止。エラー管理は一括でKernelへ
-            $this->_forward404();
+            throw new HttpNotFoundException(
+                "{$this->_controller_name}->{$this->_action_name} method does not exist."
+            );
         }
 
-        return $this->$action_name($params);
+        //アクションで処理を行う
+        $content = $this->$action_name($request);
+        //通常は文字列が帰ってきて、リダイレクトの場合はResponseインスタンスが帰ってくる。
+
+        if ($content instanceof ResponseInterface ) {
+            //リダイレクトが呼ばれてResponseインスタンスが帰ってきた場合
+            $response = $content;
+        } else {
+            //直接入力、またはrender()メソッドの結果で、文字列が帰って来た場合
+            $response = new Response;
+            $response->setContent($content);
+        }
+
+        return $response;
     }
 
     /**
@@ -55,14 +56,8 @@ abstract class Controller implements ControllerInterface
      */
     protected function render(string $path , array $variables = [], $layout_path = false)
     {
-        //render()のパスはresourcesのフォルダ構成'hoge/foo'
-        $defaults = [
-            '_request' => $this->_request,
-            '_url' => $this->_route->mapFullUrls($this->_request->getBaseUrl()),
-            '_session' => $this->_session,
-        ];
 
-        $view = new View($this->_application::getViewDir(), $defaults);
+        $view = new View(App::viewDir());
 
         return $view->render($path, $variables, $layout_path);
     }
@@ -77,65 +72,5 @@ abstract class Controller implements ControllerInterface
         throw new HttpNotFoundException(
             "{$this->_controller_name}->{$this->_action_name} method does not exist."
         );
-    }
-
-    //TODO:消去
-    protected function _redirect(string $url)
-    {
-        //ベースURL以降を指定された場合(例：/user/hogehoge)
-        if (! preg_match('#https?://#', $url)) {
-            $url = $this->_fullUrl($url);
-        }
-
-        $this->_response->setStatusCode(302, 'Found');
-        $this->_response->setHttpHeader('Location', $url);
-
-        return '';
-    }
-
-    //TODO:消去
-    // ベースURL以降のurlをフルバージョンのurlに変換
-    protected function _fullUrl($uri)
-    {
-        $protocol = $this->_request->isSsl() ? 'https://' : 'http://';
-        $host = $this->_request->getHost();
-        $base_url = $this->_request->getBaseUrl();
-
-        return $protocol . $host . $base_url . $uri;
-    }
-
-    //==============================================================================
-    // CSRF対策 //TODO:消去
-    //==============================================================================
-    protected function _generateCsrfToken($form_name)
-    {
-        $key = 'csrf_tokens/' . $form_name;
-        $tokens = $this->_session->get($key, []);
-        if(count($tokens) >= 10) {
-            array_shift($tokens);
-        }
-
-        //FIXME:　トークンの暗号化の仕方(しっかりとした乱数生成器を用いる)
-        $token = sha1($form_name. session_id() . microtime());
-        $tokens[] = $token;
-
-        $this->_session->set($key, $tokens);
-
-        return $token;
-    }
-
-    //tokenをチェックして、一致したらその使用されたトークンを削除してそれ以外を戻してあげる
-    protected function _checkCsrfToken($form_name, $token)
-    {
-        $key = 'csrf_tokens/' . $form_name;
-        $tokens = $this->_session->get($key, []);
-
-        if (($pos = array_search($token, $tokens, true)) !== false) {
-            unset($tokens[$pos]);
-            $this->_session->set($key, $tokens);
-
-            return true;
-        }
-        return false;
     }
 }
