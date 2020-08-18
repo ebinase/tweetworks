@@ -4,19 +4,24 @@ namespace App\System\Classes\Core;
 //
 use App\System\Interfaces\Core\ApplicationInterface;
 
+//ファサード
 use App\System\Classes\Facades\App;
+
+//パッケージのラッピングクラス
 use App\System\Classes\Services\Env;
 use App\System\Classes\Services\Service;
 
+//基本クラス
 use App\System\Interfaces\HTTP\RequestInterface;
 use App\System\Interfaces\HTTP\ResponseInterface;
+
+//ルーティング関連クラス
 use App\System\Interfaces\RouteInterface;
 use App\System\Classes\Router;
 
 //todo: Controllerからリダイレクト系移行
 class Application implements ApplicationInterface
 {
-    protected $_debug = false;
     protected $_request;
     protected $_response;
 
@@ -33,7 +38,6 @@ class Application implements ApplicationInterface
 
             // 要求されたURLに関する情報をRequestに保存
             $routeParam = $this->perseRouteParams(Service::call('request'), Service::call('route'));
-            var_dump($routeParam);
 
             //FIXME: サービスロケータになってる＆コンテナの意味がなくなってる。
             $this->_request = Service::call('request');
@@ -46,6 +50,27 @@ class Application implements ApplicationInterface
         }
     }
 
+    //==============================================================================
+    protected function initialize()
+    {
+        Service::boot();
+        Env::boot();
+
+        $this->registerHelpers();
+    }
+
+    //ヘルパの一括読み込み
+    private function registerHelpers()
+    {
+        $pattern = App::helperDir() . '/*.php';
+        foreach ( glob( $pattern ) as $filename )
+        {
+            require_once $filename;
+            print $filename . '読み込み完了</br>';
+        }
+    }
+
+    //==============================================================================
     protected function setDebugMode($isDebagMode_set_manually)
     {
         //Applicationクラスに引数が設定されていたらデバッグの設定を上書き
@@ -63,13 +88,8 @@ class Application implements ApplicationInterface
         }
     }
 
-    protected function initialize()
-    {
-        Service::boot();
-        Env::boot();
-    }
-
-    //TODO:ルーティング関連処理の最適化
+    //==============================================================================
+    //TODO:ルーティング関連処理の最適化(今はごちゃごちゃ)
     /**
      * クライアントに要求されたパスに関する情報だけを取得しRouteクラスに保存
      * @param RequestInterface $request
@@ -129,17 +149,13 @@ class Application implements ApplicationInterface
     //==============================================================================
     public function send(): void
     {
-        header('HTTP/1.1 ' . $this->_status_code . ' ' . $this->_status_text);
+        header('HTTP/1.1 ' . $this->_response->_status_code . ' ' . $this->_response->_status_text);
 
-        foreach ($this->_http_headers as $name => $value){
+        foreach ($this->_response->_http_headers as $name => $value){
             header($name . ':' . $value);
         }
 
-        echo $this->_content;
+        echo $this->_response->_content;
     }
 
-    public function isDebugMode()
-    {
-        return $this->_debug;
-    }
 }
