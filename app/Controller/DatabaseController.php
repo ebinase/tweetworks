@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\System\Controller;
+use App\System\Classes\Controller;
 
 class DatabaseController extends Controller
 {

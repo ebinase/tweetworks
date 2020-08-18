@@ -61,16 +61,4 @@ abstract class Controller implements ControllerInterface
 
         return $view->render($path, $variables, $layout_path);
     }
-
-    //==============================================================================
-    // リダイレクト系
-    //==============================================================================
-    //指定された名前のメソッドがコントローラ内に存在しない時、
-    //例外でApplicationのtry~catch文に捕捉させる
-    protected function _forward404()
-    {
-        throw new HttpNotFoundException(
-            "{$this->_controller_name}->{$this->_action_name} method does not exist."
-        );
-    }
 }

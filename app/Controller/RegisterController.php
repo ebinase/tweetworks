@@ -3,25 +3,27 @@
 namespace App\Controller;
 
 use App\Model\User;
-use App\System\Controller;
+use App\System\Classes\Controller;
+use App\System\Classes\Facades\CSRF;
+use App\System\Interfaces\HTTP\RequestInterface;
 
 class RegisterController extends Controller
 {
     public function showSignupPage()
     {
         return $this->render('sign-up', [
-            '_token' => $this->_application->generateCsrfToken('/sign-up/confirm'),
+            '_token' => CSRF::generate('/sign-up/confirm'),
         ]);
     }
 
-    public function confirm()
+    public function confirm(RequestInterface $request)
     {
 
         // TODO: バリデーション
-        $name = $this->_request->getPost('name');
-        $email = $this->_request->getPost('email');
-        $unique_name = $this->_request->getPost('unique_name');
-        $password = $this->_request->getPost('password');
+        $name = $request->getPost('name');
+        $email = $request->getPost('email');
+        $unique_name = $request->getPost('unique_name');
+        $password = $request->getPost('password');
 
         // emailの重複チェック
         $user = new User();
@@ -31,7 +33,7 @@ class RegisterController extends Controller
         ]);
         // 重複が存在したら登録ページにリダイレクト
         if (count($existing_email) > 0) {
-            $this->_application->redirect('/sign-up');
+            return redirect('/sign-up');
         }
 
         $secret = '';
@@ -40,7 +42,7 @@ class RegisterController extends Controller
         }
 
         return $this->render('confirm', [
-            '_token' => $this->_application->generateCsrfToken('sign-up/confirm'),
+            '_token' => CSRF::generate('sign-up/confirm'),
             'name' => $name,
             'email' => $email,
             'unique_name' => $unique_name,
@@ -49,23 +51,23 @@ class RegisterController extends Controller
         ]);
     }
 
-    public function register()
+    public function register(RequestInterface $request)
     {
         // TODO:バリデーションそれからエスケープ処理
 
         // パスワードにランダムなソルトをつけた上でハッシュ化
         // 第２引数をDEFAULTにすると各PHPのバージョンに最適な暗号化形式を自動選択
-        $hash_pass = password_hash($this->_request->getPost('password'), PASSWORD_DEFAULT);
+        $hash_pass = password_hash($request->getPost('password'), PASSWORD_DEFAULT);
 
         // Userモデルを呼び出して登録処理
         $user = new User();
         $user->smartInsert([
-            'name' => $this->_request->getPost('name'),
-            'email' => $this->_request->getPost('email'),
-            'unique_name' => $this->_request->getPost('unique_name'),
+            'name' => $request->getPost('name'),
+            'email' => $request->getPost('email'),
+            'unique_name' => $request->getPost('unique_name'),
             'password' => $hash_pass,
         ]);
 
-        $this->_application->redirect('/home');
+        return redirect('/home');
     }
 }
