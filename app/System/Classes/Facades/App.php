@@ -2,6 +2,8 @@
 
 namespace App\System\Classes\Facades;
 
+use App\System\Classes\Services\Env;
+
 class App
 {
     /**
@@ -15,7 +17,18 @@ class App
      */
     public static function environment($name = null)
     {
+        $environment = Env::get('ENV_NAME');
+        if (isset($name)) {
+            //環境名と引数の文字が一致するかチェックしてboolを返す
+            return $environment === $name;
+        }
+        //引数がなかったら環境名を返す。
+        return Env::get('ENV_NAME');
+    }
 
+    public static function isDebugMode() :bool
+    {
+        return Env::get('APP_DEBUG') == 'true';
     }
 
     public static function rootDir()

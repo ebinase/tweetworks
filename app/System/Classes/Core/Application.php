@@ -55,8 +55,7 @@ class Application implements ApplicationInterface
         }
 
         //何も設定されていなかったら.envのAPP_DEBUGの値に従う
-        print Env::get('APP_DEBUG');
-        if (Env::get('APP_DEBUG') == 'true') {
+        if (App::isDebugMode()) {
             ini_set('display_errors', 1);
             error_reporting(-1);
         } else {
