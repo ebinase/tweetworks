@@ -29,6 +29,8 @@ class VerifyCsrfToken implements MiddlewareInterface
             $back_to = '/home';
             return Route::redirect($back_to);
         }
+
+        print '<p>CSRFチェック通過</p>';
         return $next->handle($request);
     }
 }

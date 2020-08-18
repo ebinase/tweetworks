@@ -2,7 +2,7 @@
 
 namespace App\Middleware;
 
-use App\System\Exceptions\HttpNotFoundException;
+use App\System\Classes\Exceptions\HttpNotFoundException;
 use App\System\Interfaces\Core\HttpHandlerInterface;
 use App\System\Interfaces\Core\MiddlewareInterface;
 use App\System\Interfaces\HTTP\RequestInterface;

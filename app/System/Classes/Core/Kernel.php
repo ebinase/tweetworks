@@ -45,14 +45,14 @@ abstract class Kernel implements KernelInterface
 
         //今回のルートグループはどこか見極めてそのグループのミドルウェアを登録
         //TODO: middlewareGroupsの中身を書いた順とは逆に入れ替える。
-        $this->_middlewares = array_merge($this->_middlewareGroups[$routeGroup], $this->_middlewares);
+        $this->_middlewares = array_merge($this->_middlewares, $this->_middlewareGroups[$routeGroup]);
 
         //そのルート特有のミドルウェアを登録
         foreach ($params['middlewares'] as $middleware) {
             //$paramsに登録されたミドルウェアを追加する
             //FIXME: ミドルウェアが重複した際の対処(優先度：低)
             if (isset($this->_routeMiddleware[$middleware])) {
-                array_unshift($this->_middlewares, $this->_routeMiddleware[$middleware]);
+                $this->_middlewares[] = $this->_routeMiddleware[$middleware];
             }
         }
 
@@ -64,10 +64,12 @@ abstract class Kernel implements KernelInterface
 
     public function build(): HttpHandlerInterface
     {
+        //配列とは逆の順番でミドルウェアが実行されるため、事前に配列を反転させて、記入した順に実行されるようにする。
+        $middlewares = array_reverse($this->_middlewares);
         //初期化式
         $pipeline = new HttpHandler;
         //関数合成を行う
-        foreach ($this->_middlewares as $middleware) {
+        foreach ($middlewares as $middleware) {
             $middlewareInstance = new $middleware;
             $pipeline = new MiddlewareHandler($middlewareInstance, $pipeline);
         }
@@ -80,8 +82,8 @@ abstract class Kernel implements KernelInterface
             return $pipeline->handle($request);
 
         } catch (\Exception $e) {
-            $errorHandler = new ErrorHandler($request, $e);
-            return $errorHandler->handle();
+            $errorHandler = new ErrorHandler();
+            return $errorHandler->handle($request, $e);
         }
     }
 
