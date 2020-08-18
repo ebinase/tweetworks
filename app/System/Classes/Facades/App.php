@@ -1,8 +1,6 @@
 <?php
 
-
 namespace App\System\Classes\Facades;
-
 
 class App
 {
@@ -18,5 +16,35 @@ class App
     public static function environment($name = null)
     {
 
+    }
+
+    public static function rootDir()
+    {
+        return str_replace('/app/System/Classes/Facades/App.php', '', __FILE__);
+    }
+
+    public static function controllerDir()
+    {
+        return self::rootDir() . '/app/Controller';
+    }
+
+    public static function viewDir()
+    {
+        return self::rootDir() . '/resources/views';
+    }
+
+    public static function modelDir()
+    {
+        return self::rootDir() . '/app/Model';
+    }
+
+    public static function routeDir()
+    {
+        return self::rootDir() . '/route';
+    }
+
+    public static function configDir()
+    {
+        return self::rootDir() . '/config';
     }
 }

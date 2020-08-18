@@ -2,6 +2,8 @@
 
 namespace App\System\Classes\Core;
 
+use App\System\Classes\Facades\App;
+use App\System\Classes\Services\Env;
 use App\System\Classes\Services\Service;
 use App\System\Interfaces\Core\ApplicationInterface;
 
@@ -96,11 +98,12 @@ class Application implements ApplicationInterface
         //このあたりの読み込み処理はRouteクラスのコンストラクタでやりたいが、
         //web.phpなどでRouteインスタンスを使う必要があるため、インスタンス化後に読み込むしか無い・・・
 
-        require_once  self::getRouteDir() . '/web.php';
+        //TODO: ルートの取得方法変更
+        require_once  App::routeDir() . '/web.php';
         registerWebRoutes($route);
-        require_once  self::getRouteDir() . '/api.php';
+        require_once  App::routeDir() . '/api.php';
         registerApiRoutes($route);
-        require_once  self::getRouteDir() . '/develop.php';
+        require_once  App::routeDir() . '/develop.php';
         registerDevelopRoutes($route);
     }
 
