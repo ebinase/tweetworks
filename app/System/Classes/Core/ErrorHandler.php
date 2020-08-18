@@ -2,6 +2,7 @@
 
 namespace App\System\Classes\Core;
 
+use App\System\Classes\HTTP\Response;
 use App\System\Interfaces\Core\ErrorHandlerInterface;
 
 use App\System\Interfaces\HTTP\RequestInterface;
@@ -10,18 +11,22 @@ use App\System\Interfaces\HTTP\ResponseInterface;
 class ErrorHandler implements ErrorHandlerInterface
 {
 
-    /**
-     * ErrorHandler constructor.
-     * @param RequestInterface $request
-     * @param \Exception $e
-     */
-    public function __construct(RequestInterface $request, \Exception $e)
+
+    public function __construct()
     {
     }
 
-    public function handle(): ResponseInterface
+    /**
+     * @param RequestInterface $request
+     * @param \Exception $e
+     *
+     * @return ResponseInterface
+     */
+    public function handle(RequestInterface $request, \Exception $e): ResponseInterface
     {
-        // TODO: Implement handle() method.
+        $response = new Response();
+        $response->setContent("<h1>エラーが発生!</h1><p>{$e->getMessage()}</p>");
+        return $response;
     }
 
     public function render404Page($e)

@@ -6,7 +6,7 @@ use App\System\Interfaces\HTTP\ResponseInterface;
 
 interface ErrorHandlerInterface
 {
-    public function __construct(RequestInterface $request, \Exception $e);
+    public function __construct();
 
-    public function handle():ResponseInterface;
+    public function handle(RequestInterface $request, \Exception $e):ResponseInterface;
 }

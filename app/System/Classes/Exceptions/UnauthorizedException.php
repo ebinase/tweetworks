@@ -1,5 +1,5 @@
 <?php
 
-namespace App\System\Exceptions;
+namespace App\System\Classes\Exceptions;
 
 class UnauthorizedException extends \Exception {}
