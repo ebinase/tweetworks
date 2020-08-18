@@ -2,7 +2,7 @@
 
 namespace App\Model;
 
-use App\System\Model;
+use App\System\Classes\Model;
 
 class Favorite extends Model
 {
