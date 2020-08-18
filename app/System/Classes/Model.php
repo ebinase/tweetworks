@@ -2,6 +2,7 @@
 
 namespace App\System\Classes;
 
+use App\System\Classes\Services\Service;
 use App\System\Interfaces\ModelInterface;
 
 abstract class Model implements ModelInterface
@@ -14,41 +15,12 @@ abstract class Model implements ModelInterface
     //==============================================================================
     public function __construct()
     {
-        $this->_db = $this->_getDbConnection($this->_getConnectParam());
-        if ($this->_db !== null) {
-            //自作ログ関数
-            consoleLogger('接続完了');
-        }
+        $connection = Service::call('connection');
+        $this->_db = $connection->getDb();
+
         $this->_setTableName();
     }
 
-    /**
-     * データベース接続パラメータを格納した配列を取得
-     * /config/database.phpから
-     *
-     * @return array
-     */
-    protected function _getConnectParam()
-    {
-        // FIXME: 関数ではなくシンプルに配列として読み込めないものか・・・
-        $dir = str_replace('/app/System/Model.php', '', __FILE__) . '/config/database.php';
-        require_once  $dir;
-
-        return connectParam();
-    }
-
-    /**
-     * データベースに接続
-     *
-     * @param array $param
-     * @return object $db
-     */
-    protected function _getDbConnection(array $param)
-    {
-        $db = new \PDO($param['dsn'], $param['user'], $param['password']);
-        $db->setAttribute(\PDO::ATTR_ERRMODE, \PDO::ERRMODE_EXCEPTION);
-        return $db;
-    }
 
     //モデルで扱うテーブル名を継承先で登録する抽象クラス
     protected abstract function _setTableName();

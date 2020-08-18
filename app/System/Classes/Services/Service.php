@@ -2,6 +2,7 @@
 
 namespace App\System\Classes\Services;
 
+use App\System\Classes\DatabaseConnection;
 use Pimple\Container;
 
 use App\System\Classes\HTTP\Request;
@@ -36,6 +37,10 @@ class Service
 
         self::$container['route'] = function ($c) {
             return new Route();
+        };
+
+        self::$container['connection'] = function ($c) {
+            return new DatabaseConnection();
         };
     }
 
