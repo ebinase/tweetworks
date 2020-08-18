@@ -2,7 +2,6 @@
 
 use App\Kernel;
 use App\System\Classes\Core\Application;
-use Dotenv\Dotenv;
 
 require_once '../vendor/autoload.php';
 require_once '../app/System/Helpers/consoleLogger.php';

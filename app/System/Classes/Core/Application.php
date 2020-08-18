@@ -1,11 +1,12 @@
 <?php
 
 namespace App\System\Classes\Core;
+//
+use App\System\Interfaces\Core\ApplicationInterface;
 
 use App\System\Classes\Facades\App;
 use App\System\Classes\Services\Env;
 use App\System\Classes\Services\Service;
-use App\System\Interfaces\Core\ApplicationInterface;
 
 use App\System\Interfaces\HTTP\RequestInterface;
 use App\System\Interfaces\HTTP\ResponseInterface;
@@ -40,17 +41,24 @@ class Application implements ApplicationInterface
     //==============================================================================
     public function __construct($debug = false)
     {
-        // デバッグモードのオンオフを設定
-        $this->setDebugMode($debug);
-        // アプリケーションで保持しておくインスタンスの生成
-        $this->initialize();
-        // 要求されたURLに関する情報をRequestに保存
-        $routeParam = $this->perseRouteParams(Service::call('request'), Service::call('route'));
+        try {
+            // デバッグモードのオンオフを設定
+            $this->setDebugMode($debug);
+            // アプリケーションで保持しておくインスタンスの生成
+            $this->initialize();
+            // 要求されたURLに関する情報をRequestに保存
+            $routeParam = $this->perseRouteParams(Service::call('request'), Service::call('route'));
+            var_dump($routeParam);
 
-        //FIXME: サービスロケータになってる＆コンテナの意味がなくなってる。
-        $this->_request = Service::call('request');
-        $this->_request->setRouteParam($routeParam);
-        //これらの処理が済んだらRequestがKernelに引き渡される。
+            //FIXME: サービスロケータになってる＆コンテナの意味がなくなってる。
+            $this->_request = Service::call('request');
+            $this->_request->setRouteParam($routeParam);
+            //これらの処理が済んだらRequestがKernelに引き渡される。
+        } catch (\Exception $e) {
+            print '<p>Faild to Boot Application</p>';
+            print $e->getMessage();
+            die();
+        }
     }
 
     protected function setDebugMode($debug)
@@ -68,8 +76,10 @@ class Application implements ApplicationInterface
     protected function initialize()
     {
         Service::boot();
+        Env::boot();
     }
 
+    //TODO:ルーティング関連処理の最適化
     /**
      * クライアントに要求されたパスに関する情報だけを取得しRouteクラスに保存
      * @param RequestInterface $request
@@ -138,38 +148,8 @@ class Application implements ApplicationInterface
         echo $this->_content;
     }
 
-
-    //==============================================================================
-    //その他のゲッター達
-    //==============================================================================
     public function isDebugMode()
     {
         return $this->_debug;
-    }
-
-
-    public static function getRootDir()
-    {
-        return str_replace('/app/System/Classes/Core/Application.php', '', __FILE__);
-    }
-
-    public static function getControllerDir()
-    {
-        return self::getRootDir() . '/app/Controller';
-    }
-
-    public static function getViewDir()
-    {
-        return self::getRootDir() . '/resources/views';
-    }
-
-    public static function getModelDir()
-    {
-        return self::getRootDir() . '/app/Model';
-    }
-
-    public static function getRouteDir()
-    {
-        return self::getRootDir() . '/route';
     }
 }

@@ -12,7 +12,12 @@ class Service
 {
     private static $container;
 
-    public static function boot()
+
+    /**
+     * pimpleのDIコンテナを起動＆設定読み込み
+     * 実行しなくてもcall()は使えるが、Application起動時に明示的に使用
+     */
+    public static function boot() :void
     {
         self::$container = new Container();
 
@@ -29,7 +34,12 @@ class Service
         };
     }
 
-    public static function call($name) {
+    //コンテナ内のインスタンスを取得。万が一Applicationでboot()を実行し忘れても自動でbootしてから実行
+    public static function call($name)
+    {
+        if((self::$container instanceof Container) === false) {
+            self::boot();
+        }
         return self::$container[$name];
     }
 }
