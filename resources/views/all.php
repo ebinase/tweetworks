@@ -18,7 +18,7 @@ foreach ($data as $datum) {?>
 </table>
 
     <div>
-        <a href="/tweetworks/public/detail/<?= $datum['id'] ?>">ツイート詳細表示へ</a>
+        <a href="<?= url('/detail'); ?>/<?= $datum['id'] ?>">ツイート詳細表示へ</a>
     </div>
     <br>
 <?php

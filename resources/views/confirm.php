@@ -14,7 +14,7 @@
     </tr>
 </table>
 <!-- TODO: actionを絶対パスに。できれば何らかのメソッドで。(url()など)-->
-<form action="./register" method="post">
+<form action="<?= url('/sign-up/register'); ?>" method="post">
     <input type="hidden" name="_token" value="<?= $this->escape($_token);?>">
     <input type="hidden" name="name" value="<?= $this->escape($name);?>">
     <input type="hidden" name="unique_name" value="<?= $this->escape($unique_name);?>">
@@ -25,5 +25,5 @@
 </form>
 
 <div>
-    <a href="">戻って修正する</a>
+    <a href="<?= url('/sign-up'); ?>">戻って修正する</a>
 </div>

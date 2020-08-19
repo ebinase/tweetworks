@@ -55,7 +55,7 @@
 
         <div class="buttons-wrapper">
             <div class="reply">
-                <form action="/tweetworks/public/reply/post?from=/detail/<?=$data['id']?>" method="post">
+                <form action="<?= url('/reply/post'); ?>?from=/detail/<?=$data['id']?>" method="post">
                     <input type="hidden" name="_token" value="<?= $this->escape($_token['/reply/post']);?>">
                     <input type="hidden" name="tweet_id" value="<?= $data['id'];?>">
                     <input type="text" name="text">
@@ -64,7 +64,7 @@
             </div>
             <div class="delete">
                 <!--削除ボタン-->
-                <form action="/tweetworks/public/tweet/delete" method="post" onsubmit="return check()">
+                <form action="<?= url('/tweet/delete'); ?>" method="post" onsubmit="return check()">
                     <input type="hidden" name="_token" value="<?= $this->escape($_token['/tweet/delete']);?>">
                     <input type="hidden" name="tweet_id" value="102">
                     <input type="submit" value="削除">
@@ -96,7 +96,7 @@
 
             <div class="buttons-wrapper hide">
                 <div class="reply">
-                    <form action="/tweetworks/public/reply/post?from=/detail/<?=$data['id']?>" method="post">
+                    <form action="<?= url('/reply/post'); ?>?from=/detail/<?=$data['id']?>" method="post">
                         <input type="hidden" name="_token" value="<?= $this->escape($_token['/reply/post']);?>">
                         <input type="hidden" name="tweet_id" value="<?= $data['id'];?>">
                         <input type="text" name="text">
@@ -105,7 +105,7 @@
                 </div>
                 <div class="delete">
                     <!--削除ボタン-->
-                    <form action="/tweetworks/public/tweet/delete" method="post" onsubmit="return check()">
+                    <form action="<?= url('/tweet/delete'); ?>" method="post" onsubmit="return check()">
                         <input type="hidden" name="_token" value="<?= $this->escape($_token['/tweet/delete']);?>">
                         <input type="hidden" name="tweet_id" value="102">
                         <input type="submit" value="削除">

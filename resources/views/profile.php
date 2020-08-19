@@ -14,6 +14,6 @@
 </div>
 
 <ul>
-    <li><a href="<?=$_url['/home'];?>">タイムライン</a></li>
-    <li><a href="<?=$_url['/logout'];?>">ログアウト</a></li>
+    <li><a href="<?= url('/home'); ?>">タイムライン</a></li>
+    <li><a href="<?= url('/logout'); ?>">ログアウト</a></li>
 </ul>
