@@ -22,7 +22,7 @@ class PathExists implements MiddlewareInterface
             throw new HttpNotFoundException("No route found for {$request->getPathInfo()}");
         }
 
-        print '<p>PathExists通過</p>';
+        print 'PathExists通過▶';
 
         return $next->handle($request);
     }

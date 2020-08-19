@@ -30,7 +30,7 @@ class VerifyCsrfToken implements MiddlewareInterface
             return Route::redirect($back_to);
         }
 
-        print '<p>CSRFチェック通過</p>';
+        print 'CSRFチェック通過▶';
         return $next->handle($request);
     }
 }

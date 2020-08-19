@@ -30,9 +30,16 @@ class Route
         return $response;
     }
 
-    public function back()
+    public static function back($default = '/') :ResponseInterface
     {
+        //SessionExpandミドルウェアで登録した全ページの情報を取得
+        $session = Service::call('session');
+        $back_to = $session->get('prev_page');
 
+        //セッションに前ページのurlが記録されていなかったらデフォルトで設定したページへ
+        $back_to = $back_to ?? $default;
+
+        return self::redirect($back_to);
     }
 
     public static function url($uri)

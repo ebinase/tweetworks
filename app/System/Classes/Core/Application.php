@@ -72,7 +72,6 @@ class Application implements ApplicationInterface
         foreach ( glob( $pattern ) as $filename )
         {
             require_once $filename;
-            print $filename . '読み込み完了</br>';
         }
     }
 

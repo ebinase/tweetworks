@@ -24,7 +24,7 @@ class Authenticate implements MiddlewareInterface
             Route::redirect('/login');
         }
 
-        print '<p>Authenticate通過</p>';
+        print 'Authenticate通過▶';
         return $next->handle($request);
     }
 }

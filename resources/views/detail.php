@@ -55,7 +55,7 @@
 
         <div class="buttons-wrapper">
             <div class="reply">
-                <form action="<?= url('/reply/post'); ?>?from=/detail/<?=$data['id']?>" method="post">
+                <form action="<?= url('/reply/post'); ?>" method="post">
                     <input type="hidden" name="_token" value="<?= $this->escape($_token['/reply/post']);?>">
                     <input type="hidden" name="tweet_id" value="<?= $data['id'];?>">
                     <input type="text" name="text">
@@ -96,7 +96,7 @@
 
             <div class="buttons-wrapper hide">
                 <div class="reply">
-                    <form action="<?= url('/reply/post'); ?>?from=/detail/<?=$data['id']?>" method="post">
+                    <form action="<?= url('/reply/post'); ?>" method="post">
                         <input type="hidden" name="_token" value="<?= $this->escape($_token['/reply/post']);?>">
                         <input type="hidden" name="tweet_id" value="<?= $data['id'];?>">
                         <input type="text" name="text">

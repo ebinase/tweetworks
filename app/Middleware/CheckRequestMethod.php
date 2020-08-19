@@ -20,10 +20,11 @@ class CheckRequestMethod implements MiddlewareInterface
         $routeParam = $request->getRouteParam();
 
         if ($request_method !== $routeParam['method']) {
-            throw new HttpNotFoundException('wrong request method');
+            $request_method = strtoupper($request_method);
+            throw new HttpNotFoundException("wrong request method：requested {$request_method}");
         }
 
-        print '<p>CheckRequestMethod通過</p>';
+        print 'CheckRequestMethod通過▶';
         return $next->handle($request);
     }
 }

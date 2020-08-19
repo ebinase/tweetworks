@@ -41,7 +41,7 @@ abstract class Kernel implements KernelInterface
         //ルートグループを取得(web / api / develop)
         $routeGroup = $params['group'];
 
-        /**************/ print '<br>ルートグループは' . $routeGroup .'。';
+        /**************/ print 'ルートグループは' . $routeGroup .'。';
 
         //今回のルートグループはどこか見極めてそのグループのミドルウェアを登録
         //TODO: middlewareGroupsの中身を書いた順とは逆に入れ替える。
@@ -56,8 +56,6 @@ abstract class Kernel implements KernelInterface
             }
         }
 
-        /**************/print '適用されるミドルウェアは';
-        /**************/print_r($this->_middlewares);
     }
 
     //↑↑動作確認済み-----------------------------------------------------------------------------------

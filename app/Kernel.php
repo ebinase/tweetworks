@@ -22,7 +22,7 @@ final class Kernel extends HttpKernel
          //グループごとに実行するミドルウェア
         $this->_middlewareGroups = [
             'web' => [
-
+                \App\Middleware\SessionReferer::class,
             ],
             'api' => [
 

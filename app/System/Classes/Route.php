@@ -12,6 +12,7 @@ class Route implements RouteInterface
                '/user/:user_id' => [
                   'controller' => 'user',
                   'action' => 'showUserPage',
+                  'method' => 'get'
                   'auth' => 1,
                   'name' => 'user_page',
                   //↓ groupメソッドで追記

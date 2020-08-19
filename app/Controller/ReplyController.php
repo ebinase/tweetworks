@@ -30,11 +30,6 @@ class ReplyController extends Controller
             'reply_to_id' => $tweet_id
         ]);
 
-        $from = $request->getGet('from');
-
-        if (! isset($from)) {
-            $from = '/home';
-        }
-        return redirect($from);
+        return back('/home');
     }
 }
