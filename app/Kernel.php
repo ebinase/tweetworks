@@ -13,11 +13,13 @@ final class Kernel extends HttpKernel
 
     function _registerSettings()
     {
+        //全てのルートに対して実行するミドルウェア
          $this->_middlewares = [
             \App\Middleware\PathExists::class,
             \App\Middleware\CheckRequestMethod::class,
         ];
 
+         //グループごとに実行するミドルウェア
         $this->_middlewareGroups = [
             'web' => [
 
@@ -30,8 +32,8 @@ final class Kernel extends HttpKernel
             ],
         ];
 
-        //各コントローラのコンストラクタでRoute->middleware('hoge')で指定すると
-        //下記のクラスをアクションの前に自動的に実行
+        //各ルートで個別に設定できるミドルウェア
+        // 「/route」フォルダのファイルで設定できる。
         $this->_routeMiddleware = [
             'auth' => \App\Middleware\Authenticate::class,
             'guest' => \App\Middleware\Guest::class,

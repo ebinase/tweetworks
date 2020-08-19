@@ -2,6 +2,7 @@
 
 namespace App\System\Classes\Core;
 //
+use App\System\Classes\Facades\Session;
 use App\System\Interfaces\Core\ApplicationInterface;
 
 //ファサード
@@ -53,8 +54,13 @@ class Application implements ApplicationInterface
     //==============================================================================
     protected function initialize()
     {
+        //パッケージの機能を起動
         Service::boot();
         Env::boot();
+
+        //各クラスのファサードの初期化
+        //Session::boot(Service::call('session'));
+        //TODO: Session以外のクラスにも適用
 
         $this->registerHelpers();
     }

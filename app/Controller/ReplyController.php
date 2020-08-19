@@ -3,21 +3,24 @@
 namespace App\Controller;
 
 use App\Model\Tweet;
-use App\System\Controller;
+use App\System\Classes\Controller;
+use App\System\Classes\Services\Service;
+use App\System\Interfaces\HTTP\RequestInterface;
 
 class ReplyController extends Controller
 {
-    public function post()
+    public function post(RequestInterface $request)
     {
         //返信先のツイートID
-        $tweet_id = $this->_request->getPost('tweet_id');
+        $tweet_id = $request->getPost('tweet_id');
         //返信の内容
-        $text = $this->_request->getPost('text');
+        $text = $request->getPost('text');
 
         //TODO:バリデーション
 
         //ログイン中のユーザーID
-        $user_id = $this->_session->get('user_id');
+        $session = Service::call('session');
+        $user_id = $session->get('user_id');
 
         $tweet = new Tweet();
 
@@ -27,11 +30,11 @@ class ReplyController extends Controller
             'reply_to_id' => $tweet_id
         ]);
 
-        $from = $this->_request->getGet('from');
+        $from = $request->getGet('from');
 
         if (! isset($from)) {
             $from = '/home';
         }
-        $this->_application->redirect($from);
+        return redirect($from);
     }
 }
