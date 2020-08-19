@@ -39,6 +39,6 @@ class UserController extends Controller
         return $this->render('profile', [
             'user' => $user_data,
             'tweets' => $tweet_data,
-        ]);
+        ], 'layouts/layout');
     }
 }

@@ -11,6 +11,8 @@ function registerWebRoutes(RouteInterface $route)
     $route->group('web', function (RouteInterface $route){
       //$route->メソッド(url, controller, action, |オプション→middleware['name1','name2',...], route_name);
 
+        $route->get('/', 'top', 'index');
+
         $route->get('/sign-up', 'register', 'showSignupPage');
         $route->post('/sign-up/confirm', 'register', 'confirm', ['csrf']);
         $route->post('/sign-up/register', 'register', 'register', ['csrf']);

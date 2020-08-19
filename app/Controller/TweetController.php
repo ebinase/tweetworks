@@ -60,7 +60,7 @@ class TweetController extends Controller
         $_token['tweet/delete'] = CSRF::generate('tweet/delete');
         return $this->render('home', [
             '_token' => $_token
-        ]);
+        ], 'layouts/layout');
     }
 
     public function all()
@@ -70,7 +70,7 @@ class TweetController extends Controller
 
         return $this->render('all', [
               'data' => $data,
-        ]);
+        ], 'layouts/layout');
     }
 
     public function detail(RequestInterface $request)

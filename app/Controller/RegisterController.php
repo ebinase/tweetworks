@@ -13,7 +13,7 @@ class RegisterController extends Controller
     {
         return $this->render('sign-up', [
             '_token' => CSRF::generate('/sign-up/confirm'),
-        ]);
+        ], 'layouts/layout');
     }
 
     public function confirm(RequestInterface $request)
@@ -48,7 +48,7 @@ class RegisterController extends Controller
             'unique_name' => $unique_name,
             'password' => $password,
             'secret' => $secret,
-        ]);
+        ], 'layouts/layout');
     }
 
     public function register(RequestInterface $request)
