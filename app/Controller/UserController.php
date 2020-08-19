@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Model\Tweet;
 use App\Model\User;
 use App\System\Classes\Controller;
+use App\System\Classes\Facades\Auth;
 use App\System\Interfaces\HTTP\RequestInterface;
 
 class UserController extends Controller
@@ -29,10 +30,7 @@ class UserController extends Controller
 
         //該当するユーザーが存在したらツイート一覧表示
         $tweet = new Tweet();
-        $sql = 'SELECT * FROM tweets where user_id = :user_id ORDER BY created_at DESC;';
-        $tweet_data = $tweet->fetchAll($sql, [
-            ':user_id' => $user_data['id']
-        ]);
+        $tweet_data = $tweet->getUserTweet($user_data['id']);
 
         //TODO: $tweet_dataにもユーザー情報を含める
 

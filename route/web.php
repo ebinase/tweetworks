@@ -25,7 +25,7 @@ function registerWebRoutes(RouteInterface $route)
         $route->get('/home', 'tweet', 'home', ['auth']);
 
         // ユーザーページ
-        $route->get('/user/:unique_name', 'user', 'index', ['auth']);
+        $route->get('/user/:unique_name', 'user', 'index');
 
         // タイムライン表示
         $route->get('/all', 'tweet', 'all');

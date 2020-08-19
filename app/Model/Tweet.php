@@ -33,6 +33,14 @@ class Tweet extends Model
 
     }
 
+    public function getUserTweet($user_id)
+    {
+        $sql = 'SELECT * FROM tweets where user_id = :user_id ORDER BY created_at DESC;';
+        return $this->fetchAll($sql, [
+            ':user_id' => $user_id
+        ]);
+    }
+
     public function getReplies($tweet_id)
     {
         $sql = 'SELECT * FROM tweets where reply_to_id = :tweet_id ;';

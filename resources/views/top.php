@@ -1,14 +1,4 @@
 <style>
-    .logo-wrapper {
-        height: 60%;
-        display: flex;
-        justify-content: center;
-        align-content: center;
-    }
-
-    .links-wrapper {
-        text-align: center;
-    }
 
 </style>
 
