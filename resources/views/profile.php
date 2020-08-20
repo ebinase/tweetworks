@@ -9,6 +9,13 @@
         border-radius: 50%;
         background-color: #6e6e6e;
     }
+
+    .btn-follow {
+        background-color: white;
+        color: #00acee;
+        border: #00acee 1px solid;
+        border-radius: 20px;
+    }
 </style>
 
 <div class="row">
@@ -22,7 +29,7 @@
                 <h6 class="card-subtitle mb-2 text-muted">@<?=$user['unique_name'];?></h6>
             </div>
             <div class="col-3">
-                <button class="btn-danger">フォロー</button>
+                <button class="btn-follow">フォロー</button>
             </div>
         </div>
         <p class="card-text">biooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo</p>
@@ -32,8 +39,9 @@
             <div class="col-4"><a class="card-link">返信</a></div>
             <div class="col-4"><a class="card-link">お気に入り</a></div>
         </div>
-
     </div>
+</div>
+<div class="card">
     <?php foreach ($tweets as $tweet) {?>
         <div class="card-body tweet-container border-bottom">
             <div class="row">
@@ -47,5 +55,4 @@
             </div>
         </div>
     <?php } ?>
-
 </div>

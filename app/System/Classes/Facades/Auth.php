@@ -23,4 +23,10 @@ class Auth
         $session = Service::call('session');
         return $session->get('user_id', null);
     }
+
+     public static function info($key)
+     {
+         $session = Service::call('session');
+         return $session->get($key, null);
+     }
 }

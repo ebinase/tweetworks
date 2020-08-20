@@ -1,5 +1,8 @@
 <style>
-
+    .logo-top {
+        color: #ffa014;
+        font-family: "Ubuntu", sans-serif;
+    }
 </style>
 
 <div class="container">

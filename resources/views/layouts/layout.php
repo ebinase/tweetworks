@@ -11,30 +11,24 @@
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>
 </head>
 <body>
-    <header>
-        <div class="container">
-            <div class="header-container">
-                <div class="header-logo-container">
-                    <a class="logo-header logo" href="<?= url('/') ?>">Tweetworks</a>
-                </div>
-                <ul>
-                    <?php if (\App\System\Classes\Facades\Auth::check()) { ?>
-                        <li><a href="<?= url('/logout'); ?>">ログアウト</a></li>
-                    <?php } else {?>
-                        <li><a href="<?= url('/login'); ?>">ログイン</a></li>
-                    <?php }?>
-                </ul>
-            </div>
-        </div>
-    </header>
     <div class="container">
         <div class="row">
-            <nav class="col-1">
-                <div class="row"><a href="<?= url('/home'); ?>">ホーム</a></div>
+            <nav class="col-2">
+                <div class="row logo-container">
+                    <a class="logo-header logo" href="<?= url('/') ?>">Tweetworks</a>
+                </div>
                 <div class="row"><a href="">検索</a></div>
-                <div class="row"><a href="">プロフィール</a></div>
+                <div class="row"><a href="<?=url('/all')?>">WORLD</a></div>
+                <?php if ( auth() ) { ?>
+                    <div class="row"><a href="<?= url('/home'); ?>">ホーム</a></div>
+                    <div class="row"><a href="<?=url('/user/') . userInfo('unique_name');?>">プロフィール</a></div>
+                    <div class="row" style="margin-top: 0.5rem"><a href="<?= url('/logout'); ?>">ログアウト</a></div>
+                <?php } else {?>
+                    <div class="row" style="margin-top: 0.5rem"><a href="<?= url('/sign-up'); ?>">新規登録</a></div>
+                    <div class="row"><a href="<?= url('/login'); ?>">ログイン</a></div>
+                <?php }?>
             </nav>
-            <div class="col-11">
+            <div class="col-10">
                 <?= $_content ?>
             </div>
         </div>

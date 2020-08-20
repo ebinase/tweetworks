@@ -19,13 +19,25 @@ class Tweet extends Model
     //==============================================================================
     public function getAllTweet()
     {
-        $sql = 'SELECT * FROM tweets';
+        $sql = <<< EOF
+SELECT tweets.id, tweets.user_id, tweets.text, tweets.created_at, users.name, users.unique_name
+FROM tweets
+INNER JOIN users
+    ON tweets.user_id = users.id
+EOF;
+
         return $this->fetchAll($sql);
     }
 
     public function getDetailTweet($tweet_id)
     {
-        $sql = 'SELECT * FROM tweets where id = :tweet_id ;';
+        $sql = <<< EOF
+SELECT tweets.id, tweets.user_id, tweets.text, tweets.created_at, users.name, users.unique_name
+FROM tweets
+INNER JOIN users
+    ON tweets.user_id = users.id
+WHERE tweets.id = :tweet_id ;
+EOF;
 
         return $this->fetch($sql, [
             ':tweet_id' => $tweet_id
@@ -39,6 +51,9 @@ class Tweet extends Model
         return $this->fetchAll($sql, [
             ':user_id' => $user_id
         ]);
+    }
+    public function getTweetWithUser() {
+
     }
 
     public function getReplies($tweet_id)

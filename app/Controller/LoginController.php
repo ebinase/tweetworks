@@ -34,8 +34,10 @@ class LoginController extends Controller
         if (password_verify($password, $db_data['password'])) {
             $session = Service::call('session');
             $session->setAuthenticated(true);
-            //ログイン後にユーザー関連の処理を行いやすいよう、セッションにidを登録
+            //ログイン後にユーザー関連の処理を行いやすいよう、セッションにidとユーザーネームを登録
             $session->set('user_id' ,$db_data['id']);
+            $session->set('name' ,$db_data['name']);
+            $session->set('unique_name' ,$db_data['unique_name']);
             return redirect('/home');
         }
 
