@@ -35,7 +35,11 @@
             </div>
             <div class="tweet-right">
                 <div class="tweet-name">
-                    <?= $datum['name'] ?> @<?= $datum['unique_name'] ?>
+                    <object><!--aタグのネストを実現するためにobjectで囲む-->
+                        <a href="<?=url('/user/').$datum['unique_name'];?>">
+                            <?= $datum['name'] ?> @<?= $datum['unique_name'] ?>
+                        </a>
+                    </object>
                 </div>
                 <div class="tweet-text">
                     <?= $datum['text'] ?>

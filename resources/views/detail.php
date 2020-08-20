@@ -39,10 +39,10 @@
         <div class="tweet-wrapper">
             <table>
                 <tr>
-                    <th>id</th><td><?= $data['id'] ?></td>
+                    <th>名前</th><td><a href="<?=url('/user/').$data['unique_name'];?>"><?= $data['name'] ?></a></td>
                 </tr>
                 <tr>
-                    <th>user_id</th><td><?= $data['user_id'] ?></td>
+                    <th>@</th><td><?= $data['unique_name'] ?></td>
                 </tr>
                 <tr>
                     <th>ツイート内容</th><td><?= $data['text'] ?></td>
@@ -81,10 +81,10 @@
                     <th>reply_to</th><td><?= $reply['reply_to_id'] ?></td>
                 </tr>
                 <tr>
-                    <th>id</th><td><?= $reply['id'] ?></td>
+                    <th>名前</th><td><a href="<?=url('/user/').$reply['unique_name'];?>"><?= $reply['name'] ?></a></td>
                 </tr>
                 <tr>
-                    <th>user_id</th><td><?= $reply['user_id'] ?></td>
+                    <th>@</th><td><?= $reply['unique_name'] ?></td>
                 </tr>
                 <tr>
                     <th>ツイート内容</th><td><?= $reply['text'] ?></td>

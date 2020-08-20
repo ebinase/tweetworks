@@ -1,10 +1,5 @@
 <h1>ホーム画面</h1>
-<ul>
-<!--    <li><a href="./login">ログイン</a></li>-->
-    <li><a href="<?= url('/logout'); ?>">ログアウト</a></li>
-    <li><a href="<?= url('/sign-up'); ?>">ユーザー登録</a></li>
-    <li><a href="<?= url('/user/unique_name1'); ?>">ユーザーページ</a></li>
-</ul>
+
 <form action="<?= url('/tweet/post'); ?>" method="post">
     <input type="hidden" name="_token" value="<?= $this->escape($_token['tweet/post']);?>">
     <label><input type="text" name="text"></label>
