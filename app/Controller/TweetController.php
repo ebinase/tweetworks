@@ -63,8 +63,11 @@ class TweetController extends Controller
         ], 'layouts/layout');
     }
 
-    public function all()
+    public function all(RequestInterface $request)
     {
+        //TODO:ペジネーション
+        $page = $request->getGet('page');
+        $page =$page ?? '1';
         $tweet  = new Tweet();
         $data =$tweet->getAllTweet();
 

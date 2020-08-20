@@ -5,14 +5,13 @@ namespace App\Controller;
 use App\Model\Tweet;
 use App\Model\User;
 use App\System\Classes\Controller;
-use App\System\Classes\Facades\Auth;
 use App\System\Interfaces\HTTP\RequestInterface;
 
 class UserController extends Controller
 {
     //任意のユーザーのツイート一覧などを表示する(マイページのようなログイン必須のものではない)
     public function index(RequestInterface $request) {
-        //urlから表示したいユーザーの名前を取得
+        //urlから表示したいユーザーのユニークネームを取得
         $params = $request->getRouteParam();
         $unique_name = $params['unique_name'];
 
@@ -25,7 +24,7 @@ class UserController extends Controller
 
         //ユーザー情報がなかったらhomeへ
         if ($user_data == false) {
-            return redirect('/home');
+            return back();
         }
 
         //該当するユーザーが存在したらツイート一覧表示
