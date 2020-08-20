@@ -44,7 +44,7 @@ class Route
     //SessionExpandミドルウェアで登録した全ページの情報を取得
     public static function prevUrl() {
         $session = Service::call('session');
-        $back_to = $session->get('prev_page');
+        $back_to = $session->get('referer_back_to');
 
         return self::url($back_to);
     }
