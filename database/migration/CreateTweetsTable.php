@@ -2,7 +2,7 @@
 
 namespace Database\migration;
 
-use App\System\CreateTable;
+use App\System\Classes\CreateTable;
 
 class CreateTweetsTable extends CreateTable
 {
