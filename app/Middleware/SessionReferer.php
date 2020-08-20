@@ -21,6 +21,8 @@ class SessionReferer implements \App\System\Interfaces\Core\MiddlewareInterface
         //例) 入力フォーム(GET) →(送信)→ 登録ページ(POST)
         //          ↑ ← ← ←(リダイレクト)← ← ← ↓
 
+        //TODO:改修(リダイレクトしたときなど、少し不安定)
+
         //入力ページなどのGETページだった場合だけ更新
         if ($request_method == 'GET') {
 
@@ -38,15 +40,15 @@ class SessionReferer implements \App\System\Interfaces\Core\MiddlewareInterface
                 $session->set('referer_prev1_page', $current);
             }
 
-            $session->set('referer_back_to', $back_to);
         } else {
             //登録アクションなどでPOSTなどでアクセスした場合はback_toも何も更新しない
             //(エラーが起きた際などに、戻り先をPOSTのページにしないため)
-
-            $back_to = $prev; //下記の表示用
+            $back_to = $prev;
         }
 
-        print 'SessionReferer通過(前のページは' . $back_to . ')▶';
+        $session->set('referer_back_to', $back_to);
+
+        print 'SessionReferer通過(前のページは' . $session->get('referer_back_to') . ')▶';
 
         return $next->handle($request);
     }
