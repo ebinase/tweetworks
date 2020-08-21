@@ -2,16 +2,19 @@
 
 namespace App\Controller;
 
+use App\Model\Favorite;
 use App\Model\Follow;
 use App\Model\Tweet;
 use App\Model\User;
 use App\System\Classes\Controller;
+use App\System\Classes\Facades\CSRF;
 use App\System\Interfaces\HTTP\RequestInterface;
 
 class UserController extends Controller
 {
     //任意のユーザーのツイート一覧などを表示する(マイページのようなログイン必須のものではない)
     public function index(RequestInterface $request) {
+        //urlから取得したユニークネームをもとにユーザーデータをDBから取り出す。
         $user_data = $this->_getUserDataFromUname($request);
 
         //ユーザー情報がなかったらhomeへ
@@ -19,22 +22,35 @@ class UserController extends Controller
             return back();
         }
 
-        //該当するユーザーが存在したら
-        //ツイート一覧表示
-        $tweet = new Tweet();
-        $tweet_data = $tweet->getUserTweet($user_data['id']);
-
         //フォローフォロワー数取得
         $follow = new Follow();
         $follow_num['follows'] = $follow->countFollows($user_data['id']);
         $follow_num['followers'] = $follow->countFollowers($user_data['id']);
 
-        //TODO: $tweet_dataにもユーザー情報を含める
+        $_token['/reply/post'] = CSRF::generate('/reply/post');
+        $_token['/tweet/delete'] = CSRF::generate('/tweet/delete');
+
+
+        if($request->getGet('content') == 'favorites') {
+            //お気に入りツイート一覧を要求されたら
+            $favorite = new Favorite();
+            $tweets = $favorite->getFavoriteTweets($user_data['id']);
+        } elseif($request->getGet('content') == 'replies') {
+            $tweet = new Tweet();
+            $tweets = $tweet->getUserReplies($user_data['id']);
+        } else {
+            //該当するユーザーが存在したら
+            //ツイート一覧表示
+            $tweet = new Tweet();
+            $tweets = $tweet->getUserTweets($user_data['id']);
+        }
+
 
         return $this->render('profile', [
             'user' => $user_data,
-            'tweets' => $tweet_data,
+            'tweets' => $tweets,
             'follow' => $follow_num,
+            '_token' => $_token,
         ], 'layouts/layout');
     }
 
@@ -63,6 +79,7 @@ class UserController extends Controller
         ], 'layouts/layout');
     }
 
+    //urlから取得したユニークネームをもとにユーザーデータを取り出す。
     private function _getUserDataFromUname($request) {
         //urlから表示したいユーザーのユニークネームを取得
         $params = $request->getRouteParam();

@@ -95,7 +95,8 @@ EOF;
     //==============================================================================
     //ユーザープロフィール
     //==============================================================================
-    public function getUserTweet($user_id)
+    //特定のユーザーのツイートだけ(返信を含まない)ツイートを取得
+    public function getUserTweets($user_id)
     {
         $sql = 'SELECT * FROM tweets  ORDER BY created_at DESC;';
         $sql = <<< EOF
@@ -104,7 +105,8 @@ SELECT tweets.id, tweets.user_id, tweets.text, tweets.reply_to_id, tweets.create
 FROM tweets
 INNER JOIN users
     ON tweets.user_id = users.id
-WHERE user_id = :user_id
+WHERE tweets.user_id = :user_id
+    AND tweets.reply_to_id IS NULL
 ORDER BY tweets.created_at DESC;
 EOF;
         return $this->fetchAll($sql, [
@@ -112,8 +114,22 @@ EOF;
         ]);
     }
 
-    public function getUserReplies()
+    //特定のユーザーの返信だけを取得
+    public function getUserReplies($user_id)
     {
-
+        $sql = 'SELECT * FROM tweets  ORDER BY created_at DESC;';
+        $sql = <<< EOF
+SELECT tweets.id, tweets.user_id, tweets.text, tweets.reply_to_id, tweets.created_at,
+       users.name, users.unique_name
+FROM tweets
+INNER JOIN users
+    ON tweets.user_id = users.id
+WHERE tweets.user_id = :user_id
+    AND tweets.reply_to_id IS NOT NULL 
+ORDER BY tweets.created_at DESC;
+EOF;
+        return $this->fetchAll($sql, [
+            ':user_id' => $user_id,
+        ]);
     }
 }

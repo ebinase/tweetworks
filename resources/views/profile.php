@@ -45,24 +45,15 @@
         </div>
 
         <div class="row text-center">
-            <div class="col-4"><a class="card-link">ツイート</a></div>
-            <div class="col-4"><a class="card-link">返信</a></div>
-            <div class="col-4"><a class="card-link">お気に入り</a></div>
+            <div class="col-4"><a class="card-link" href="<?=url('/user/').$user['unique_name'];?>">ツイート</a></div>
+            <div class="col-4"><a class="card-link" href="<?=url('/user/').$user['unique_name'].'?content=replies';?>">返信</a></div>
+            <div class="col-4"><a class="card-link" href="<?=url('/user/').$user['unique_name'].'?content=favorites';?>">お気に入り</a></div>
         </div>
     </div>
 </div>
 <div class="card">
-    <?php foreach ($tweets as $tweet) {?>
-        <div class="card-body tweet-container border-bottom">
-            <div class="row">
-                <div class="col-2">
-                    <div class="icon"></div>
-                </div>
-                <div class="col-10">
-                    <div class="card-title"><?=$user['name'];?> <span style="color: #6e6e6e">@<?=$user['unique_name'];?></span></div>
-                    <div class="card-text"><?=$tweet['text'];?></div>
-                </div>
-            </div>
-        </div>
-    <?php } ?>
+    <?=$this->render('components/tweet_index', [
+        'tweets' => $tweets,
+        '_token' => $_token
+    ]) ?>
 </div>
