@@ -5,16 +5,8 @@ use App\System\Classes\Core\Application;
 
 require_once '../vendor/autoload.php';
 
-if ($_GET['debugMode'] == 'on') {
-    $isDebugMode = true;
-} elseif ($_GET['debugMode'] == 'off') {
-    $isDebugMode = false;
-} else {
-    $isDebugMode = null;
-}
-
 //Application呼び出し
-$application = new Application($isDebugMode);
+$application = new Application();
 $request = $application->getRequest();
 
 //ミドルウェアのリストを作成
