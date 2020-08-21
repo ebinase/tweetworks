@@ -21,7 +21,7 @@ class Authenticate implements MiddlewareInterface
 
         //ログイン中のユーザーIDがセッションに記録されてなかったら再ログインしてもらう
         if ( is_null(Auth::id()) ) {
-            Route::redirect('/login');
+            Route::redirect('/logout');
         }
 
         print 'Authenticate通過▶';
