@@ -1,7 +1,17 @@
 <style>
+    .container {
+        text-align: center;
+        height: 100%;
+    }
+
     .logo-top {
         color: #ffa014;
         font-family: "Ubuntu", sans-serif;
+        font-size: 10rem;
+    }
+
+    li {
+        list-style: none;
     }
 </style>
 
