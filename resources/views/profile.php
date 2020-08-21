@@ -34,6 +34,16 @@
         </div>
         <p class="card-text">biooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo</p>
 
+        <div>
+            <a href="<?=url('/user/'). $user['unique_name'].'/follows'?>">
+                フォロー<?=$follow['follows'];?>人
+            </a>
+            <span>  </span>
+            <a href="<?=url('/user/'). $user['unique_name'].'/followers'?>">
+                フォロワー<?=$follow['followers'];?>人
+            </a>
+        </div>
+
         <div class="row text-center">
             <div class="col-4"><a class="card-link">ツイート</a></div>
             <div class="col-4"><a class="card-link">返信</a></div>

@@ -69,7 +69,7 @@ class TweetController extends Controller
         $page = $request->getGet('page');
         $page =$page ?? '1';
         $tweet  = new Tweet();
-        $data =$tweet->getAllTweet();
+        $data =$tweet->getAllTweetExceptReply();
 
         return $this->render('all', [
               'data' => $data,

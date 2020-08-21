@@ -26,6 +26,8 @@ function registerWebRoutes(RouteInterface $route)
 
         // ユーザーページ
         $route->get('/user/:unique_name', 'user', 'index');
+        $route->get('/user/:unique_name/follows', 'user', 'followsIndex');
+        $route->get('/user/:unique_name/followers', 'user', 'followersIndex');
 
         // タイムライン表示
         $route->get('/all', 'tweet', 'all');
@@ -35,5 +37,6 @@ function registerWebRoutes(RouteInterface $route)
         $route->post('/tweet/delete', 'tweet', 'delete', ['auth', 'csrf']);
 
         $route->post('/reply/post', 'reply', 'post', ['auth', 'csrf']);
+
     });
 }

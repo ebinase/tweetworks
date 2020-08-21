@@ -48,19 +48,19 @@ abstract class Model implements ModelInterface
 
     public function smartInsert(array $params)
     {
-        $culumns = '';
+        $columns = '';
         $holders = '';
         // 配列をもとにSQL文の一部とbindValueで使用する配列を作成する。
         foreach ($params as $key => $param) {
-            $culumns .= "{$key}, ";
+            $columns .= "{$key}, ";
             $holders .= ":{$key}, ";
             $bindValues[":{$key}"] = $param;
         }
-        $culumns = rtrim($culumns, ', ');
+        $columns = rtrim($columns, ', ');
         $holders = rtrim($holders, ', ');
 
         //例:  'INSERT INTO tweets (user_id, text) VALUES (:user_id, :text)';
-        $sql = "INSERT INTO {$this->_tableName} ({$culumns}) VALUES ($holders)";
+        $sql = "INSERT INTO {$this->_tableName} ({$columns}) VALUES ($holders)";
         return $this->smartExecute($sql, $bindValues);
     }
 
@@ -70,5 +70,14 @@ abstract class Model implements ModelInterface
         return $this->smartExecute($sql, [
             ':id' => $id,
         ]);
+    }
+
+    public function smartCount($colum_name, $value)
+    {
+        $sql = "SELECT count(*) FROM {$this->_tableName} WHERE {$colum_name} = :value;";
+
+        //execute()->rowCount()が期待通り動作しなかったため、fetchを使用。
+        $result = $this->fetch($sql, [':value' => $value]);
+        return $result['count(*)'];
     }
 }

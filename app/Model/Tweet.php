@@ -17,7 +17,7 @@ class Tweet extends Model
     //==============================================================================
     //アクションごとのデータ操作メソッド
     //==============================================================================
-    public function getAllTweet()
+    public function getAllTweetExceptReply()
     {
         $sql = <<< EOF
 SELECT tweets.id, tweets.user_id, tweets.text, tweets.reply_to_id, tweets.created_at, users.name, users.unique_name
