@@ -12,5 +12,7 @@ class Follow extends Model
         $this->_tableName = 'follows';
     }
 
-
+    public function countFollowAndFollower($user_id) {
+        $sql = 'select count(*) from follows WHERE ';
+    }
 }
