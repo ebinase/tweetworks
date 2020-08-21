@@ -12,7 +12,11 @@
     <?php foreach ($users as $user) { ?>
         <div style="border: #6e6e6e 1px solid">
             <div style="display: flex">
-                <div><?=$user['name'];?>@<?=$user['unique_name'];?></div>
+                <div>
+                    <a href="<?=url('/user/').$user['unique_name'];?>">
+                        <?=$user['name'];?>@<?=$user['unique_name'];?>
+                    </a>
+                </div>
                 <div><button class="btn-follow">フォロー</button></div>
             </div>
             <div>
