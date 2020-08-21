@@ -8,7 +8,7 @@
 
 
 <?= $this->render('components/tweet_index', [
-        'data' => $tweets,
+        'tweets' => $tweets,
         '_token' => $_token
 ]);?>
 
