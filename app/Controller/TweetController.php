@@ -53,30 +53,8 @@ class TweetController extends Controller
         return redirect('/home');
     }
 
-    public function home()
-    {
 
-        $_token['tweet/post'] = CSRF::generate('tweet/post');
-        $_token['tweet/delete'] = CSRF::generate('tweet/delete');
-        return $this->render('home', [
-            '_token' => $_token
-        ], 'layouts/layout');
-    }
-
-    public function all(RequestInterface $request)
-    {
-        //TODO:ペジネーション
-        $page = $request->getGet('page');
-        $page =$page ?? '1';
-        $tweet  = new Tweet();
-        $data =$tweet->getAllTweetExceptReply();
-
-        return $this->render('all', [
-              'data' => $data,
-        ], 'layouts/layout');
-    }
-
-    public function detail(RequestInterface $request)
+    public function show(RequestInterface $request)
     {
         //urlからツイートIDの値を取得
         $params = $request->getRouteParam();

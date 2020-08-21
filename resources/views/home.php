@@ -12,6 +12,8 @@
     <input type="submit" value="削除">
 </form>
 
+<?= $this->render('components/tweet_index', ['data' => $tweets]);?>
+
 <script type="text/javascript">
     function check(){
         if(window.confirm('削除してよろしいですか？')){ // 確認ダイアログを表示

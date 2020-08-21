@@ -4,7 +4,7 @@ namespace App\System\Classes;
 
 use App\System\Classes\Facades\App;
 use App\System\Classes\HTTP\Response;
-use App\System\Exceptions\HttpNotFoundException;
+use App\System\Classes\Exceptions\HttpNotFoundException;
 use App\System\Interfaces\ControllerInterface;
 use App\System\Interfaces\HTTP\RequestInterface;
 use App\System\Interfaces\HTTP\ResponseInterface;
