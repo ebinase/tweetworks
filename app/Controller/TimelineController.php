@@ -16,8 +16,9 @@ class TimelineController extends Controller
         $tweet = new Tweet();
         $tweets = $tweet->getTimeline(Auth::id());
 
-        $_token['tweet/post'] = CSRF::generate('tweet/post');
-        $_token['tweet/delete'] = CSRF::generate('tweet/delete');
+        $_token['/tweet/post'] = CSRF::generate('/tweet/post');
+        $_token['/reply/post'] = CSRF::generate('/reply/post');
+        $_token['/tweet/delete'] = CSRF::generate('/tweet/delete');
         return $this->render('home', [
             '_token' => $_token,
             'tweets' => $tweets,

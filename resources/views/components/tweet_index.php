@@ -13,7 +13,6 @@
     }
 </style>
 
-<?php foreach ($data as $datum) {?>
 <!--<table>-->
 <!--<tr>-->
 <!--    <th>id</th><td>--><?//= $datum['id'] ?><!--</td>-->
@@ -28,6 +27,8 @@
 <!--    <th>日時</th><td>--><?//= $datum['created_at'] ?><!--</td>-->
 <!--</tr>-->
 <!--</table>-->
+
+<?php foreach ($data as $datum) {?>
     <a href="<?= url('/detail'); ?>/<?= $datum['id'] ?>">
         <div class="tweet-container">
             <div class="tweet-left">
@@ -45,8 +46,26 @@
                     <?= $datum['text'] ?>
                 </div>
                 <div class="tweet-func">
-                    <div class="col-4">返信</div>
-                    <div class="col-4">お気に入り</div>
+                    <div class="buttons-wrapper">
+                        <div class="reply">
+                            <form action="<?= url('/reply/post'); ?>" method="post">
+                                <input type="hidden" name="_token" value="<?= $this->escape($_token['/reply/post']);?>">
+                                <input type="hidden" name="tweet_id" value="<?= $datum['id'];?>">
+                                <input type="text" name="text">
+                                <input type="submit" value="返信">
+                            </form>
+                        </div>
+                        <?php if (\App\System\Classes\Facades\Auth::info('unique_name') == $datum['unique_name']) {?>
+                            <div class="delete">
+                                <!--削除ボタン-->
+                                <form action="<?= url('/tweet/delete'); ?>" method="post" onsubmit="return check()">
+                                    <input type="hidden" name="_token" value="<?= $this->escape($_token['/tweet/delete']);?>">
+                                    <input type="hidden" name="tweet_id" value="<?=$datum['id']?>">
+                                    <input type="submit" value="削除">
+                                </form>
+                            </div>
+                        <?php } ?>
+                    </div>
                 </div>
             </div>
         </div>

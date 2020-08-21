@@ -6,13 +6,11 @@
     <input type="submit" value="ツイート">
 </form>
 
-<form action="<?= url('/tweet/delete'); ?>" method="post" onsubmit="return check()">
-    <input type="hidden" name="_token" value="<?= $this->escape($_token['tweet/delete']);?>">
-    <label>ツイートID<br><input type="number" name="tweet_id"></label>
-    <input type="submit" value="削除">
-</form>
 
-<?= $this->render('components/tweet_index', ['data' => $tweets]);?>
+<?= $this->render('components/tweet_index', [
+        'data' => $tweets,
+        '_token' => $_token
+]);?>
 
 <script type="text/javascript">
     function check(){
