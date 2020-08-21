@@ -42,10 +42,10 @@ SELECT DISTINCT
 FROM follows
          INNER JOIN tweets
                     ON follows.user_id_followed = tweets.user_id
-                    OR tweets.user_id = 8
+                    OR tweets.user_id = :user_id
          INNER JOIN users
                     ON tweets.user_id = users.id
-WHERE follows.user_id = 8
+WHERE follows.user_id = :user_id
     AND tweets.reply_to_id IS NULL
 ORDER BY tweets.created_at DESC;
 EOF;
@@ -97,9 +97,23 @@ EOF;
     //==============================================================================
     public function getUserTweet($user_id)
     {
-        $sql = 'SELECT * FROM tweets where user_id = :user_id ORDER BY created_at DESC;';
+        $sql = 'SELECT * FROM tweets  ORDER BY created_at DESC;';
+        $sql = <<< EOF
+SELECT tweets.id, tweets.user_id, tweets.text, tweets.reply_to_id, tweets.created_at,
+       users.name, users.unique_name
+FROM tweets
+INNER JOIN users
+    ON tweets.user_id = users.id
+WHERE user_id = :user_id
+ORDER BY tweets.created_at DESC;
+EOF;
         return $this->fetchAll($sql, [
-            ':user_id' => $user_id
+            ':user_id' => $user_id,
         ]);
+    }
+
+    public function getUserReplies()
+    {
+
     }
 }
