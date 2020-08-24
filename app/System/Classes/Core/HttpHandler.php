@@ -3,7 +3,7 @@
 
 namespace App\System\Classes\Core;
 
-use App\System\Exceptions\HttpNotFoundException;
+use App\System\Classes\Exceptions\HttpNotFoundException;
 use App\System\Interfaces\Core\HttpHandlerInterface;
 use App\System\Interfaces\HTTP\RequestInterface;
 use App\System\Interfaces\HTTP\ResponseInterface;
@@ -29,11 +29,16 @@ class HttpHandler implements HttpHandlerInterface
 
     protected function _runAction(string $controller_name, string $action_name, RequestInterface $request)
     {
-        //TODO: app/Controller/Authなどのディレクトリ内のコントローラーにも対応させる
-        // 現状では下記の名前空間のせいで/Controller直下しか呼び出せない
         //名前空間を考慮して完全修飾名にする
         //参考：https://sousaku-memo.net/php-system/1417
-//        $controller_name = str_replace('/', '\\', $controller_name);
+        //FIXME: スラッシュの後を自動で大文字に変換したい(auth/login ▶ Auth\Login)
+//        //フォルダの階層ごとに区切って配列に格納(例：/Auth/Login ▶ ['Auth', 'Login'])
+//        $names = explode('/', $controller_name);
+//        $combind_name = '';
+//        foreach ($names as $name) {
+//            $combind_name = $combind_name. ucfirst($name) . '\\';
+//        }
+        $controller_name = str_replace('/', '\\', $controller_name);
         //フォルダ名とコントローラ名をスラッシュで区切って先頭大文字化(クラス名だけ。フォルダ名は入力値のまま)
         $controller_class = '\\App\\Controller\\' . ucfirst($controller_name) . 'Controller';
 

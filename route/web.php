@@ -13,14 +13,14 @@ function registerWebRoutes(RouteInterface $route)
         //トップページ
         $route->get('/', 'top', 'index');
             //ログイン周り
-            $route->get('/sign-up', 'register', 'showSignupPage');
-            $route->post('/sign-up/confirm', 'register', 'confirm', ['csrf']);
-            $route->post('/sign-up/register', 'register', 'register', ['csrf']);
+            $route->get('/sign-up', 'Auth/Register', 'showSignupPage');
+            $route->post('/sign-up/confirm', 'Auth/Register', 'confirm', ['csrf']);
+            $route->post('/sign-up/register', 'Auth/Register', 'register', ['csrf']);
 
-            $route->get('/login', 'login', 'showLoginForm', ['guest']);
-            $route->post('/login/auth', 'login', 'auth', ['guest']);
+            $route->get('/login', 'Auth/Login', 'showLoginForm', ['guest']);
+            $route->post('/login/auth', 'Auth/Login', 'auth', ['guest']);
 
-            $route->get('/logout', 'login', 'logout');
+            $route->get('/logout', 'Auth/Login', 'logout');
 
 
         // ユーザーページ
