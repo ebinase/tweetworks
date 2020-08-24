@@ -17,6 +17,12 @@
                 <div class="row logo-container">
                     <a class="logo-header logo" href="<?= url('/') ?>">Tweetworks</a>
                 </div>
+                <?php if ( auth() ) { ?>
+                    <div class="row card">
+                        <div class="card-title"><?=\App\System\Classes\Facades\Auth::info('name')?></div>
+                        <div class="card-subtitle">@<?=\App\System\Classes\Facades\Auth::info('unique_name')?></div>
+                    </div>
+                <?php }?>
                 <div class="row"><a href="">検索</a></div>
                 <div class="row"><a href="<?=url('/all')?>">WORLD</a></div>
                 <?php if ( auth() ) { ?>
