@@ -15,8 +15,8 @@ class Guest implements MiddlewareInterface
     public function process(RequestInterface $request, HttpHandlerInterface $next): ResponseInterface
     {
         //ログイン済みだったらホームにリダイレクト
-        if (Auth::check() === true) {
-            Route::redirect('/home');
+        if (Auth::check() == true) {
+            return redirect('/home');
         }
 
         print 'Guest通過▶';

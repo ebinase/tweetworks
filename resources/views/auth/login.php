@@ -22,7 +22,7 @@
 <div>
     <ul>
         <li><a href="<?= url('/login')?>">ログイン</a></li>
-        <li><a href="<?= url('/register')?>">新規登録</a></li>
+        <li><a href="<?= url('/sign-up')?>">新規登録</a></li>
         <li><a href="<?= url('/all')?>">全ツイート表示</a></li>
     </ul>
 </div>
