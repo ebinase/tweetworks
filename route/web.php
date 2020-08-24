@@ -39,5 +39,8 @@ function registerWebRoutes(RouteInterface $route)
 
         $route->post('/reply/post', 'reply', 'post', ['auth', 'csrf']);
 
+        $route->post('/follow/update', 'follow', 'update', ['auth', 'csrf']);
+
+
     });
 }

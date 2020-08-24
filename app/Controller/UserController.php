@@ -29,6 +29,8 @@ class UserController extends Controller
 
         $_token['/reply/post'] = CSRF::generate('/reply/post');
         $_token['/tweet/delete'] = CSRF::generate('/tweet/delete');
+        $_token['/follow/update'] = CSRF::generate('/follow/update');
+
 
 
         if($request->getGet('content') == 'favorites') {
