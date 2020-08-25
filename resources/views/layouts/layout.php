@@ -17,9 +17,6 @@
                     <a href="<?= url('/') ?>" class="nav-item theme-color brand-logo">
                         T<span class="d-none d-xl-inline">weetworks</span>
                     </a>
-                    <?php if ( auth() ) { ?>
-
-                    <?php }?>
                     <ul class="navbar-nav">
                         <li class="nav-item">
                             <a class="nav-link tw-heading" href="">#<span class="d-none d-lg-inline">話題を検索</span></a>
@@ -65,7 +62,13 @@
             </div>
 
             <div class="col-3">
-
+                <div class="row">
+                    <i class="fab fa-twitter fa-5x"></i>
+                    <i class="fab fa-twitter fa-4x"></i>
+                    <i class="fab fa-twitter fa-3x"></i>
+                    <i class="fab fa-twitter fa-2x"></i>
+                    <i class="fab fa-twitter fa-1x"></i>
+                </div>
             </div>
         </div>
     </div>
