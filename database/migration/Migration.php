@@ -2,7 +2,7 @@
 
 namespace Database\migration;
 
-class Migration extends \App\System\Model
+class Migration extends \App\System\Classes\Model
 {
     public function _setTableName()
     {

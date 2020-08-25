@@ -3,45 +3,32 @@
 
 namespace App\Controller;
 
+
 use App\Model\Follow;
-use App\System\Controller;
+use App\System\Classes\Facades\Auth;
+use App\System\Interfaces\HTTP\RequestInterface;
 
-class FollowController extends Controller
+class FollowController extends \App\System\Classes\Controller
 {
-    public function update($params){
+    public function update(RequestInterface $request)
+    {
+        $user_id_followed = $request->getPost('user_id_followed');
+        $user_id = Auth::id();
 
-        $followed_id = $params['user_id'];
+        $follow = new Follow();
 
-        var_dump($followed_id);
+         print_r($data = $follow->checkIfFollows($user_id,$user_id_followed));
 
-//        $this->_session->isAuthenticated();
+        if (empty($data)){
+            $follow->smartInsert([
+                'user_id_followed' => $user_id_followed,
+                'user_id' => $user_id,
+            ]);
+        }else{
+            $follow->deleteByFollows($user_id,$user_id_followed);
+        }
 
-
-        //ユーザー入力値取得
-//        $user_id = $this->_request->getPost('user_id');
-
-        // DBからuser_idをキーにユーザーデータ取得(配列)
-        $user = new Follow();
-
-//        もしお気に入りにデータがなければInsert、データがあれがdelete
-        $data =$user->fetchByFollowUserId($followed_id);
-
-        if ( ! isset($data) ){
-           $followed_id->smartInsert([
-               'followed_user_id' => $this->_request->getPost('followed_id'),
-           ]);
-           return $this->_redirect('/home');
-       }
-
-       else{
-
-           $followed_id->deleteById($followed_id);
-
-           return  $this->_redirect('/home');
-       }
-
-
-
+        return back();
 
     }
 }

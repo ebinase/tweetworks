@@ -2,12 +2,10 @@
 
 namespace App\System\Interfaces;
 
-use App\System\Application;
+use App\System\Interfaces\HTTP\RequestInterface;
+use App\System\Interfaces\HTTP\ResponseInterface;
 
 interface ControllerInterface
 {
-    function __construct(Application $application);
-
-    //todo: 返り値がstringでいいのかチェック($contentの中身はHTML)
-    function run(string $action_name, array $params): string;
+    function run(string $action_name, RequestInterface $request): ResponseInterface;
 }

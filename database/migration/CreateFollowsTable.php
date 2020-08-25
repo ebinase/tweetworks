@@ -4,7 +4,7 @@
 namespace Database\migration;
 
 
-use App\System\CreateTable;
+use App\System\Classes\CreateTable;
 
 class CreateFollowsTable extends CreateTable
 {
@@ -14,7 +14,7 @@ class CreateFollowsTable extends CreateTable
 create table follows
 (
 	user_id int(10) not null,
-	user_followed_id int(10) not null,
+	user_id_followed int(10) not null,
 	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
 EOF;

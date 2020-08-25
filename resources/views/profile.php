@@ -1,28 +1,65 @@
-<h1>ユーザーページ</h1>
-<div>
-    <h2><?=$user['name'];?></h2>
-    <p>@<?=$user['unique_name'];?></p>
+<style>
+    .tweet-container:last-child {
+        border-bottom: none;
+    }
+
+    .icon {
+        width: 100%;
+        height: 100%;
+        border-radius: 50%;
+        background-color: #6e6e6e;
+    }
+
+    .btn-follow {
+        background-color: white;
+        color: #00acee;
+        border: #00acee 1px solid;
+        border-radius: 20px;
+    }
+</style>
+
+<div class="row">
+    <a href="<?=prevUrl()?>" class="back">←戻る</a>
 </div>
+<div class="card">
+    <div class="card-body border-bottom">
+        <div class="row">
+            <div class="col-9">
+                <h5 class="card-title"><?=$user['name'];?></h5>
+                <h6 class="card-subtitle mb-2 text-muted">@<?=$user['unique_name'];?></h6>
+            </div>
 
-<form action="<?=$_url['/follow/:user_id'];?>" method="post" onsubmit="return check()">
-<!--   hiddenぱラーメーた（事前に埋め込む）にuser_idを送ってあげる　Controller側ではuser_idがフォローされる側で、セッションからのがfollowing_idってわかる/-->
-<!--    user_idをhiddenするためにはUserContrlooer編集（すでにuser＿idは埋め込んである-->
-    <input type="hidden" name="unique_name" value="<?= $this->escape($unique_name);?>">
+            <div class="col-3">
+                <form action="<?=url('/follow/update')?>" method="post">
+                    <input type="hidden" name="user_id_followed" value="<?=$user['id']?>">
+                    <input type="hidden" name="_token" value="<?=$_token['/follow/update']?>">
+                        <button class="btn-follow" type="submit">フォロー</button>
+                </form>
+            </div>
 
-    <input type="submit" value="フォローする">
-</form>
-
-
-<div>
-    <?php foreach ($tweets as $tweet) {?>
-        <div style="border: #6e6e6e solid 1px; width: 30%; margin-bottom:2px; padding: 6px">
-            <div><?=$user['name'];?> <span style="color: #6e6e6e">@<?=$user['unique_name'];?></span></div>
-            <div><?=$tweet['text'];?></div>
         </div>
-    <?php } ?>
-</div>
+        <p class="card-text">biooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo</p>
 
-<ul>
-    <li><a href="<?=$_url['/home'];?>">タイムライン</a></li>
-    <li><a href="<?=$_url['/logout'];?>">ログアウト</a></li>
-</ul>
+        <div>
+            <a href="<?=url('/user/'). $user['unique_name'].'/follows'?>">
+                フォロー<?=$follow['follows'];?>人
+            </a>
+            <span>  </span>
+            <a href="<?=url('/user/'). $user['unique_name'].'/followers'?>">
+                フォロワー<?=$follow['followers'];?>人
+            </a>
+        </div>
+
+        <div class="row text-center">
+            <div class="col-4"><a class="card-link" href="<?=url('/user/').$user['unique_name'];?>">ツイート</a></div>
+            <div class="col-4"><a class="card-link" href="<?=url('/user/').$user['unique_name'].'?content=replies';?>">返信</a></div>
+            <div class="col-4"><a class="card-link" href="<?=url('/user/').$user['unique_name'].'?content=favorites';?>">お気に入り</a></div>
+        </div>
+    </div>
+</div>
+<div class="card">
+    <?=$this->render('components/tweet_index', [
+        'tweets' => $tweets,
+        '_token' => $_token
+    ]) ?>
+</div>

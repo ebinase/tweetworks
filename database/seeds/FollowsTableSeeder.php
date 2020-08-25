@@ -18,7 +18,7 @@ class FollowsTableSeeder
                 if ($i != $j) {
                     $follow->smartInsert([
                         'user_id' =>$i,
-                        'user_followed_id' => $j,
+                        'user_id_followed' => $j,
                     ]);
                 }
             }

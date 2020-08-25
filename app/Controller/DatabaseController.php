@@ -2,7 +2,7 @@
 
 namespace App\Controller;
 
-use App\System\Controller;
+use App\System\Classes\Controller;
 
 class DatabaseController extends Controller
 {
@@ -34,7 +34,7 @@ class DatabaseController extends Controller
         print $this->refresh() . '<br>';
         print $this->seed() . '<br>';
 
-        return 'refresh&seed完了<br><a href="http://localhost/tweetworks/public/home">ホームへ</a>';
+        return 'refresh&seed完了<br><a href="'. url('/home') . '">ホームへ</a>';
     }
 
 }

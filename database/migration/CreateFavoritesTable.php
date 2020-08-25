@@ -4,7 +4,7 @@
 namespace Database\migration;
 
 
-use App\System\CreateTable;
+use App\System\Classes\CreateTable;
 
 class CreateFavoritesTable extends CreateTable
 {

@@ -6,6 +6,8 @@
     }
   },
   "require": {
-    "monolog/monolog": "^1.25"
+    "monolog/monolog": "^1.25",
+    "pimple/pimple": "~3.0",
+    "vlucas/phpdotenv": "*"
   }
 }

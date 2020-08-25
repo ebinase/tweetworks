@@ -1,36 +1,46 @@
 <?php
 
-use App\System\Route;
+use App\System\Interfaces\RouteInterface;
 
-function registerWebRoutes(Route $route)
+function registerWebRoutes(RouteInterface $route)
 {
+//    $route->group('web', function ($route){
+//        $route->get();
+//    });
 
-    $route->get('/sign-up', 'register', 'showSignupPage');
-    $route->post('/sign-up/confirm', 'register', 'confirm');
-    $route->post('/sign-up/register', 'register', 'register');
+    $route->group('web', function (RouteInterface $route){
+      //$route->メソッド(url, controller, action, |オプション→middleware['name1','name2',...], route_name);
+        //トップページ
+        $route->get('/', 'top', 'index');
+            //ログイン周り
+            $route->get('/sign-up', 'Auth/Register', 'showSignupPage');
+            $route->post('/sign-up/confirm', 'Auth/Register', 'confirm', ['csrf']);
+            $route->post('/sign-up/register', 'Auth/Register', 'register', ['csrf']);
 
-    $route->get('/login', 'login', 'showLoginForm');
-    $route->post('/login/auth', 'login', 'auth');
+            $route->get('/login', 'Auth/Login', 'showLoginForm', ['guest']);
+            $route->post('/login/auth', 'Auth/Login', 'auth', ['guest']);
 
-    $route->post('/logout', 'login', 'logout');
+            $route->get('/logout', 'Auth/Login', 'logout');
 
-    $route->get('/home', 'tweet', 'home', 1);
 
-    // ユーザーページ
-    $route->get('/user/:unique_name', 'user', 'index');
+        // ユーザーページ
+        $route->get('/user/:unique_name', 'user', 'index');
+        $route->get('/user/:unique_name/follows', 'user', 'followsIndex');
+        $route->get('/user/:unique_name/followers', 'user', 'followersIndex');
 
-    // タイムライン表示
-    $route->get('/all', 'tweet', 'all');
-    $route->get('/detail/:tweet_id', 'tweet', 'detail');
+        // タイムライン表示
+        $route->get('/all', 'timeline', 'all');
+        $route->get('/home', 'timeline', 'home', ['auth']);
 
-    $route->post('/tweet/post', 'tweet', 'post', 1);
-    $route->post('/tweet/delete', 'tweet', 'delete', 1);
+        $route->get('/detail/:tweet_id', 'tweet', 'show');
 
-    $route->get('/migrate', 'database', 'migrate');
-    $route->get('/refresh', 'database', 'refresh');
-    $route->get('/seed', 'database', 'seed');
-    $route->get('/refresh-seed', 'database', 'refreshAndSeed');
+        $route->post('/tweet/post', 'tweet', 'post', ['auth', 'csrf']);
+        $route->post('/tweet/delete', 'tweet', 'delete', ['auth', 'csrf']);
 
-    $route->post('/follow/:user_id', 'follow', 'update', 1);
+        $route->post('/reply/post', 'reply', 'post', ['auth', 'csrf']);
 
+        $route->post('/follow/update', 'follow', 'update', ['auth', 'csrf']);
+
+
+    });
 }
