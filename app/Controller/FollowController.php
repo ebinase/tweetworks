@@ -17,10 +17,16 @@ class FollowController extends \App\System\Classes\Controller
 
         $follow = new Follow();
 
-        $follow->smartInsert([
-            'user_id_followed' => $user_id_followed,
-            'user_id' => $user_id,
-        ]);
+         print_r($data = $follow->checkIfFollows($user_id,$user_id_followed));
+
+        if (empty($data)){
+            $follow->smartInsert([
+                'user_id_followed' => $user_id_followed,
+                'user_id' => $user_id,
+            ]);
+        }else{
+            $follow->deleteByFollows($user_id,$user_id_followed);
+        }
 
         return back();
 

@@ -49,4 +49,22 @@ EOF;
 
         return $this->fetchAll($sql, [':user_id' => $user_id]);
     }
+
+    public function checkIfFollows($user_id ,$user_id_followed)
+    {
+        $sql = "SELECT count(*) FROM {$this->_tableName} WHERE user_id = :user_id and user_id_followed = :user_id_followed;";
+        //execute()->rowCount()が期待通り動作しなかったため、fetchを使用。
+        $result = $this->fetch($sql, [':user_id' => $user_id ,':user_id_followed' => $user_id_followed]);
+        return $result['count(*)'];
+    }
+
+    public function deleteByFollows($user_id ,$user_id_followed)
+    {
+        $sql = "DELETE FROM {$this->_tableName} WHERE user_id = :user_id and user_id_followed = :user_id_followed";
+        return $this->smartExecute($sql, [
+            ':user_id' => $user_id,
+            ':user_id_followed' => $user_id_followed,
+
+        ]);
+    }
 }

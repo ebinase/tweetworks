@@ -28,13 +28,15 @@
                 <h5 class="card-title"><?=$user['name'];?></h5>
                 <h6 class="card-subtitle mb-2 text-muted">@<?=$user['unique_name'];?></h6>
             </div>
+
             <div class="col-3">
                 <form action="<?=url('/follow/update')?>" method="post">
                     <input type="hidden" name="user_id_followed" value="<?=$user['id']?>">
                     <input type="hidden" name="_token" value="<?=$_token['/follow/update']?>">
-                    <button class="btn-follow" type="submit">フォロー</button>
+                        <button class="btn-follow" type="submit">フォロー</button>
                 </form>
             </div>
+
         </div>
         <p class="card-text">biooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo</p>
 
