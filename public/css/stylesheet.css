@@ -1,6 +1,56 @@
-.logo {
+/*基準フォントサイズの変更*/
+html {
+    font-size: 12pt;
+}
+
+a {
+    color: #353535;
+}
+
+li {
+    list-style: none;
+}
+
+.theme-color {
     color: #ffa014;
+}
+
+.brand-logo {
     font-family: "Ubuntu", sans-serif;
-    font-size: large;
+    font-weight: bold;
+    font-size: 1.5rem;
+}
+
+.nav-link {
+    font-size: 1.2rem;
+    font-weight: bold;
+}
+
+#more-list {
+    border-left: #6e6e6e 2px solid;
+    padding-left: 7px;
+}
+
+.list-bar {
+    height: 100%;
+    width: 2px;
+    background-color: #6e6e6e;
+}
+
+
+.nav-user-info {
+    padding: 5px;
+}
+
+.nav-user-info > .card-title {
+    font-weight: bold;
+    margin: 0;
+    padding: 0;
+}
+
+.nav-user-info > .card-subtitle {
+    color: #6e6e6e;
+    margin: 0;
+    padding: 0;
 }
 
