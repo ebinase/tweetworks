@@ -71,7 +71,9 @@
                         <button class="btn"><i class="fas fa-retweet"></i></button>
                     </div>
                     <div class="col-4 favorite">
-                        <button class="btn btn-fav"><i class="far fa-star"></i></button>
+                        <button class="btn btn-fav" data-tweet-id="<?=$tweet['id']?>" data-address="<?=url('/favorite/update');?>">
+                            <i class="far fa-star"></i>
+                        </button>
                     </div>
                 </div>
 
