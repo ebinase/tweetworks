@@ -4,6 +4,7 @@ namespace App\Middleware;
 
 use App\System\Classes\Facades\CSRF;
 use App\System\Classes\Facades\Route;
+use App\System\Classes\Services\Env;
 use App\System\Interfaces\Core\HttpHandlerInterface;
 use App\System\Interfaces\Core\MiddlewareInterface;
 use App\System\Interfaces\HTTP\RequestInterface;
@@ -30,7 +31,9 @@ class VerifyCsrfToken implements MiddlewareInterface
             return Route::redirect($back_to);
         }
 
-        print 'CSRFチェック通過▶';
+        if (Env::get('APP_DEBUG') == 'true') {
+            print 'CSRFチェック通過▶';
+        }
         return $next->handle($request);
     }
 }

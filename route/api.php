@@ -9,6 +9,6 @@ function registerApiRoutes(RouteInterface $route)
         //$route->get();
 
         $route->post('/follow/update', 'follow', 'update', ['auth', 'csrf']);
-        $route->post('/favorite/update', 'Favorite', 'update', ['auth', 'csrf']);
+        $route->post('/favorite/update', 'Favorite', 'update', ['auth']);
     });
 }
