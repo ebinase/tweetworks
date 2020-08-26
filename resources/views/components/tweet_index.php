@@ -70,8 +70,8 @@
                     <div class="col-4 retweet">
                         <button class="btn"><i class="fas fa-retweet"></i></button>
                     </div>
-                    <div class="col-4 reply favorite">
-                        <button class="btn"><i class="far fa-star"></i></button>
+                    <div class="col-4 favorite">
+                        <button class="btn btn-fav"><i class="far fa-star"></i></button>
                     </div>
                 </div>
 
