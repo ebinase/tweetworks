@@ -1,4 +1,4 @@
-<?php $this->setLayoutVar('page_title', 'ホーム');?>
+<?php $this->setLayoutVar('page_title', 'ツイート詳細');?>
 
 <style>
 
@@ -84,14 +84,14 @@
             <?=$tweet['created_at']?>
         </div>
 
-    <div class="container border-top border-bottom  mt-3 mb-3 pt-2 pb-2">
+    <div class="container border-top border-bottom  mt-3 pt-2 pb-2">
         <div class="row">
             <strong></strong><span class="text-muted">　コメント　　</span>
             <strong></strong><span class="text-muted">　お気に入り　　</span>
         </div>
     </div>
 
-    <div class="container mt-2 mb-2">
+    <div class="container mt-3 mb-3">
         <div class="row">
             <div class="col-4 reply">
                 <button class="btn" type="button" data-toggle="modal" data-target="#reply-modal"><i class="far fa-comment"></i></button>
