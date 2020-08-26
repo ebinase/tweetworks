@@ -1,70 +1,107 @@
 <style>
     .tweet-container {
-        border: #6e6e6e solid 1px;
-        display: flex;
+        padding: 8px;
     }
 
-    .tweet-left {
-        width: 20%;
+    .tweet-user-name {
+        font-weight: bold;
     }
 
-    .tweet-right {
-        width: 80%;
+    .icon-container {
+        margin-top: 8px;
     }
+
+    .dropdown-toggle:after {
+        display: none;
+    }
+
 </style>
 
-<!--<table>-->
-<!--<tr>-->
-<!--    <th>id</th><td>--><?//= $datum['id'] ?><!--</td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--    <th>user_id</th><td>--><?//= $datum['user_id'] ?><!--</td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--    <th>ツイート内容</th><td>--><?//= $datum['text'] ?><!--</td>-->
-<!--</tr>-->
-<!--<tr>-->
-<!--    <th>日時</th><td>--><?//= $datum['created_at'] ?><!--</td>-->
-<!--</tr>-->
-<!--</table>-->
 <?php//$tweetsと$_tokenが必須＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ ?>
+<div class="container">
 <?php foreach ($tweets as $tweet) {?>
     <a href="<?= url('/detail'); ?>/<?= $tweet['id'] ?>">
-        <div class="tweet-container">
-            <div class="tweet-left">
-                アイコン
+        <div class="row  border-top tweet-container">
+            <div class="col-2">
+                <div class="icon-container">
+                    <i class="fas fa-user fa-2x"></i>
+                </div>
             </div>
-            <div class="tweet-right">
-                <div class="tweet-name">
-                    <object><!--aタグのネストを実現するためにobjectで囲む-->
-                        <a href="<?=url('/user/').$tweet['unique_name'];?>">
-                            <?= $tweet['name'] ?> @<?= $tweet['unique_name'] ?>
+            <div class="col-10">
+                <div class="row tweet-name justify-content-between align-content-center">
+                    <div>
+                        <object><!--aタグのネストを実現するためにobjectで囲む-->
+                            <a href="<?=url('/user/').$tweet['unique_name'];?>">
+                                <span class="tweet-user-name"><?= $tweet['name'] ?></span>
+                                  @<?= $tweet['unique_name'] ?>
+                            </a>
+                        </object>
+                        <span>...<?=$tweet['created_at']?></span>
+                    </div>
+                    <div class="dropdown">
+                        <a class="dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                            <i class="fas fa-caret-down"></i>
                         </a>
-                    </object>
+                        <div id="dropdown-menu" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                            <?php if (\App\System\Classes\Facades\Auth::info('unique_name') == $tweet['unique_name']) {?>
+                                <div class="">
+                                    <!--削除ボタン-->
+                                    <form action="<?= url('/tweet/delete'); ?>" method="post" onsubmit="return check()">
+                                        <input type="hidden" name="_token" value="<?= $this->escape($_token['/tweet/delete']);?>">
+                                        <input type="hidden" name="tweet_id" value="<?=$tweet['id']?>">
+                                        <input class="dropdown-item" type="submit" value="削除">
+                                    </form>
+                                </div>
+                                <div class="dropdown-divider"></div>
+                            <?php } ?>
+                            <object><a class="dropdown-item">閉じる</a></object>
+                        </div>
+                    </div>
                 </div>
-                <div class="tweet-text">
-                    <?= $tweet['text'] ?>
+
+                <div class="row tweet-text">
+                    <p><?= $tweet['text'] ?></p>
                 </div>
-                <div class="tweet-func">
-                    <div class="buttons-wrapper">
-                        <div class="reply">
+
+                <div class="row">
+                    <div class="col-4 reply">
+                        <button class="btn" type="button" data-toggle="modal" data-target="#reply-modal"><i class="far fa-comment"></i></button>
+                    </div>
+                    <div class="col-4 retweet">
+                        <button class="btn"><i class="fas fa-retweet"></i></button>
+                    </div>
+                    <div class="col-4 favorite">
+                        <button class="btn btn-fav" data-tweet-id="<?=$tweet['id']?>" data-address="<?=url('/favorite/update');?>">
+                            <i class="far fa-star"></i>
+                        </button>
+                    </div>
+                </div>
+
+                <!--返信モーダル-->
+                <!--TODO: JSでツイートのidを動的に取得して、モーダルを繰り返しレンダリングしなくても済むように-->
+                <div class="modal fade" id="reply-modal" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
+                    <div class="modal-dialog modal-dialog-centered" role="document">
+                        <div class="modal-content">
                             <form action="<?= url('/reply/post'); ?>" method="post">
-                                <input type="hidden" name="_token" value="<?= $this->escape($_token['/reply/post']);?>">
-                                <input type="hidden" name="tweet_id" value="<?= $tweet['id'];?>">
-                                <input type="text" name="text">
-                                <input type="submit" value="返信">
+                                <div class="modal-header border-0">
+                                    <h5 class="modal-title" id="label1">reply</h5>
+                                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                        <span aria-hidden="true">&times;</span>
+                                    </button>
+                                </div>
+                                <div class="modal-body">
+                                    <div class="reply">
+                                        <input type="hidden" name="_token" value="<?= $this->escape($_token['/reply/post']);?>">
+                                        <input type="hidden" name="tweet_id" value="<?= $tweet['id'];?>">
+                                        <textarea class="w-100" rows="5" name="text"></textarea>
+                                    </div>
+                                </div>
+                                <div class="modal-footer  border-0">
+                                    <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
+                                    <button type="submit" class="btn btn-primary">返信</button>
+                                </div>
                             </form>
                         </div>
-                        <?php if (\App\System\Classes\Facades\Auth::info('unique_name') == $tweet['unique_name']) {?>
-                            <div class="delete">
-                                <!--削除ボタン-->
-                                <form action="<?= url('/tweet/delete'); ?>" method="post" onsubmit="return check()">
-                                    <input type="hidden" name="_token" value="<?= $this->escape($_token['/tweet/delete']);?>">
-                                    <input type="hidden" name="tweet_id" value="<?=$tweet['id']?>">
-                                    <input type="submit" value="削除">
-                                </form>
-                            </div>
-                        <?php } ?>
                     </div>
                 </div>
             </div>
@@ -73,3 +110,4 @@
 <?php
 }
 ?>
+</div>

@@ -11,6 +11,7 @@ li {
     list-style: none;
 }
 
+/*テーマカラーなど全体の設定*/
 .theme-color {
     color: #ffa014;
 }
@@ -21,10 +22,17 @@ li {
     font-size: 1.5rem;
 }
 
-.nav-link {
+.tw-heading {
     font-size: 1.2rem;
     font-weight: bold;
 }
+
+
+/*ナビバー===============*/
+.nav-link {
+    margin-top: 1rem;
+}
+
 
 #more-list {
     border-left: #6e6e6e 2px solid;
@@ -52,5 +60,10 @@ li {
     color: #6e6e6e;
     margin: 0;
     padding: 0;
+}
+
+/*中央部分の装飾*/
+.center-heading {
+    padding: 8px;
 }
 
