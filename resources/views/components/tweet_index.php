@@ -74,6 +74,7 @@
                         <button class="btn btn-fav" data-tweet-id="<?=$tweet['id']?>" data-address="<?=url('/favorite/update');?>">
                             <i class="far fa-star"></i>
                         </button>
+                        <span></span>
                     </div>
                 </div>
 

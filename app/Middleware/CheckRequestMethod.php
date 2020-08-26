@@ -24,7 +24,7 @@ class CheckRequestMethod implements MiddlewareInterface
             throw new HttpNotFoundException("wrong request method：requested {$request_method}");
         }
 
-        print 'CheckRequestMethod通過▶';
+//        print 'CheckRequestMethod通過▶';
         return $next->handle($request);
     }
 }
