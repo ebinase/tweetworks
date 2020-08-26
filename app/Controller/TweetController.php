@@ -62,11 +62,11 @@ class TweetController extends Controller
 
         $tweet  = new Tweet();
 
-        $data = $tweet->getDetailTweet($tweet_id);
+        $main_tweet = $tweet->getDetailTweet($tweet_id);
         $replies = $tweet->getReplies($tweet_id);
 
         return $this->render('detail', [
-            'data' => $data,
+            'tweet' => $main_tweet,
             'replies' => $replies,
             '_token' => [
                 '/reply/post' => CSRF::generate('/reply/post'),

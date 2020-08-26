@@ -28,7 +28,7 @@
 <div class="container">
     <div id="profile-background" class="row bg-light"></div>
 
-    <div class="row mt-2">
+    <div class="row mt-3">
         <div class="col-9">
             <h2 class=""><?=$user['name'];?></h2>
             <h3 class="text-muted">@<?=$user['unique_name'];?></h3>
