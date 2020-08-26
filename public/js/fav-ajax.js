@@ -1,5 +1,6 @@
 $(function() {
     $('.btn-fav').on('click', function () {
+        let fav_button = $(this)
         let tweet_id = $(this).attr('data-tweet-id');
         let address = $(this).attr('data-address');
         $.ajax({
@@ -9,13 +10,18 @@ $(function() {
                 dataType: 'json'
             }
         )
-        // 検索成功時にはページに結果を反映
+
         .done(function(data) {
-            $(this).children('i').css('color', 'yellow');
+            if (data['result'] === 'set') {
+                fav_button.addClass('fav-active');
+            } else {
+                fav_button.removeClass('fav-active');
+            }
+            fav_button.next('span').text(data['favs']);
         })
-        // 検索失敗時には、その旨をダイアログ表示
+
         .fail(function() {
-            window.alert('正しい結果を得られませんでした。');
+            window.alert('データの取得に失敗しました。');
         });
     })
 });

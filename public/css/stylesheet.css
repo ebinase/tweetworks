@@ -67,3 +67,8 @@ li {
     padding: 8px;
 }
 
+/*お気に入り*/
+.fav-active {
+    color: #deb034;
+}
+
