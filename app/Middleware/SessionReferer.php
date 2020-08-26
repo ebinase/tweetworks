@@ -48,7 +48,7 @@ class SessionReferer implements \App\System\Interfaces\Core\MiddlewareInterface
 
         $session->set('referer_back_to', $back_to);
 
-        print 'SessionReferer通過(前のページは' . $session->get('referer_back_to') . ')▶';
+//        print 'SessionReferer通過(前のページは' . $session->get('referer_back_to') . ')▶';
 
         return $next->handle($request);
     }

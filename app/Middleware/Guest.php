@@ -19,7 +19,7 @@ class Guest implements MiddlewareInterface
             return redirect('/home');
         }
 
-        print 'Guest通過▶';
+//        print 'Guest通過▶';
         return $next->handle($request);
     }
 }
