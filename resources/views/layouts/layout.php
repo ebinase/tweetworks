@@ -86,6 +86,8 @@
     <script src=""></script>
 <!--    蛯名-->
     <script src="<?=url('/js/fav-ajax.js')?>"></script>
+<!--全般的なjs-->
+    <script src="<?=url('/js/general.js')?>"></script>
 
     <script type="text/javascript">
         function check(){

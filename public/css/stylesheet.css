@@ -67,8 +67,24 @@ li {
     padding: 8px;
 }
 
+/*ボタン系========================================================*/
+
+/*リプライボタン*/
+.btn-reply:hover {
+    background-color: #d8ebfa;
+}
+
+/*リツイートボタン*/
+.btn-retweet:hover {
+    background-color: #ecffdc;
+}
+
 /*お気に入り*/
 .fav-active {
     color: #deb034;
+}
+
+.btn-fav:hover {
+    background-color: #faf5d8;
 }
 
