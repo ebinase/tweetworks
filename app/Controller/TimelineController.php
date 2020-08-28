@@ -31,7 +31,8 @@ class TimelineController extends Controller
         $page = $request->getGet('page');
         $page =$page ?? '1';
         $tweet  = new Tweet();
-        $data =$tweet->getAllTweetExceptReply();
+        //ユーザーがログイン中はお気に入りのツイート表示
+        $data =$tweet->getAllTweetExceptReply(Auth::id());
 
         return $this->render('all', [
             'data' => $data,

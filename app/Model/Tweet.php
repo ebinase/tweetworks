@@ -17,9 +17,33 @@ class Tweet extends Model
     //==============================================================================
     //Timeline
     //==============================================================================
-    public function getAllTweetExceptReply()
+    public function getAllTweetExceptReply($user_id)
     {
-        $sql = <<< EOF
+        //TODO: CASEやIFを使って式が一つで済むように
+        if (isset($user_id)) {
+            //ユーザーがログインしていたらお気に入りも取得
+            $sql = <<< EOF
+SELECT DISTINCT
+    #ツイートの表示に必要な情報
+    t.id, t.user_id, t.text, t.reply_to_id, t.created_at,
+    u.name, u.unique_name,
+    (SELECT count(*) FROM favorites WHERE tweet_id = t.id) AS favs,
+    (SELECT count(*) FROM favorites WHERE user_id = :user_id AND tweet_id = t.id) AS my_fav, #自身のお気に入りか(1or0) 
+    (SELECT count(*) FROM tweets WHERE reply_to_id = t.id) AS replies
+FROM tweets t
+INNER JOIN users u
+    ON t.user_id = u.id
+WHERE t.reply_to_id IS NULL
+ORDER BY t.created_at DESC;
+EOF;
+
+            return $this->fetchAll($sql, [
+                ':user_id' => $user_id,
+            ]);
+
+        } else {
+            //ログインしていなかったらツイートとユーザーの情報だけ
+            $sql = <<< EOF
 SELECT DISTINCT
     #ツイートの表示に必要な情報
     t.id, t.user_id, t.text, t.reply_to_id, t.created_at,
@@ -33,7 +57,9 @@ WHERE t.reply_to_id IS NULL
 ORDER BY t.created_at DESC;
 EOF;
 
-        return $this->fetchAll($sql);
+            return $this->fetchAll($sql);
+        }
+
     }
 
     public function getTimeline($user_id)

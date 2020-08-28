@@ -52,6 +52,6 @@ class LoginController extends Controller
         $session->clear();
         $session->setAuthenticated(false);
 
-        return redirect('/home');
+        return redirect('/');
     }
 }
