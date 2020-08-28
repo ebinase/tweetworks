@@ -12,8 +12,8 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-2">
-                <nav class="nav flex-column">
+            <div class="col-2 pt-3">
+                <nav class="nav flex-column position-fixed">
                     <a href="<?= url('/') ?>" class="nav-item theme-color brand-logo">
                         T<span class="d-none d-xl-inline">weetworks</span>
                     </a>
@@ -47,12 +47,20 @@
                                 <?php }?>
                             </div>
                         </li>
+
+                        <li class="nav-item">
+                            <button class="nav-link btn btn-tweet" type="button"
+                                    data-toggle="modal" data-target="#tweet-modal">
+                                ツイートする
+                            </button>
+                        </li>
                     </ul>
                 </nav>
 
             </div>
 
-            <div class="col-7 border-left border-right">
+            <!--中央部分-->
+            <div class="col-7 pt-3 border-left border-right">
                 <h1 class="row tw-heading center-heading">
                     <?= $page_title ?><!--各テンプレート内で、$this->setLayoutVar()で設定-->
                 </h1>
@@ -61,17 +69,31 @@
                 </div>
             </div>
 
-            <div class="col-3">
-                <div class="row">
-                    <i class="fab fa-twitter fa-5x"></i>
-                    <i class="fab fa-twitter fa-4x"></i>
-                    <i class="fab fa-twitter fa-3x"></i>
-                    <i class="fab fa-twitter fa-2x"></i>
-                    <i class="fab fa-twitter fa-1x"></i>
+            <!--右側-->
+            <div class="col-3 pt-3">
+                <div class="container position-fixed">
+                    <div class="row">
+                        <i class="fab fa-twitter fa-5x"></i>
+                    </div>
+                    <div class="row">
+                        <i class="fab fa-twitter fa-4x"></i>
+                    </div>
+                    <div class="row">
+                        <i class="fab fa-twitter fa-3x"></i>
+                    </div>
+                    <div class="row">
+                        <i class="fab fa-twitter fa-2x"></i>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
+
+
+    <?= $this->render('components/tweet-modal', [
+        '_token' => $_token
+    ]);?>
+
 <!--    <footer style="background-color: #cecece">-->
 <!--        <div class="container">-->
 <!--            ここはフッターです。-->

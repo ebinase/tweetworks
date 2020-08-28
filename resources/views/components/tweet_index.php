@@ -66,23 +66,25 @@
                 <!--todo:component化を再び目指す-->
                 <div class="row align-items-center">
                     <div class="col-4 reply">
-                        <button class="btn btn-reply" type="button"
+                        <button class="btn btn-reply text-muted" type="button"
                                 data-toggle="modal" data-target="#reply-modal"
                                 data-tweet-id="<?=$tweet['id']?>">
                             <i class="far fa-comment"></i>
-                            <span class="reply-num text-muted"><?=$tweet['replies']?></span>
+                            <span class="reply-num"><?=$tweet['replies']?></span>
                         </button>
                     </div>
                     <div class="col-4 retweet">
-                        <button class="btn btn-retweet"><i class="fas fa-retweet"></i></button>
-                        <span class="retweet-num text-muted"></span>
+                        <button class="btn btn-retweet text-muted">
+                            <i class="fas fa-retweet"></i>
+                            <span class="retweet-num"></span>
+                        </button>
                     </div>
                     <div class="col-4 favorite">
-                        <button class="btn btn-fav"
+                        <button class="btn btn-fav text-muted"
                                 data-tweet-id="<?=$tweet['id']?>"
                                 data-address="<?=url('/favorite/update');?>">
                             <i class="far fa-star <?=$tweet['my_fav'] == 1 ? 'fav-active' : '';?>"></i>
-                            <span class="fav-num text-muted"><?=$tweet['favs']?></span>
+                            <span class="fav-num"><?=$tweet['favs']?></span>
                         </button>
                     </div>
                 </div>

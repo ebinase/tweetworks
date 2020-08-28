@@ -22,6 +22,7 @@ li {
     font-size: 1.5rem;
 }
 
+/*ナビバーの各要素や画面中央一番上のページタイトルなどの文字の設定*/
 .tw-heading {
     font-size: 1.2rem;
     font-weight: bold;
@@ -68,6 +69,21 @@ li {
 }
 
 /*ボタン系========================================================*/
+
+/*ツイートボタン*/
+.btn-tweet {
+    background-color: #ffa014;
+    border-radius: 10rem;
+    width: 100%;
+    font-weight: bold;
+    color: white;
+}
+
+.btn-tweet:hover {
+    background-color: #f8990d;
+    color: white;
+    box-shadow: 0 3px 5px darkgray;
+}
 
 /*リプライボタン*/
 .btn-reply:hover {
