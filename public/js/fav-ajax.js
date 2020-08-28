@@ -17,7 +17,7 @@ $(function() {
             } else {
                 fav_button.children('i').removeClass('fav-active');
             }
-            fav_button.next('span').text(data['favs']);
+            fav_button.children('span').text(data['favs']);
         })
 
         .fail(function() {

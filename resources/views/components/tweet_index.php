@@ -70,18 +70,20 @@
                                 data-toggle="modal" data-target="#reply-modal"
                                 data-tweet-id="<?=$tweet['id']?>">
                             <i class="far fa-comment"></i>
+                            <span class="reply-num"><?=$tweet['replies']?></span>
                         </button>
                     </div>
                     <div class="col-4 retweet">
                         <button class="btn"><i class="fas fa-retweet"></i></button>
+                        <span class="retweet-num"></span>
                     </div>
                     <div class="col-4 favorite">
                         <button class="btn btn-fav"
                                 data-tweet-id="<?=$tweet['id']?>"
                                 data-address="<?=url('/favorite/update');?>">
-                            <i class="far fa-star"></i>
+                            <i class="far fa-star <?=$tweet['my_fav'] == 1 ? 'fav-active' : '';?>"></i>
+                            <span class="fav-num"><?=$tweet['favs']?></span>
                         </button>
-                        <span></span>
                     </div>
                 </div>
 
