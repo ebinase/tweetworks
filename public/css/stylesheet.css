@@ -82,7 +82,7 @@ li {
 .btn-tweet:hover {
     background-color: #f8990d;
     color: white;
-    box-shadow: 0 3px 5px darkgray;
+    box-shadow: 0 0 5px darkgray;
 }
 
 /*リプライボタン*/

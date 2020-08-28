@@ -28,6 +28,7 @@ class UserController extends Controller
         $follow_num['followers'] = $follow->countFollowers($user_data['id']);
 
         $_token['/reply/post'] = CSRF::generate('/reply/post');
+        $_token['/tweet/post'] = CSRF::generate('/tweet/post');
         $_token['/tweet/delete'] = CSRF::generate('/tweet/delete');
         $_token['/follow/update'] = CSRF::generate('/follow/update');
 

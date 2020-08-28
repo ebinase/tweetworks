@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Model\Tweet;
 use App\System\Classes\Controller;
+use App\System\Classes\Facades\Auth;
 use App\System\Classes\Facades\CSRF;
 use App\System\Classes\Services\Service;
 use App\System\Interfaces\HTTP\RequestInterface;
@@ -60,10 +61,12 @@ class TweetController extends Controller
         $params = $request->getRouteParam();
         $tweet_id = $params['tweet_id'];
 
+        $user_id = Auth::id();
+
         $tweet  = new Tweet();
 
-        $main_tweet = $tweet->getDetailTweet($tweet_id);
-        $replies = $tweet->getReplies($tweet_id);
+        $main_tweet = $tweet->getDetailTweet($tweet_id, $user_id);
+        $replies = $tweet->getReplies($tweet_id, $user_id);
 
         return $this->render('detail', [
             'tweet' => $main_tweet,
@@ -71,6 +74,7 @@ class TweetController extends Controller
             '_token' => [
                 '/reply/post' => CSRF::generate('/reply/post'),
                 '/tweet/delete' => CSRF::generate('/tweet/delete'),
+                '/tweet/post' => CSRF::generate('/tweet/post'),
                 ],
             ],
             'layouts/layout'

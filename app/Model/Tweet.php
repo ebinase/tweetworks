@@ -19,8 +19,6 @@ class Tweet extends Model
     //==============================================================================
     public function getAllTweetExceptReply($user_id)
     {
-        //TODO: CASEやIFを使って式が一つで済むように
-        if (isset($user_id)) {
             //ユーザーがログインしていたらお気に入りも取得
             $sql = <<< EOF
 SELECT DISTINCT
@@ -40,26 +38,6 @@ EOF;
             return $this->fetchAll($sql, [
                 ':user_id' => $user_id,
             ]);
-
-        } else {
-            //ログインしていなかったらツイートとユーザーの情報だけ
-            $sql = <<< EOF
-SELECT DISTINCT
-    #ツイートの表示に必要な情報
-    t.id, t.user_id, t.text, t.reply_to_id, t.created_at,
-    u.name, u.unique_name,
-    (SELECT count(*) FROM favorites WHERE tweet_id = t.id) AS favs,
-    (SELECT count(*) FROM tweets WHERE reply_to_id = t.id) AS replies
-FROM tweets t
-INNER JOIN users u
-    ON t.user_id = u.id
-WHERE t.reply_to_id IS NULL
-ORDER BY t.created_at DESC;
-EOF;
-
-            return $this->fetchAll($sql);
-        }
-
     }
 
     public function getTimeline($user_id)
@@ -99,37 +77,51 @@ EOF;
     //ツイート詳細と返信
     //==============================================================================
 
-    public function getDetailTweet($tweet_id)
+    public function getDetailTweet($tweet_id, $user_id)
     {
         $sql = <<< EOF
-SELECT tweets.id, tweets.user_id, tweets.text, tweets.reply_to_id, tweets.created_at, users.name, users.unique_name
-FROM tweets
-INNER JOIN users
-    ON tweets.user_id = users.id
-WHERE tweets.id = :tweet_id
-ORDER BY created_at DESC;
+SELECT DISTINCT
+    #ツイートの表示に必要な情報
+    t.id, t.user_id, t.text, t.reply_to_id, t.created_at,
+    u.name, u.unique_name,
+    (SELECT count(*) FROM favorites WHERE tweet_id = t.id) AS favs,
+    (SELECT count(*) FROM favorites WHERE user_id = :user_id AND tweet_id = t.id) AS my_fav, #自身のお気に入りか(1or0) 
+    (SELECT count(*) FROM tweets WHERE reply_to_id = t.id) AS replies
+FROM tweets t
+INNER JOIN users u
+    ON t.user_id = u.id
+WHERE t.id = :tweet_id
+ORDER BY t.created_at DESC;
 EOF;
 
         return $this->fetch($sql, [
-            ':tweet_id' => $tweet_id
+            ':tweet_id' => $tweet_id,
+            ':user_id' => $user_id
         ]);
 
     }
 
-    public function getReplies($tweet_id)
+    public function getReplies($tweet_id, $user_id)
     {
         //todo: 返信への返信にも対応
         $sql =  <<< EOF
-SELECT tweets.id, tweets.user_id, tweets.text, tweets.reply_to_id, tweets.created_at, users.name, users.unique_name
-FROM tweets
-INNER JOIN users
-    ON tweets.user_id = users.id
-WHERE tweets.reply_to_id = :tweet_id
-ORDER BY created_at ASC;
+SELECT DISTINCT
+    #ツイートの表示に必要な情報
+    t.id, t.user_id, t.text, t.reply_to_id, t.created_at,
+    u.name, u.unique_name,
+    (SELECT count(*) FROM favorites WHERE tweet_id = t.id) AS favs,
+    (SELECT count(*) FROM favorites WHERE user_id = :user_id AND tweet_id = t.id) AS my_fav, #自身のお気に入りか(1or0) 
+    (SELECT count(*) FROM tweets WHERE reply_to_id = t.id) AS replies
+FROM tweets t
+INNER JOIN users u
+    ON t.user_id = u.id
+WHERE t.reply_to_id = :tweet_id
+ORDER BY t.created_at ASC;
 EOF;
 
         return $this->fetchAll($sql, [
             ':tweet_id' => $tweet_id,
+            ':user_id' => $user_id
         ]);
     }
 
