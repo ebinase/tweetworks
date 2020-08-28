@@ -90,43 +90,26 @@
             <strong></strong><span class="text-muted">　お気に入り　　</span>
         </div>
     </div>
-
+<!--todo: コンポーネント化-->
     <div class="container mt-3 mb-3">
         <div class="row">
             <div class="col-4 reply">
-                <button class="btn" type="button" data-toggle="modal" data-target="#reply-modal"><i class="far fa-comment"></i></button>
+                <button class="btn btn-reply" type="button"
+                        data-toggle="modal" data-target="#reply-modal"
+                        data-tweet-id="<?=$tweet['id']?>">
+                    <i class="far fa-comment"></i>
+                </button>
             </div>
             <div class="col-4 retweet">
                 <button class="btn"><i class="fas fa-retweet"></i></button>
             </div>
-            <div class="col-4 reply favorite">
-                <button class="btn"><i class="far fa-star"></i></button>
-            </div>
-        </div>
-    </div>
-
-    <div class="modal fade" id="reply-modal" tabindex="-1" role="dialog" aria-labelledby="label1" aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered" role="document">
-            <div class="modal-content">
-                <form action="<?= url('/reply/post'); ?>" method="post">
-                    <div class="modal-header border-0">
-                        <h5 class="modal-title" id="label1">reply</h5>
-                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                            <span aria-hidden="true">&times;</span>
-                        </button>
-                    </div>
-                    <div class="modal-body">
-                        <div class="reply">
-                            <input type="hidden" name="_token" value="<?= $this->escape($_token['/reply/post']);?>">
-                            <input type="hidden" name="tweet_id" value="<?= $tweet['id'];?>">
-                            <textarea class="w-100" rows="5" name="text"></textarea>
-                        </div>
-                    </div>
-                    <div class="modal-footer  border-0">
-                        <button type="button" class="btn btn-secondary" data-dismiss="modal">キャンセル</button>
-                        <button type="submit" class="btn btn-primary">返信</button>
-                     </div>
-                </form>
+            <div class="col-4 favorite">
+                <button class="btn btn-fav"
+                        data-tweet-id="<?=$tweet['id']?>"
+                        data-address="<?=url('/favorite/update');?>">
+                    <i class="far fa-star"></i>
+                </button>
+                <span></span>
             </div>
         </div>
     </div>
