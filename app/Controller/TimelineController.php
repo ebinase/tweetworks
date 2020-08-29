@@ -30,12 +30,18 @@ class TimelineController extends Controller
         //TODO:ペジネーション
         $page = $request->getGet('page');
         $page =$page ?? '1';
+
+        $_token['/tweet/post'] = CSRF::generate('/tweet/post');
+        $_token['/reply/post'] = CSRF::generate('/reply/post');
+        $_token['/tweet/delete'] = CSRF::generate('/tweet/delete');
+
         $tweet  = new Tweet();
         //ユーザーがログイン中はお気に入りのツイート表示
         $data =$tweet->getAllTweetExceptReply(Auth::id());
 
         return $this->render('all', [
             'data' => $data,
+            '_token' => $_token,
         ], 'layouts/layout');
     }
 }

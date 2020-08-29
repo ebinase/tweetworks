@@ -54,7 +54,7 @@ class View implements ViewInterface
         if ($_layout_path) {
             $content = $this->render(
                 $_layout_path,
-                array_merge($this->_layout_variables, ['_content' => $content])
+                array_merge($this->_layout_variables, $_variables, ['_content' => $content])
             );
         }
 
