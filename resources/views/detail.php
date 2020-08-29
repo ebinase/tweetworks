@@ -86,8 +86,8 @@
 
     <div class="container border-top border-bottom  mt-3 pt-2 pb-2">
         <div class="row">
-            <strong></strong><span class="text-muted">　コメント　　</span>
-            <strong></strong><span class="text-muted">　お気に入り　　</span>
+            <strong><?=$tweet['replies']?></strong><span class="text-muted">　コメント　　</span>
+            <strong><?=$tweet['favs']?></strong><span class="text-muted">　お気に入り　　</span>
         </div>
     </div>
 <!--todo: コンポーネント化-->

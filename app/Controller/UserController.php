@@ -7,6 +7,7 @@ use App\Model\Follow;
 use App\Model\Tweet;
 use App\Model\User;
 use App\System\Classes\Controller;
+use App\System\Classes\Facades\Auth;
 use App\System\Classes\Facades\CSRF;
 use App\System\Interfaces\HTTP\RequestInterface;
 
@@ -37,15 +38,15 @@ class UserController extends Controller
         if($request->getGet('content') == 'favorites') {
             //お気に入りツイート一覧を要求されたら
             $favorite = new Favorite();
-            $tweets = $favorite->getFavoriteTweets($user_data['id']);
+            $tweets = $favorite->getFavoriteTweets($user_data['id'], Auth::id());
         } elseif($request->getGet('content') == 'replies') {
             $tweet = new Tweet();
-            $tweets = $tweet->getUserReplies($user_data['id']);
+            $tweets = $tweet->getUserReplies($user_data['id'], Auth::id());
         } else {
             //該当するユーザーが存在したら
             //ツイート一覧表示
             $tweet = new Tweet();
-            $tweets = $tweet->getUserTweets($user_data['id']);
+            $tweets = $tweet->getUserTweets($user_data['id'], Auth::id());
         }
 
 
