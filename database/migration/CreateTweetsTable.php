@@ -12,7 +12,7 @@ class CreateTweetsTable extends CreateTable
 create table tweets
 (
 	id int(10) auto_increment,
-	user_id int(10) null,
+	user_id int(10) not null,
 	text varchar(140) not null,
 	reply_to_id int(10) null,
 	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

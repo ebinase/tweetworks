@@ -31,9 +31,9 @@ class VerifyCsrfToken implements MiddlewareInterface
             return Route::redirect($back_to);
         }
 
-        if (Env::get('APP_DEBUG') == 'true') {
-            print 'CSRFチェック通過▶';
-        }
+//        if (Env::get('APP_DEBUG') == 'true') {
+//            print 'CSRFチェック通過▶';
+//        }
         return $next->handle($request);
     }
 }
