@@ -28,6 +28,7 @@ class UserController extends Controller
         $follow_num['follows'] = $follow->countFollows($user_data['id']);
         $follow_num['followers'] = $follow->countFollowers($user_data['id']);
 
+
         $_token['/reply/post'] = CSRF::generate('/reply/post');
         $_token['/tweet/post'] = CSRF::generate('/tweet/post');
         $_token['/tweet/delete'] = CSRF::generate('/tweet/delete');
@@ -91,7 +92,7 @@ class UserController extends Controller
 
         //ユニークネーム(@hoge)からユーザー情報取得
         $user = new User();
-        $sql = 'SELECT id, name, unique_name,created_at, updated_at FROM users where unique_name = :unique_name';
+        $sql = 'SELECT id, name, unique_name, bio, created_at, updated_at FROM users where unique_name = :unique_name';
         return $user->fetch($sql, [
             ':unique_name' => $unique_name,
         ]);

@@ -43,7 +43,7 @@
         </div>
     </div>
 
-    <p class="bio-text">biooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooo</p>
+    <p class="bio-text"><?=$user['bio']?></p>
 
 
     <div class="row">

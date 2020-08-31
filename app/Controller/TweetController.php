@@ -37,7 +37,7 @@ class TweetController extends Controller
             'user_id' => $user_id,
             'text' => $text,
         ]);
-        return redirect('/home');
+        return back('/home');
     }
 
     public function delete(RequestInterface $request) {
