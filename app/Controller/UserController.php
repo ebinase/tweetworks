@@ -33,6 +33,7 @@ class UserController extends Controller
         $_token['/tweet/post'] = CSRF::generate('/tweet/post');
         $_token['/tweet/delete'] = CSRF::generate('/tweet/delete');
         $_token['/follow/update'] = CSRF::generate('/follow/update');
+        $_token['/profile/update'] = CSRF::generate('/profile/update');
 
 
 

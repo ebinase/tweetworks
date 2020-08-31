@@ -28,6 +28,8 @@ function registerWebRoutes(RouteInterface $route)
         $route->get('/user/:unique_name/follows', 'user', 'followsIndex');
         $route->get('/user/:unique_name/followers', 'user', 'followersIndex');
 
+        $route->post('/profile/update', 'profile', 'update', ['auth', 'csrf']);
+
         // タイムライン表示
         $route->get('/all', 'timeline', 'all');
         $route->get('/home', 'timeline', 'home', ['auth']);
