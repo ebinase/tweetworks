@@ -1,6 +1,7 @@
 /*基準フォントサイズの変更*/
 html {
     font-size: 12pt;
+    font-family: "Segoe UI", Meiryo, system-ui, -apple-system, BlinkMacSystemFont, sans-serif;
 }
 
 a {
