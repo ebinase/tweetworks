@@ -86,8 +86,8 @@
 
     <div class="container border-top border-bottom  mt-3 pt-2 pb-2">
         <div class="row">
-            <strong><?=$tweet['replies']?></strong><span class="text-muted">　コメント　　</span>
-            <strong><?=$tweet['favs']?></strong><span class="text-muted">　お気に入り　　</span>
+            <strong id="detail-replies"><?=$tweet['replies']?></strong><span class="text-muted">　コメント　　</span>
+            <strong id="detail-favs"><?=$tweet['favs']?></strong><span class="text-muted">　お気に入り　　</span>
         </div>
     </div>
 <!--todo: コンポーネント化-->
@@ -104,12 +104,11 @@
                 <button class="btn"><i class="fas fa-retweet"></i></button>
             </div>
             <div class="col-4 favorite">
-                <button class="btn btn-fav"
+                <button class="btn btn-fav" type="button"
                         data-tweet-id="<?=$tweet['id']?>"
                         data-address="<?=url('/favorite/update');?>">
                     <i class="far fa-star"></i>
                 </button>
-                <span></span>
             </div>
         </div>
     </div>
@@ -122,11 +121,5 @@
     </div>
 </div>
 
-
-<!--<script type="text/javascript">-->
-<!--    (document).ready(function(){-->
-<!--        -->
-<!--    });$-->
-<!--</script>-->
 
 

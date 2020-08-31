@@ -17,7 +17,17 @@ $(function() {
             } else {
                 fav_button.children('i').removeClass('fav-active');
             }
-            fav_button.children('span').text(data['favs']);
+
+            // 詳細ページとツイート一覧でお気に入りの表示箇所を変える
+            const detail_favs = $('#detail-favs');
+            if (detail_favs.length > 0) {
+                //詳細ページだった場合
+                detail_favs.text(data['favs']);
+            } else {
+                //その他のページだった場合
+                fav_button.children('span').text(data['favs']);
+            }
+
         })
 
         .fail(function() {

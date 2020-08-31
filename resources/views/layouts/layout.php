@@ -110,12 +110,7 @@
 <!--    蛯名-->
     <script src="<?=url('/js/fav-ajax.js')?>"></script>
 <!--全般的なjs-->
-    <script src="<?=url('/js/general.js')?>"></script>
+    <script src="<?=url('/js/script.js')?>"></script>
 
-    <script type="text/javascript">
-        function check(){
-            return window.confirm('削除してよろしいですか？');
-        }
-    </script>
 </body>
 </html>
