@@ -30,21 +30,50 @@ abstract class Model implements ModelInterface
     //クエリ簡易実行メソッド
     //==============================================================================
 
-    public function smartExecute(string $sql, array $params = [])
+    public function smartExecute(string $sql, array $params = [], $strict = false)
     {
         $statement = $this->_db->prepare($sql);
-        $statement->execute($params);
+
+        if ($strict) {
+            //配列内のデータの型を判定してPDOのパラメータ設定
+            foreach ($params as $param_id => $value) {
+                switch (gettype($value)) {
+                    case 'boolean':
+                        $param_type = \PDO::PARAM_BOOL;
+                        break;
+
+                    case 'integer':
+                        $param_type = \PDO::PARAM_INT;
+                        break;
+
+                    case 'NULL':
+                        $param_type = \PDO::PARAM_NULL;
+                        break;
+
+                    case 'double':
+                    case 'string':
+                    default:
+                        $param_type = \PDO::PARAM_STR;
+                }
+
+                $statement->bindValue($param_id, $value, $param_type);
+            }
+            $statement->execute();
+        } else {
+            //一括で文字列型として処理
+            $statement->execute($params);
+        }
         return $statement;
     }
 
-    public function fetch(string $sql, array $params = [])
+    public function fetch(string $sql, array $params = [], $strict = false)
     {
-        return $this->smartExecute($sql, $params)->fetch(\PDO::FETCH_ASSOC);
+        return $this->smartExecute($sql, $params, $strict)->fetch(\PDO::FETCH_ASSOC);
     }
 
-    public function fetchAll(string $sql, array $params = [])
+    public function fetchAll(string $sql, array $params = [], $strict = false)
     {
-        return $this->smartExecute($sql, $params)->fetchAll(\PDO::FETCH_ASSOC);
+        return $this->smartExecute($sql, $params, $strict)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
     public function smartInsert(array $params)
