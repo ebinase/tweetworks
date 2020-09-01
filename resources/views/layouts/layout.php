@@ -13,7 +13,7 @@
 <body>
     <div class="container">
         <div class="row">
-            <div class="col-2 pt-3">
+            <div class="col-3 pt-3">
                 <nav class="nav flex-column position-fixed">
                     <a href="<?= url('/') ?>" class="nav-item theme-color brand-logo">
                         T<span class="d-none d-xl-inline">weetworks</span>
@@ -71,7 +71,7 @@
             </div>
 
             <!--右側-->
-            <div class="col-3 pt-3">
+            <div class="col-2 pt-3">
                 <div class="container position-fixed">
                     <div class="row">
                         <i class="fab fa-twitter fa-5x"></i>

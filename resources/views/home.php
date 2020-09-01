@@ -16,4 +16,10 @@
         ]);?>
     </div>
 
+    <div class="text-center w-100">
+        <?php for ($i = 1; $i <= 10; $i++) {?>
+            <a class="p-1" href="<?= url('/home?p='). $i ?>"><?=$i?></a>
+        <?php } ?>
+    </div>
+
 </div>

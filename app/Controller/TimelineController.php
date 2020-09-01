@@ -11,14 +11,20 @@ use App\System\Classes\Facades\CSRF;
 
 class TimelineController extends Controller
 {
-    public function home()
+    public function home(RequestInterface $request)
     {
+        $start = $request->getGet('p', 1);
+
         $tweet = new Tweet();
-        $tweets = $tweet->getTimeline(Auth::id());
+
+
+
+        $tweets = $tweet->getTimeline(Auth::id(), $start, 50);
 
         $_token['/tweet/post'] = CSRF::generate('/tweet/post');
         $_token['/reply/post'] = CSRF::generate('/reply/post');
         $_token['/tweet/delete'] = CSRF::generate('/tweet/delete');
+
         return $this->render('home', [
             '_token' => $_token,
             'tweets' => $tweets,
@@ -28,8 +34,7 @@ class TimelineController extends Controller
     public function all(RequestInterface $request)
     {
         //TODO:ペジネーション
-        $page = $request->getGet('page');
-        $page =$page ?? '1';
+        $page = $request->getGet('page',1);
 
         $_token['/tweet/post'] = CSRF::generate('/tweet/post');
         $_token['/reply/post'] = CSRF::generate('/reply/post');
@@ -37,7 +42,7 @@ class TimelineController extends Controller
 
         $tweet  = new Tweet();
         //ユーザーがログイン中はお気に入りのツイート表示
-        $data =$tweet->getAllTweetExceptReply(Auth::id());
+        $data =$tweet->getAllTweetExceptReply(Auth::id(), $page, 50);
 
         return $this->render('all', [
             'data' => $data,

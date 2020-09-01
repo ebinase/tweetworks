@@ -17,33 +17,12 @@ class Tweet extends Model
     //==============================================================================
     //Timeline
     //==============================================================================
-    public function getAllTweetExceptReply($user_id)
+    public function getTimeline($user_id, $page, $tweetsPerPage)
     {
-            //ユーザーがログインしていたらお気に入りも取得
-            $sql = <<< EOF
-SELECT DISTINCT
-    #ツイートの表示に必要な情報
-    t.id, t.user_id, t.text, t.reply_to_id, t.created_at,
-    u.name, u.unique_name,
-    (SELECT count(*) FROM favorites WHERE tweet_id = t.id) AS favs,
-    (SELECT count(*) FROM favorites WHERE user_id = :user_id AND tweet_id = t.id) AS my_fav, #自身のお気に入りか(1or0) 
-    (SELECT count(*) FROM tweets WHERE reply_to_id = t.id) AS replies
-FROM tweets t
-INNER JOIN users u
-    ON t.user_id = u.id
-WHERE t.reply_to_id IS NULL
-ORDER BY t.created_at DESC;
-EOF;
+        $start = ($page - 1) * $tweetsPerPage;
 
-            return $this->fetchAll($sql, [
-                ':user_id' => $user_id,
-            ]);
-    }
 
-    public function getTimeline($user_id)
-    {
         //フォローテーブルをもとにフォローしてるユーザーの返信以外のツイートをユーザー情報ごと取得
-        //FIXME:DISTINCTで無理やり期待する結果にしているため、正しく理解してから修正
         $sql = <<< EOF
 SELECT DISTINCT
     #ツイートの表示に必要な情報
@@ -66,12 +45,46 @@ FROM follows
 WHERE follows.user_id = :user_id
         #タイムラインにリプライを表示しない
         AND t.reply_to_id IS NULL
-ORDER BY t.created_at DESC;
+ORDER BY t.created_at DESC
+LIMIT :start, :offset;
 EOF;
+
+        //smartExecuteではlimit句のプレースホルダに文字列型('')で代入されてしまうため、丁寧にbindValue
+
         return $this->fetchAll($sql, [
-            ':user_id' => $user_id
-        ]);
+            ':user_id' => $user_id,
+            ':start' => $start,
+            ':offset' => $tweetsPerPage
+        ], true);
     }
+
+    public function getAllTweetExceptReply($user_id, $page, $tweetsPerPage)
+    {
+        $start = ($page - 1) * $tweetsPerPage;
+
+            //ユーザーがログインしていたらお気に入りも取得
+            $sql = <<< EOF
+SELECT DISTINCT
+    #ツイートの表示に必要な情報
+    t.id, t.user_id, t.text, t.reply_to_id, t.created_at,
+    u.name, u.unique_name,
+    (SELECT count(*) FROM favorites WHERE tweet_id = t.id) AS favs,
+    (SELECT count(*) FROM favorites WHERE user_id = :user_id AND tweet_id = t.id) AS my_fav, #自身のお気に入りか(1or0) 
+    (SELECT count(*) FROM tweets WHERE reply_to_id = t.id) AS replies
+FROM tweets t
+INNER JOIN users u
+    ON t.user_id = u.id
+WHERE t.reply_to_id IS NULL
+ORDER BY t.created_at DESC
+LIMIT  {$start}, {$tweetsPerPage};
+EOF;
+
+            return $this->fetchAll($sql, [
+                ':user_id' => $user_id
+            ]);
+    }
+
+
 
     //==============================================================================
     //ツイート詳細と返信
