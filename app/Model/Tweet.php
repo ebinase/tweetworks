@@ -81,7 +81,7 @@ EOF;
 
             return $this->fetchAll($sql, [
                 ':user_id' => $user_id
-            ]);
+            ], true);
     }
 
 
@@ -187,5 +187,23 @@ EOF;
             ':user_id' => $user_id,
             ':logedin_id' => $logedin_id,
         ]);
+    }
+
+    //==============================================================================
+    //ペジネーション用
+    //==============================================================================
+    public function countTimelineTweets($user_id)
+    {
+        $sql = <<<EOF
+SELECT count(*)
+FROM follows
+    INNER JOIN tweets t
+        ON follows.user_id_followed = t.user_id
+WHERE follows.user_id = :user_id
+    AND t.reply_to_id IS NULL;
+EOF;
+
+        $result = $this->fetch($sql, [':user_id' => $user_id]);
+        return $result['count(*)'];
     }
 }

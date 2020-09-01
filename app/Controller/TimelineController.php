@@ -13,13 +13,17 @@ class TimelineController extends Controller
 {
     public function home(RequestInterface $request)
     {
-        $start = $request->getGet('p', 1);
-
         $tweet = new Tweet();
 
+        //ペジネーション
+        $paginate['page'] = $request->getGet('p', 1);
+        $paginate['tweets_per_page'] = 50;
+        //ペジネーション用に表示される可能性がある全てのツイートの数を取得
+        $tweets_num = $tweet->countTimelineTweets(Auth::id());
+        $paginate['pages'] = ceil($tweets_num / $paginate['tweets_per_page']);
 
-
-        $tweets = $tweet->getTimeline(Auth::id(), $start, 50);
+        //表示するツイートを取得
+        $tweets = $tweet->getTimeline(Auth::id(), $paginate['page'], $paginate['tweets_per_page']);
 
         $_token['/tweet/post'] = CSRF::generate('/tweet/post');
         $_token['/reply/post'] = CSRF::generate('/reply/post');
@@ -28,6 +32,7 @@ class TimelineController extends Controller
         return $this->render('home', [
             '_token' => $_token,
             'tweets' => $tweets,
+            'paginate' => $paginate,
         ], 'layouts/layout');
     }
 
