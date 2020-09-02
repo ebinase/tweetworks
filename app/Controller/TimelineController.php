@@ -37,20 +37,22 @@ class TimelineController extends Controller
 
     public function all(RequestInterface $request)
     {
-        //TODO:ペジネーション
-        $page = $request->getGet('page',1);
+        $tweet  = new Tweet();
+
+        $tweets_num = $tweet->countAllTweets(Auth::id());
+        $paginate = Paginate::prepareParams(10 , 3, $tweets_num);
 
         $_token['/tweet/post'] = CSRF::generate('/tweet/post');
         $_token['/reply/post'] = CSRF::generate('/reply/post');
         $_token['/tweet/delete'] = CSRF::generate('/tweet/delete');
 
-        $tweet  = new Tweet();
         //ユーザーがログイン中はお気に入りのツイート表示
-        $data =$tweet->getAllTweetExceptReply(Auth::id(), $page, 50);
+        $data =$tweet->getAllTweetExceptReply(Auth::id(), $paginate['page'], $paginate['tweets_per_page']);
 
         return $this->render('all', [
             'data' => $data,
             '_token' => $_token,
+            'paginate' => $paginate,
         ], 'layouts/layout');
     }
 }

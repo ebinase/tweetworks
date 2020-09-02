@@ -69,6 +69,29 @@ li {
     padding: 8px;
 }
 
+/*右側のインフォメーションゾーン*/
+#character:hover {
+    color: #6e6e6e;
+}
+
+.info-container {
+    margin-top: 1rem;
+    box-shadow: 0 0 5px #d7d7d7;
+}
+.info-contents {
+    width: 100%;
+    padding: 1rem;
+}
+
+#info-cancel-btn {
+    font-size: 1rem;
+    color: #6e6e6e;
+    font-weight: bold;
+    border: none;  /* 枠線を消す */
+    outline: none; /* クリックしたときに表示される枠線を消す */
+    background: transparent; /* 背景の灰色を消す */
+}
+
 /*ボタン系========================================================*/
 
 /*ツイートボタン*/

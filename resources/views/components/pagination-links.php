@@ -30,8 +30,9 @@
 
     /*アクティブなページ番号につけるクラス*/
     .pgn-active {
-        background-color: #00acee;
+        background-color: #3bb3e0;
         color: white;
+        font-weight: bold;
     }
 
 </style>

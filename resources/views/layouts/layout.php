@@ -80,11 +80,23 @@
 <!--                        <i class="fab fa-twitter fa-4x"></i>-->
 <!--                    </div>-->
                     <div class="row">
-                        <i class="fab fa-twitter fa-3x"></i>
+                        <i id="character" class="fab fa-twitter fa-3x"></i>
                     </div>
 <!--                    <div class="row">-->
 <!--                        <i class="fab fa-twitter fa-2x"></i>-->
 <!--                    </div>-->
+                    <div id="info-modal" class="row">
+                        <div class="col-3">
+                            <div class="info-container bg-light border">
+                                <button id="info-cancel-btn">x</button>
+                                <div class="info-contents">
+                                    <div class="info-text">
+                                        ログインしました。
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>

@@ -15,6 +15,15 @@ $(function() {
         $('#profile-modal-input-name').val(name);
         $('#profile-modal-input-bio').val(bio);
     });
+
+    //画面右側の鳥マークやインフォメーション
+    $('#info-cancel-btn').on('click', function () {
+        $('#info-modal').css('display', 'none');
+    });
+
+    $('#character').on('click', function () {
+        $('#info-modal').css('display', 'block');
+    });
 });
 
 //ツイートの削除ボタン

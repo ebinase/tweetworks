@@ -76,11 +76,13 @@ INNER JOIN users u
     ON t.user_id = u.id
 WHERE t.reply_to_id IS NULL
 ORDER BY t.created_at DESC
-LIMIT  {$start}, {$tweetsPerPage};
+LIMIT :start, :offset;
 EOF;
 
             return $this->fetchAll($sql, [
-                ':user_id' => $user_id
+                ':user_id' => $user_id,
+                ':start' => $start,
+                ':offset' => $tweetsPerPage
             ], true);
     }
 
@@ -201,6 +203,18 @@ FROM follows
         ON follows.user_id_followed = t.user_id
 WHERE follows.user_id = :user_id
     AND t.reply_to_id IS NULL;
+EOF;
+
+        $result = $this->fetch($sql, [':user_id' => $user_id]);
+        return $result['count(*)'];
+    }
+
+    public function countAllTweets($user_id)
+    {
+        $sql = <<<EOF
+SELECT count(*)
+FROM tweets
+WHERE tweets.reply_to_id IS NULL;
 EOF;
 
         $result = $this->fetch($sql, [':user_id' => $user_id]);
