@@ -19,5 +19,5 @@ interface RequestInterface
 
     //複合メソッド
     public function getBaseUrl();
-    public function getPathInfo();
+    public function getPathInfo($full = false);
 }
