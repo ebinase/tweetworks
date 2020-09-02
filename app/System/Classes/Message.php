@@ -1,29 +1,29 @@
 <?php
 
-namespace App\System\Facades;
+namespace App\System\Classes;
 
-use App\System\Interfaces\MessengerInterface;
-use App\System\Session;
+use App\System\Interfaces\HTTP\SessionInterface;
+use App\System\Interfaces\MessageInterface;
 
-class Messenger implements MessengerInterface
+class Message implements MessageInterface
 {
-    private $_session;
-
-    private $_errors = [];
-    private $_olds = [];
-    private $_messages =[];
-    private $_from;
 
     //Sessionクラスに依存
-    public function __construct(Session $session)
+    private $_session;
+
+    private $_error;
+    private $_old;
+    private $_info;
+
+    public function __construct(SessionInterface $session)
     {
         // セッションクラスをプロパティにセット
         $this->_session = $session;
 
         // セッションから各種の値を取得
-        $this->_errors = $this->_session->get('_errors');
-        $this->_olds = $this->_session->get('_olds');
-        $this->_messages = $this->_session->get('_messages');
+        $this->_error = $this->_session->get('_error');
+        $this->_old = $this->_session->get('_old');
+        $this->_info = $this->_session->get('_info');
 
         //基本的にエラーは引き継がないでリクエストのたびに消去
         $this->clear();
@@ -31,9 +31,9 @@ class Messenger implements MessengerInterface
 
     public function clear()
     {
-        $this->_session->remove('_errors');
-        $this->_session->remove('_olds');
-        $this->_session->remove('_messages');
+        $this->_session->remove('_error');
+        $this->_session->remove('_old');
+        $this->_session->remove('_info');
     }
 
     //==============================================================================
@@ -41,17 +41,17 @@ class Messenger implements MessengerInterface
     //==============================================================================
     public function setError($key, $message)
     {
-        $this->set('_errors', $key, $message);
+        $this->set('_error', $key, $message);
     }
 
     public function setOld($key, $message)
     {
-        $this->set('_olds', $key, $message);
+        $this->set('_old', $key, $message);
     }
 
     public function setMessage($key, $message)
     {
-        $this->set('_message', $key, $message);
+        $this->set('_info', $key, $message);
     }
 
     private function set($type, $key, $message)
@@ -66,25 +66,25 @@ class Messenger implements MessengerInterface
     //==============================================================================
     // 前のページで生じたエラーをチェックするためのメソッド
     //==============================================================================
-    public function errorsExist()
+    public function errorExist()
     {
-        if (count($this->_errors) > 0) {
+        if (count($this->_error) > 0) {
             return true;
         }
         return false;
     }
 
-    public function oldsExist()
+    public function oldExist()
     {
-        if (count($this->_olds) > 0) {
+        if (count($this->_old) > 0) {
             return true;
         }
         return false;
     }
 
-    public function messagesExist()
+    public function infoExist()
     {
-        if (count($this->_messages) > 0) {
+        if (count($this->_info) > 0) {
             return true;
         }
         return false;
@@ -93,19 +93,19 @@ class Messenger implements MessengerInterface
 
     //　全てのエラー取得(配列)
     // ------------------------------------------------------------------------
-    public function getAllErrors()
+    public function getAllError()
     {
-        return $this->_errors;
+        return $this->_error;
     }
 
-    public function getAllOlds()
+    public function getAllOld()
     {
-        return $this->_olds;
+        return $this->_old;
     }
 
-    public function getAllMessages()
+    public function getAllInfo()
     {
-        return $this->_messages;
+        return $this->_info;
     }
 
 
@@ -127,7 +127,7 @@ class Messenger implements MessengerInterface
         return $default;
     }
 
-    public function getMessage($key, $default = null)
+    public function getInfo($key, $default = null)
     {
         if (isset($this->_messages[$key])) {
             return $this->_messages[$key];

@@ -3,10 +3,10 @@
 namespace App\System\Classes\Services;
 
 use App\System\Classes\DatabaseConnection;
+use App\System\Classes\Message;
 use Pimple\Container;
 
 use App\System\Classes\HTTP\Request;
-use App\System\Classes\HTTP\Response;
 use App\System\Classes\HTTP\Session;
 use App\System\Classes\Route;
 
@@ -27,10 +27,6 @@ class Service
             return new Request();
         };
 
-        self::$container['response'] = function ($c) {
-            return new Response();
-        };
-
         self::$container['session'] = function ($c) {
             return new Session();
         };
@@ -41,6 +37,10 @@ class Service
 
         self::$container['connection'] = function ($c) {
             return new DatabaseConnection();
+        };
+
+        self::$container['messenger'] = function ($c) {
+            return new Message($c['session']);
         };
     }
 

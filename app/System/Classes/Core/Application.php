@@ -58,10 +58,6 @@ class Application implements ApplicationInterface
         Service::boot();
         Env::boot();
 
-        //各クラスのファサードの初期化
-        //Session::boot(Service::call('session'));
-        //TODO: Session以外のクラスにも適用
-
         $this->registerHelpers();
     }
 
