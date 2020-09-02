@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\System\Classes\Controller;
 use App\System\Classes\Facades\Auth;
+use App\System\Classes\Facades\Paginate;
 use App\System\Interfaces\HTTP\RequestInterface;
 
 use App\Model\Tweet;
@@ -16,12 +17,9 @@ class TimelineController extends Controller
         $tweet = new Tweet();
 
         //ペジネーション
-        $paginate['page'] = $request->getGet('page', 1);
-        $paginate['tweets_per_page'] = 10;
-        $paginate['range'] = 3;
         //ペジネーション用に表示される可能性がある全てのツイートの数を取得
         $tweets_num = $tweet->countTimelineTweets(Auth::id());
-        $paginate['last_page'] = ceil($tweets_num / $paginate['tweets_per_page']);
+        $paginate = Paginate::prepareParams(10 , 3, $tweets_num);
 
         //表示するツイートを取得
         $tweets = $tweet->getTimeline(Auth::id(), $paginate['page'], $paginate['tweets_per_page']);

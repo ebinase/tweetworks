@@ -19,7 +19,7 @@
     <div class="text-center w-100 border-top">
         <p><?=$paginate['tweets_per_page'];?>件を表示中</p>
         <p><?=$paginate['page'];?>ページ目</p>
-        <?= $this->renderPageList($paginate['page'], $paginate['last_page'], $paginate['range'])?>
+        <?= \App\System\Classes\Facades\Paginate::renderPageList($paginate)?>
     </div>
 
 </div>
