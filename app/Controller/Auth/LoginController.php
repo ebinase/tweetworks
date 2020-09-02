@@ -5,6 +5,7 @@ namespace App\Controller\Auth;
 use App\Model\User;
 use App\System\Classes\Controller;
 use App\System\Classes\Facades\CSRF;
+use App\System\Classes\Facades\Messenger\Info;
 use App\System\Classes\Services\Service;
 use App\System\Interfaces\HTTP\RequestInterface;
 
@@ -38,6 +39,9 @@ class LoginController extends Controller
             $session->set('user_id' ,$db_data['id']);
             $session->set('name' ,$db_data['name']);
             $session->set('unique_name' ,$db_data['unique_name']);
+
+            Info::set('login', 'ログインしました。');
+
             return redirect('/home');
         }
 
@@ -51,6 +55,8 @@ class LoginController extends Controller
         $session = Service::call('session');
         $session->clear();
         $session->setAuthenticated(false);
+
+        Info::set('logout', 'ログアウトしました。');
 
         return redirect('/');
     }

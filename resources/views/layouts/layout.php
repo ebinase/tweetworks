@@ -85,14 +85,15 @@
 <!--                    <div class="row">-->
 <!--                        <i class="fab fa-twitter fa-2x"></i>-->
 <!--                    </div>-->
-                    <div id="info-modal" class="row">
+
+                    <?php $info_state = \App\System\Classes\Facades\Messenger\Info::has() ? 'info-active' : 'info-passive'; ?>
+                    <div id="info-modal" class="row <?=$info_state?>">
                         <div class="col-3">
                             <div class="info-container bg-light border">
                                 <button id="info-cancel-btn">x</button>
                                 <div class="info-contents">
-                                    <div class="info-text">
-                                        ログインしました。
-                                    </div>
+<!--                                    <div class="font-weight-bold">Infomation</div>-->
+                                    <?=\App\System\Classes\Facades\Messenger\Info::showAllInfo('info-text')?>
                                 </div>
                             </div>
                         </div>

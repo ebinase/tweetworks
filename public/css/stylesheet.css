@@ -83,6 +83,14 @@ li {
     padding: 1rem;
 }
 
+.info-passive {
+    display: none;
+}
+
+.info-active {
+    display: block;
+}
+
 #info-cancel-btn {
     font-size: 1rem;
     color: #6e6e6e;

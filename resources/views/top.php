@@ -19,6 +19,14 @@
     <div class="logo-wrapper">
         <h1 class="logo logo-top">Tweetworks</h1>
     </div>
+
+    <?php $info_state = \App\System\Classes\Facades\Messenger\Info::has() ? 'info-active' : 'info-passive'; ?>
+    <div class="info-container bg-light border <?=$info_state?>">
+        <div class="info-contents">
+            <?=\App\System\Classes\Facades\Messenger\Info::showAllInfo('info-text')?>
+        </div>
+    </div>
+
     <div class="links-wrapper">
         <ul>
             <li><a href="<?= url('/login')?>">ログイン</a></li>

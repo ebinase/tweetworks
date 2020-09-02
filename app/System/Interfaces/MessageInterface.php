@@ -7,12 +7,12 @@ interface MessageInterface
     // コントローラ内で処理にエラーが生じたときに使う
     function setError($key, $message);
     function setOld($key, $message);
-    function setMessage($key, $message);
+    function setInfo($key, $message);
 
     //If分の条件式等に。
-    function errorExist();
-    function oldExist();
-    function infoExist();
+    function errorExists();
+    function oldExists();
+    function infoExists();
 
     // 配列の形で全て取得
     function getAllError();

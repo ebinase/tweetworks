@@ -3,7 +3,7 @@
 namespace App\System\Classes\Services;
 
 use App\System\Classes\DatabaseConnection;
-use App\System\Classes\Message;
+use App\System\Classes\Messenger;
 use Pimple\Container;
 
 use App\System\Classes\HTTP\Request;
@@ -40,7 +40,7 @@ class Service
         };
 
         self::$container['messenger'] = function ($c) {
-            return new Message($c['session']);
+            return new Messenger($c['session']);
         };
     }
 

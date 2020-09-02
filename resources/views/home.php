@@ -16,10 +16,8 @@
         ]);?>
     </div>
 
-    <div class="text-center w-100 border-top">
-        <p>最大<?=$paginate['tweets_per_page'];?>件を表示中</p>
+    <div class="text-center w-100 border-top pt-5 pb-5">
         <?= \App\System\Classes\Facades\Paginate::renderPageList($paginate)?>
-        <p><?=$paginate['page'];?>ページ目</p>
     </div>
 
 </div>

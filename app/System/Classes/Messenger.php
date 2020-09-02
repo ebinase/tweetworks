@@ -5,7 +5,7 @@ namespace App\System\Classes;
 use App\System\Interfaces\HTTP\SessionInterface;
 use App\System\Interfaces\MessageInterface;
 
-class Message implements MessageInterface
+class Messenger implements MessageInterface
 {
 
     //Sessionクラスに依存
@@ -24,6 +24,10 @@ class Message implements MessageInterface
         $this->_error = $this->_session->get('_error');
         $this->_old = $this->_session->get('_old');
         $this->_info = $this->_session->get('_info');
+
+        if (! isset($this->_error)) $this->_error = [];
+        if (! isset($this->_old)) $this->_old = [];
+        if (! isset($this->_info)) $this->_info = [];
 
         //基本的にエラーは引き継がないでリクエストのたびに消去
         $this->clear();
@@ -49,7 +53,7 @@ class Message implements MessageInterface
         $this->set('_old', $key, $message);
     }
 
-    public function setMessage($key, $message)
+    public function setInfo($key, $message)
     {
         $this->set('_info', $key, $message);
     }
@@ -66,7 +70,7 @@ class Message implements MessageInterface
     //==============================================================================
     // 前のページで生じたエラーをチェックするためのメソッド
     //==============================================================================
-    public function errorExist()
+    public function errorExists()
     {
         if (count($this->_error) > 0) {
             return true;
@@ -74,7 +78,7 @@ class Message implements MessageInterface
         return false;
     }
 
-    public function oldExist()
+    public function oldExists()
     {
         if (count($this->_old) > 0) {
             return true;
@@ -82,7 +86,7 @@ class Message implements MessageInterface
         return false;
     }
 
-    public function infoExist()
+    public function infoExists()
     {
         if (count($this->_info) > 0) {
             return true;
@@ -113,24 +117,24 @@ class Message implements MessageInterface
     // ------------------------------------------------------------------------
     public function getError($key, $default = null)
     {
-        if (isset($this->_errors[$key])) {
-            return $this->_errors[$key];
+        if (isset($this->_error[$key])) {
+            return $this->_error[$key];
         }
         return $default;
     }
 
     public function getOld($key, $default = null)
     {
-        if (isset($this->_olds[$key])) {
-            return $this->_olds[$key];
+        if (isset($this->_old[$key])) {
+            return $this->_old[$key];
         }
         return $default;
     }
 
     public function getInfo($key, $default = null)
     {
-        if (isset($this->_messages[$key])) {
-            return $this->_messages[$key];
+        if (isset($this->_info[$key])) {
+            return $this->_info[$key];
         }
         return $default;
     }

@@ -18,11 +18,15 @@ $(function() {
 
     //画面右側の鳥マークやインフォメーション
     $('#info-cancel-btn').on('click', function () {
-        $('#info-modal').css('display', 'none');
+        const modal = $('#info-modal')
+        modal.removeClass('info-active');
+        modal.addClass('info-passive');
     });
 
     $('#character').on('click', function () {
-        $('#info-modal').css('display', 'block');
+        const modal = $('#info-modal')
+        modal.removeClass('info-passive');
+        modal.addClass('info-active');
     });
 });
 
