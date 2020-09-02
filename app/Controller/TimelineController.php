@@ -16,11 +16,12 @@ class TimelineController extends Controller
         $tweet = new Tweet();
 
         //ペジネーション
-        $paginate['page'] = $request->getGet('p', 1);
-        $paginate['tweets_per_page'] = 50;
+        $paginate['page'] = $request->getGet('page', 1);
+        $paginate['tweets_per_page'] = 10;
+        $paginate['range'] = 3;
         //ペジネーション用に表示される可能性がある全てのツイートの数を取得
         $tweets_num = $tweet->countTimelineTweets(Auth::id());
-        $paginate['pages'] = ceil($tweets_num / $paginate['tweets_per_page']);
+        $paginate['last_page'] = ceil($tweets_num / $paginate['tweets_per_page']);
 
         //表示するツイートを取得
         $tweets = $tweet->getTimeline(Auth::id(), $paginate['page'], $paginate['tweets_per_page']);

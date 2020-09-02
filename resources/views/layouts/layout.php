@@ -73,18 +73,18 @@
             <!--右側-->
             <div class="col-2 pt-3">
                 <div class="container position-fixed">
-                    <div class="row">
-                        <i class="fab fa-twitter fa-5x"></i>
-                    </div>
-                    <div class="row">
-                        <i class="fab fa-twitter fa-4x"></i>
-                    </div>
+<!--                    <div class="row">-->
+<!--                        <i class="fab fa-twitter fa-5x"></i>-->
+<!--                    </div>-->
+<!--                    <div class="row">-->
+<!--                        <i class="fab fa-twitter fa-4x"></i>-->
+<!--                    </div>-->
                     <div class="row">
                         <i class="fab fa-twitter fa-3x"></i>
                     </div>
-                    <div class="row">
-                        <i class="fab fa-twitter fa-2x"></i>
-                    </div>
+<!--                    <div class="row">-->
+<!--                        <i class="fab fa-twitter fa-2x"></i>-->
+<!--                    </div>-->
                 </div>
             </div>
         </div>
