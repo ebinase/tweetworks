@@ -17,10 +17,8 @@ class Tweet extends Model
     //==============================================================================
     //Timeline
     //==============================================================================
-    public function getTimeline($user_id, $page, $tweetsPerPage)
+    public function getTimeline($user_id, $start, $tweetsPerPage)
     {
-        $start = ($page - 1) * $tweetsPerPage;
-
 
         //フォローテーブルをもとにフォローしてるユーザーの返信以外のツイートをユーザー情報ごと取得
         $sql = <<< EOF
@@ -58,10 +56,8 @@ EOF;
         ], true);
     }
 
-    public function getAllTweetExceptReply($user_id, $page, $tweetsPerPage)
+    public function getAllTweetExceptReply($user_id, $start, $tweetsPerPage)
     {
-        $start = ($page - 1) * $tweetsPerPage;
-
             //ユーザーがログインしていたらお気に入りも取得
             $sql = <<< EOF
 SELECT DISTINCT
@@ -159,7 +155,8 @@ INNER JOIN users u
     ON t.user_id = u.id
 WHERE t.user_id = :user_id
       AND t.reply_to_id IS NULL
-ORDER BY t.created_at DESC;
+ORDER BY t.created_at DESC
+LIMIT :start, :offset;
 EOF;
         return $this->fetchAll($sql, [
             ':user_id' => $user_id,
@@ -183,11 +180,38 @@ INNER JOIN users u
     ON t.user_id = u.id
 WHERE t.user_id = :user_id
       AND t.reply_to_id IS NOT NULL
-ORDER BY t.created_at DESC;
+ORDER BY t.created_at DESC
+LIMIT :start, :offset;
 EOF;
         return $this->fetchAll($sql, [
             ':user_id' => $user_id,
             ':logedin_id' => $logedin_id,
+        ]);
+    }
+
+    public function getFavoriteTweets($user_id, $logedin_id)
+    {
+        $sql = <<< EOF
+SELECT
+    #ツイートの表示に必要な情報
+    t.id, t.user_id, t.text, t.reply_to_id, t.created_at,
+    u.name, u.unique_name,
+    #お気に入りボタンなどに必要な情報
+    (SELECT count(*) FROM favorites WHERE tweet_id = f.tweet_id) AS favs, #ツイートのお気に入りの数
+    (SELECT count(*) FROM favorites WHERE user_id = :logedin_id AND tweet_id = f.tweet_id) AS my_fav, #ログイン中ユーザーのお気に入りか(1or0)
+    (SELECT count(*) FROM tweets WHERE reply_to_id = f.tweet_id) AS replies #リプライの数
+FROM favorites f
+         INNER JOIN tweets t
+                    ON f.tweet_id = t.id
+         INNER JOIN users u
+                    ON t.user_id = u.id
+WHERE f.user_id = :user_id
+ORDER BY f.created_at DESC
+LIMIT :start, :offset;
+EOF;
+        return $this->fetchAll($sql, [
+            ':user_id' => $user_id,
+            ':logedin_id' => $logedin_id
         ]);
     }
 
@@ -218,6 +242,50 @@ WHERE tweets.reply_to_id IS NULL;
 EOF;
 
         $result = $this->fetch($sql);
+        return $result['count(*)'];
+    }
+
+    //ユーザーページでツイートを表示するとき
+    public function countProfileTweets($user_id)
+    {
+        $sql = <<<EOF
+SELECT count(*)
+FROM tweets
+WHERE tweets.reply_to_id IS NULL
+        AND tweets.user_id = :user_id;
+EOF;
+
+        $result = $this->fetch($sql,[
+            ':user_id' => $user_id,
+        ]);
+        return $result['count(*)'];
+    }
+
+    public function countProfileReplies($user_id)
+    {
+        $sql = <<<EOF
+SELECT count(*)
+FROM tweets
+WHERE tweets.reply_to_id IS NOT NULL
+        AND tweets.user_id = :user_id;
+EOF;
+
+        $result = $this->fetch($sql,[
+            ':user_id' => $user_id,
+        ]);
+        return $result['count(*)'];
+    }
+
+    public function countProfileFavorites($user_id)
+    {
+        $sql = <<<EOF
+SELECT count(*)
+FROM favorites
+WHERE favorites.user_id = :user_id;
+EOF;
+        $result = $this->fetch($sql,[
+            ':user_id' => $user_id,
+        ]);
         return $result['count(*)'];
     }
 }

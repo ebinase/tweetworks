@@ -30,10 +30,12 @@ class Paginate
             $range = $last_page;
         }
 
-        $paginate['items_per_page'] = $itemsPerPage;
         $paginate['range'] = $range;
         $paginate['page'] = $page;
         $paginate['last_page'] = $last_page;
+        //データベースのLIMIT句での:startと:offsetの値
+        $paginate['db_start'] = (int) (($page - 1) * $itemsPerPage);
+        $paginate['items_per_page'] = (int) $itemsPerPage;
 
         //標準ではクエリ文字込みの現在のページのurlを表示
         if (is_null($url)) {
