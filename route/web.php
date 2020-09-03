@@ -24,9 +24,9 @@ function registerWebRoutes(RouteInterface $route)
 
 
         // ユーザーページ
-        $route->get('/user/:unique_name', 'user', 'index');
-        $route->get('/user/:unique_name/follows', 'user', 'followsIndex');
-        $route->get('/user/:unique_name/followers', 'user', 'followersIndex');
+        $route->get('/user/:unique_name', 'profile', 'index');
+        $route->get('/user/:unique_name/follows', 'profile', 'followsIndex');
+        $route->get('/user/:unique_name/followers', 'profile', 'followersIndex');
 
         $route->post('/profile/update', 'profile', 'update', ['auth', 'csrf']);
 

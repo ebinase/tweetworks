@@ -140,7 +140,7 @@ EOF;
     //ユーザープロフィール
     //==============================================================================
     //特定のユーザーのツイートだけ(返信を含まない)ツイートを取得
-    public function getUserTweets($user_id, $logedin_id)
+    public function getUserTweets($user_id, $logedin_id, $start, $tweetsPerPage)
     {
         $sql = <<< EOF
 SELECT DISTINCT
@@ -160,12 +160,15 @@ LIMIT :start, :offset;
 EOF;
         return $this->fetchAll($sql, [
             ':user_id' => $user_id,
-            ':logedin_id' => $logedin_id
-        ]);
+            ':logedin_id' => $logedin_id,
+            ':start' => (int) $start,
+            ':offset' => (int) $tweetsPerPage
+        ], true
+        );
     }
 
     //特定のユーザーの返信だけを取得
-    public function getUserReplies($user_id, $logedin_id)
+    public function getUserReplies($user_id, $logedin_id, $start, $tweetsPerPage)
     {
         $sql = <<< EOF
 SELECT DISTINCT
@@ -186,10 +189,13 @@ EOF;
         return $this->fetchAll($sql, [
             ':user_id' => $user_id,
             ':logedin_id' => $logedin_id,
-        ]);
+            ':start' => (int) $start,
+            ':offset' => (int) $tweetsPerPage
+        ], true
+        );
     }
 
-    public function getFavoriteTweets($user_id, $logedin_id)
+    public function getFavoriteTweets($user_id, $logedin_id, $start, $tweetsPerPage)
     {
         $sql = <<< EOF
 SELECT
@@ -211,8 +217,11 @@ LIMIT :start, :offset;
 EOF;
         return $this->fetchAll($sql, [
             ':user_id' => $user_id,
-            ':logedin_id' => $logedin_id
-        ]);
+            ':logedin_id' => $logedin_id,
+            ':start' => (int) $start,
+            ':offset' => (int) $tweetsPerPage
+        ], true
+        );
     }
 
     //==============================================================================

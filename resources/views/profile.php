@@ -1,7 +1,8 @@
 <?php $this->setLayoutVar('page_title', $user['name'].'さんのプロフィール');?>
 <style>
     #profile-background {
-        height: 10%;
+        height: 10rem;
+        background-color: #faf5d8;
     }
 
     h2 {
@@ -26,7 +27,7 @@
 </style>
 
 <div class="container">
-    <div id="profile-background" class="row bg-light"></div>
+    <div id="profile-background" class="row"></div>
 
     <div class="row mt-3">
         <div class="col-8">
@@ -76,6 +77,10 @@
             'tweets' => $tweets,
             '_token' => $_token
         ]) ?>
+    </div>
+
+    <div class="text-center w-100 border-top">
+        <?= \App\System\Classes\Facades\Paginate::renderPageList($paginate)?>
     </div>
 
     <?=$this->render('components/profile-edit-modal', [
