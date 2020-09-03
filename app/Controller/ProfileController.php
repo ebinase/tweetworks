@@ -46,12 +46,18 @@ class ProfileController extends Controller
 
             $tweets = $tweet->getFavoriteTweets($user_data['id'], Auth::id(), $paginate['db_start'], $paginate['items_per_page']);
 
+            //現在表示中のコンテンツをビューで表示するための設定
+            $active['fav'] = 'profile-active';
+
         } elseif($request->getGet('content') == 'replies') {
             //リプライ一覧を要求されたら
             $tweets_num = $tweet->countProfileReplies($user_data['id']);
             $paginate = Paginate::prepareParams(20 , 3, $tweets_num);
 
             $tweets = $tweet->getUserReplies($user_data['id'], Auth::id(), $paginate['db_start'], $paginate['items_per_page']);
+
+            //現在表示中のコンテンツをビューで表示するための設定
+            $active['rep'] = 'profile-active';
 
         } else {
             //該当するユーザーが存在したら
@@ -60,6 +66,9 @@ class ProfileController extends Controller
             $paginate = Paginate::prepareParams(20 , 3, $tweets_num);
 
             $tweets = $tweet->getUserTweets($user_data['id'], Auth::id(), $paginate['db_start'], $paginate['items_per_page']);
+
+            //現在表示中のコンテンツをビューで表示するための設定
+            $active['twe'] = 'profile-active';
         }
 
 
@@ -69,6 +78,7 @@ class ProfileController extends Controller
             'follow' => $follow_num,
             '_token' => $_token,
             'paginate' => $paginate,
+            'active' => $active,
         ], 'layouts/layout');
     }
 

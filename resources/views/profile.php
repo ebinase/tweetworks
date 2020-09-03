@@ -24,6 +24,14 @@
     .bio-text {
         word-wrap: break-word;
     }
+
+    a.profile-active {
+        color: #f8990d;
+    }
+
+    div.profile-active {
+        border-bottom: #f8990d 2px solid;
+    }
 </style>
 
 <div class="container">
@@ -67,9 +75,15 @@
     </div>
 
     <div class="row text-center mt-2">
-        <div class="col-4 pt-3 pb-3"><a class="card-link" href="<?=url('/user/').$user['unique_name'];?>">ツイート</a></div>
-        <div class="col-4 pt-3 pb-3"><a class="card-link" href="<?=url('/user/').$user['unique_name'].'?content=replies';?>">返信</a></div>
-        <div class="col-4 pt-3 pb-3"><a class="card-link" href="<?=url('/user/').$user['unique_name'].'?content=favorites';?>">お気に入り</a></div>
+        <div class="col-4 pt-3 pb-3 font-weight-bold <?=$active['twe'] ?? '';?>">
+            <a class="card-link <?=$active['twe'] ?? 'text-muted';?>" href="<?=url('/user/').$user['unique_name'];?>">ツイート</a>
+        </div>
+        <div class="col-4 pt-3 pb-3 font-weight-bold <?=$active['rep'] ?? '';?>">
+            <a class="card-link <?=$active['rep'] ?? 'text-muted';?>" href="<?=url('/user/').$user['unique_name'].'?content=replies';?>">返信</a>
+        </div>
+        <div class="col-4 pt-3 pb-3 font-weight-bold <?=$active['fav'] ?? '';?>">
+            <a class="card-link <?=$active['fav'] ?? 'text-muted';?>" href="<?=url('/user/').$user['unique_name'].'?content=favorites';?>">お気に入り</a>
+        </div>
     </div>
 
     <div class="row">
