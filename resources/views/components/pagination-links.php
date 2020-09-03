@@ -40,7 +40,7 @@
 <div class="pgn-container ">
     <?php if ($prev_btn) {?>
         <div class="pgn-item">
-            <a href="<?=currentUrl() . '?page=' . ($current - 1);?>">
+            <a href="<?=$url . ($current - 1);?>">
                 <i class="fas fa-angle-left pgn-text"></i>
             </a>
         </div>
@@ -48,7 +48,7 @@
 
     <?php if ($skip_back) {?>
         <div class="pgn-skip pgn-item">
-            <a href="<?=currentUrl() . '?page=' . $first;?>">
+            <a href="<?=$url . $first;?>">
                 <span class="pgn-text"><?=$first?></span>
             </a>
         </div>
@@ -61,7 +61,7 @@
         $pgn_active = ($i == $current) ? 'pgn-active' : '';
         ?>
         <div class="pgn-item <?= $pgn_active ?>">
-            <a href="<?=currentUrl() . '?page=' . $i;?>">
+            <a href="<?=$url . $i;?>">
                 <span class="pgn-text"><?=$i?></span>
             </a>
         </div>
@@ -70,7 +70,7 @@
     <?php if ($skip_forth) {?>
         <div class="pgn-item">...</div>
         <div class="pgn-skip pgn-item">
-            <a href="<?=currentUrl() . '?page=' . $last;?>">
+            <a href="<?=$url . $last;?>">
                 <span class="pgn-text"><?=$last?></span>
             </a>
         </div>
@@ -78,7 +78,7 @@
 
     <?php if ($next_btn) {?>
         <div class="pgn-item">
-            <a href="<?=currentUrl() . '?page=' . ($current + 1);?>">
+            <a href="<?=$url . ($current + 1);?>">
                 <i class="fas fa-angle-right pgn-text"></i>
             </a>
         </div>

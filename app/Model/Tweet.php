@@ -53,8 +53,8 @@ EOF;
 
         return $this->fetchAll($sql, [
             ':user_id' => $user_id,
-            ':start' => $start,
-            ':offset' => $tweetsPerPage
+            ':start' => (int) $start,
+            ':offset' => (int) $tweetsPerPage
         ], true);
     }
 
@@ -81,8 +81,8 @@ EOF;
 
             return $this->fetchAll($sql, [
                 ':user_id' => $user_id,
-                ':start' => $start,
-                ':offset' => $tweetsPerPage
+                ':start' => (int) $start,
+                ':offset' => (int) $tweetsPerPage
             ], true);
     }
 

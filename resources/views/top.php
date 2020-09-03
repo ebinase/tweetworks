@@ -21,11 +21,9 @@
     </div>
 
     <?php $info_state = \App\System\Classes\Facades\Messenger\Info::has() ? 'info-active' : 'info-passive'; ?>
-    <div class="info-container bg-light border <?=$info_state?>">
-        <div class="info-contents">
+        <div class="info-contents <?=$info_state?>">
             <?=\App\System\Classes\Facades\Messenger\Info::showAllInfo('info-text')?>
         </div>
-    </div>
 
     <div class="links-wrapper">
         <ul>

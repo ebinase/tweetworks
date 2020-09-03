@@ -7,15 +7,61 @@ use App\System\Classes\View;
 
 class Paginate
 {
-    public static function prepareParams($itemsPerPage, $range, $allItemsNum)
+    public static function prepareParams($itemsPerPage, $range, $allItemsNum, $url = null)
     {
         $request = Service::call('request');
 
-        $paginate['page'] = $request->getGet('page', 1);
-        $paginate['tweets_per_page'] = $itemsPerPage;
-        $paginate['range'] = $range;
+        $page = $request->getGet('page', 1);
+        $last_page = ceil($allItemsNum / $itemsPerPage);
 
-        $paginate['last_page'] = ceil($allItemsNum / $paginate['tweets_per_page']);
+        //バリデーション===========================================
+        if ($page < 1) {
+            //ページ番号に負の値を設定された場合
+            $page = 1;
+        }
+
+        if ($page >= $last_page) {
+            //ページ番号に最大ページ数以上の値を設定された場合
+            $page = $last_page;
+        }
+
+        //表示するページ数の設定よりも最大ページ数が少なかったら表示をページ数に合わせる
+        if ($last_page < $range) {
+            $range = $last_page;
+        }
+
+        $paginate['items_per_page'] = $itemsPerPage;
+        $paginate['range'] = $range;
+        $paginate['page'] = $page;
+        $paginate['last_page'] = $last_page;
+
+        //標準ではクエリ文字込みの現在のページのurlを表示
+        if (is_null($url)) {
+            $url = $request->getRequestUri();
+        }
+        //TODO:ここから下のURLの処理が強引すぎるから修正したい
+        $query_pos = strpos($url, '?');
+        $page_value = $request->getGet('page');
+
+        if ($query_pos === false) {
+            //クエリ文字がなければシンプルに追記
+            $url .= '?page=';
+        } elseif (isset($page_value)) {
+            //すでにpageのクエリ文字が存在した場合は削除
+            $page_query ='page=' . $page_value;
+            $url = str_replace($page_query, '', $url);
+            //クエリ文字にpageを追加
+            $url .= '&page=';
+        }else {
+            //page以外のクエリ文字があった場合、シンプルにpageを追加
+            $url .= '&page=';
+        }
+        //&が重複した場合などの対処
+        //(リクエストが?page=1だった場合、pageが消されて&pageが追記されるため、?&page=1となってしまう)
+        $url = str_replace('&&', '&', $url);
+        $url = str_replace('?&', '?', $url);
+
+        $paginate['url'] = $url;
 
         return $paginate;
     }
@@ -45,21 +91,7 @@ class Paginate
         $range = $paginate['range'];
 
 
-        //バリデーション===========================================
-        if ($page < 1) {
-            //ページ番号に負の値を設定された場合
-            $page = 1;
-        }
 
-        if ($page >= $last_page) {
-            //ページ番号に最大ページ数以上の値を設定された場合
-            $page = $last_page;
-        }
-
-        //表示するページ数の設定よりも最大ページ数が少なかったら表示をページ数に合わせる
-        if ($last_page < $range) {
-            $range = $last_page;
-        }
 
 
 
@@ -137,7 +169,8 @@ class Paginate
             //前後への移動ボタン
             'next_btn' => $next_btn,
             'prev_btn' => $prev_btn,
-
+            //ページ管理用クエリ文字を含む遷移先のurl
+            'url' => $paginate['url'],
         ]);
 
     }
