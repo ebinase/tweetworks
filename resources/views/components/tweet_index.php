@@ -1,5 +1,23 @@
 <style>
+    .tweet-container {
+        padding: 8px;
+    }
 
+    .tweet-user-name {
+        font-weight: bold;
+    }
+
+    .icon-container {
+        margin-top: 8px;
+    }
+
+    .dropdown-toggle:after {
+        display: none;
+    }
+
+    .tweet-text {
+        word-wrap: break-word;
+    }
 
 </style>
 
