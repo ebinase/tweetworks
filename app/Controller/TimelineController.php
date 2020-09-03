@@ -39,7 +39,7 @@ class TimelineController extends Controller
     {
         $tweet  = new Tweet();
 
-        $tweets_num = $tweet->countAllTweets(Auth::id());
+        $tweets_num = $tweet->countAllTweets();
         $paginate = Paginate::prepareParams(30 , 3, $tweets_num);
 
         $_token['/tweet/post'] = CSRF::generate('/tweet/post');

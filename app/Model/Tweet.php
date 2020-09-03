@@ -209,7 +209,7 @@ EOF;
         return $result['count(*)'];
     }
 
-    public function countAllTweets($user_id)
+    public function countAllTweets()
     {
         $sql = <<<EOF
 SELECT count(*)
@@ -217,7 +217,7 @@ FROM tweets
 WHERE tweets.reply_to_id IS NULL;
 EOF;
 
-        $result = $this->fetch($sql, [':user_id' => $user_id]);
+        $result = $this->fetch($sql);
         return $result['count(*)'];
     }
 }
