@@ -12,7 +12,7 @@ class Request implements RequestInterface{
     //==============================================================================
     //getPathInfo(ベースURL以降の文字列を返す)
     //==============================================================================
-    public function getPathInfo()
+    public function getPathInfo($full = false)
     {
         $base_url = $this->getBaseUrl();
         $request_uri = $this->getRequestUri();
@@ -23,8 +23,12 @@ class Request implements RequestInterface{
             $request_uri = substr($request_uri, 0, $query_position);
         }
 
-        //リクエストURIからベースURLを取り除いたものを返す
-        return (string)substr($request_uri,strlen($base_url));
+        if ($full) {
+            return $request_uri;
+        } else {
+            //リクエストURIからベースURLを取り除いたものを返す
+            return (string)substr($request_uri,strlen($base_url));
+        }
     }
 
     public function getBaseUrl()

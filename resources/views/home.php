@@ -16,4 +16,8 @@
         ]);?>
     </div>
 
+    <div class="text-center w-100 border-top pt-5 pb-5">
+        <?= \App\System\Classes\Facades\Paginate::renderPageList($paginate)?>
+    </div>
+
 </div>

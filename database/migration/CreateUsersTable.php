@@ -17,6 +17,7 @@ class CreateUsersTable extends CreateTable
 	name varchar(30) not null,
 	email varchar(256) not null,
 	unique_name varchar(30) not null,
+	bio varchar(160) null,
 	password varchar(256) not null,
 	remenber_token char(16) DEFAULT null,
 	created_at DATETIME NOT NULL DEFAULT CURRENT_TIMESTAMP,

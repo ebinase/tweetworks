@@ -3,11 +3,12 @@
 namespace App\Controller;
 
 use App\Model\Favorite;
+use App\System\Classes\Controller;
 use App\System\Classes\Facades\Auth;
-use App\System\Classes\HTTP\Response;
+use App\System\Classes\HTTP\JsonResponse;
 use App\System\Interfaces\HTTP\RequestInterface;
 
-class FavoriteController extends \App\System\Classes\Controller
+class FavoriteController extends Controller
 {
     public function update(RequestInterface $request)
     {
@@ -40,12 +41,9 @@ class FavoriteController extends \App\System\Classes\Controller
             'favs' => $favs,
         ];
 
-        $response = new Response();
+        $response = new JsonResponse();
 
-        $response->setContent(json_encode($content));
-
-        //ajax側でdataType:Jsonとしているため不要だが、明示的に記述
-        $response->setHttpHeader('Content-type', 'application/json; charset=UTF-8');
+        $response->prepareJson($content);
 
         return $response;
     }

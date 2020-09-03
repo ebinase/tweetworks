@@ -12,26 +12,6 @@ class Favorite extends Model
         $this->_tableName = 'favorites';
     }
 
-    public function getFavoriteTweets($user_id)
-    {
-        $sql = <<< EOF
-SELECT DISTINCT
-    tweets.id, tweets.user_id, tweets.text, tweets.reply_to_id, tweets.created_at,
-    users.name, users.unique_name
-FROM favorites
-         INNER JOIN tweets
-                    ON favorites.tweet_id = tweets.id
-         INNER JOIN users
-                    ON tweets.user_id = users.id
-WHERE favorites.user_id = :user_id
-ORDER BY tweets.created_at DESC;
-EOF;
-        return $this->fetchAll($sql, [
-            ':user_id' => $user_id
-        ]);
-    }
-
-
     public function checkIfFavoriteTweet($user_id, $tweet_id)
     {
         $sql = "SELECT count(*) FROM {$this->_tableName} WHERE user_id = :user_id AND tweet_id = :tweet_id;";

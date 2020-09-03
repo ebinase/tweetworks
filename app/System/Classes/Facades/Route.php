@@ -42,11 +42,20 @@ class Route
     }
 
     //SessionExpandミドルウェアで登録した全ページの情報を取得
-    public static function prevUrl() {
+    public static function prevUrl()
+    {
         $session = Service::call('session');
         $back_to = $session->get('referer_back_to');
 
         return self::url($back_to);
+    }
+
+    //リクエストされたurlをクエリ文字無しで返す
+    public static function current()
+    {
+        $request = Service::call('request');
+        //引数にtrueを指定するとフルバージョンのurlを取得できる
+        return $request->getPathInfo(true);
     }
 
     public static function url($uri)

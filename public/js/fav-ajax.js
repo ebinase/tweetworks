@@ -13,15 +13,25 @@ $(function() {
 
         .done(function(data) {
             if (data['result'] === 'set') {
-                fav_button.addClass('fav-active');
+                fav_button.children('i').addClass('fav-active');
             } else {
-                fav_button.removeClass('fav-active');
+                fav_button.children('i').removeClass('fav-active');
             }
-            fav_button.next('span').text(data['favs']);
+
+            // 詳細ページとツイート一覧でお気に入りの表示箇所を変える
+            if (fav_button.is('#detail-fav-btn')) {
+                //詳細ページだった場合
+                $('#detail-favs').text(data['favs']);
+            } else {
+                //その他のページだった場合
+                fav_button.children('span').text(data['favs']);
+            }
+
         })
 
         .fail(function() {
             window.alert('データの取得に失敗しました。');
         });
     })
+
 });
