@@ -1,6 +1,6 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Auth;
 
 use App\Model\User;
 use App\System\Classes\Controller;
@@ -11,7 +11,7 @@ class RegisterController extends Controller
 {
     public function showSignupPage()
     {
-        return $this->render('sign-up', [
+        return $this->render('auth/sign-up', [
             '_token' => CSRF::generate('/sign-up/confirm'),
         ], 'layouts/layout');
     }
@@ -41,7 +41,7 @@ class RegisterController extends Controller
             $secret .= '*';
         }
 
-        return $this->render('confirm', [
+        return $this->render('auth/confirm', [
             '_token' => CSRF::generate('sign-up/confirm'),
             'name' => $name,
             'email' => $email,

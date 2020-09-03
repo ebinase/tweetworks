@@ -17,7 +17,7 @@ class LoginController extends Controller
             'unique_id' => '',
             'password' => '',
             '_token' => CSRF::generate('/login/auth'),
-        ]);
+        ], 'layouts/layout');
     }
 
     public function auth(RequestInterface $request)
