@@ -1,6 +1,15 @@
 <style>
+    a.tweet-link:hover {
+        color: #353535;
+        text-decoration: none;
+    }
+
     .tweet-container {
         padding: 8px;
+    }
+
+    .tweet-container:hover {
+        background-color: #fcfcfc;
     }
 
     .tweet-user-name {
@@ -24,11 +33,15 @@
 <?php//$tweetsと$_tokenが必須＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝＝ ?>
 <div class="container">
 <?php foreach ($tweets as $tweet) {?>
-    <a href="<?= url('/detail'); ?>/<?= $tweet['id'] ?>">
+    <a class="tweet-link" href="<?= url('/detail'); ?>/<?= $tweet['id'] ?>">
         <div class="row  border-top tweet-container">
             <div class="col-2">
                 <div class="icon-container">
-                    <i class="fas fa-user fa-2x"></i>
+                    <object><!--aタグのネストを実現するためにobjectで囲む-->
+                        <a href="<?=url('/user/').$tweet['unique_name'];?>">
+                            <i class="fas fa-user fa-2x"></i>
+                        </a>
+                    </object>
                 </div>
             </div>
             <div class="col-10">
@@ -44,9 +57,11 @@
                             <span>...<?=$tweet['created_at']?></span>
                         </div>
                         <div class="dropdown">
-                            <a class="dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                <i class="fas fa-caret-down"></i>
-                            </a>
+                            <object>
+                                <a class="dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                    <i class="fas fa-caret-down"></i>
+                                </a>
+                            </object>
                             <div id="dropdown-menu" class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <?php if (\App\System\Classes\Facades\Auth::info('unique_name') == $tweet['unique_name']) {?>
                                     <div class="">
@@ -68,29 +83,28 @@
                         <p class="tweet-text w-100"><?= $tweet['text'] ?></p>
                     </div>
 
-                    <!--todo:component化を再び目指す-->
                     <div class="row align-items-center">
                         <div class="col-4 reply">
-                            <button class="btn btn-reply text-muted" type="button"
+                            <a class="btn btn-reply text-muted" type="button"
                                     data-toggle="modal" data-target="#reply-modal"
                                     data-tweet-id="<?=$tweet['id']?>">
                                 <i class="far fa-comment"></i>
                                 <span class="reply-num"><?=$tweet['replies']?></span>
-                            </button>
+                            </a>
                         </div>
                         <div class="col-4 retweet">
-                            <button class="btn btn-retweet text-muted">
+                            <a class="btn btn-retweet text-muted">
                                 <i class="fas fa-retweet"></i>
                                 <span class="retweet-num"></span>
-                            </button>
+                            </a>
                         </div>
                         <div class="col-4 favorite">
-                            <button class="btn btn-fav text-muted"
+                            <a class="btn btn-fav text-muted"
                                     data-tweet-id="<?=$tweet['id']?>"
                                     data-address="<?=url('/favorite/update');?>">
                                 <i class="far fa-star <?=$tweet['my_fav'] == 1 ? 'fav-active' : '';?>"></i>
                                 <span class="fav-num"><?=$tweet['favs']?></span>
-                            </button>
+                            </a>
                         </div>
                     </div>
                 </div>
