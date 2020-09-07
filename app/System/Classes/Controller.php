@@ -59,6 +59,9 @@ abstract class Controller implements ControllerInterface
 
         $view = new View(App::viewDir());
 
+        // htmlエスケープ処理
+        $variables = escapeVariables($variables);
+
         return $view->render($path, $variables, $layout_path);
     }
 }

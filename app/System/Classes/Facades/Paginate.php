@@ -158,7 +158,8 @@ class Paginate
 
         $view = new View(App::viewDir());
 
-        return $view->render('components/pagination-links', [
+        // htmlエスケープした上でレンダリング
+        return $view->render('components/pagination-links', escapeVariables([
             //メインのリンクの部分
             'start' => $start_page,
             'end' => $end_page,
@@ -173,7 +174,7 @@ class Paginate
             'prev_btn' => $prev_btn,
             //ページ管理用クエリ文字を含む遷移先のurl
             'url' => $paginate['url'],
-        ]);
+        ]));
 
     }
 }
