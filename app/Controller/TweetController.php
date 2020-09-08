@@ -7,6 +7,7 @@ use App\Request\TweetValidator;
 use App\System\Classes\Controller;
 use App\System\Classes\Facades\Auth;
 use App\System\Classes\Facades\CSRF;
+use App\System\Classes\Facades\Messenger\Info;
 use App\System\Classes\Services\Service;
 use App\System\Interfaces\HTTP\RequestInterface;
 
@@ -14,6 +15,7 @@ class TweetController extends Controller
 {
     public function post(RequestInterface $request)
     {
+        $text = $request->getPost('text');
 
         TweetValidator::validate($request);
 
@@ -26,6 +28,8 @@ class TweetController extends Controller
             'user_id' => $user_id,
             'text' => $text,
         ]);
+
+        Info::set('tweet', $text);
         return back('/home');
     }
 
