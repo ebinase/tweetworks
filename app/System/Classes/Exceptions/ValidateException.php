@@ -17,4 +17,12 @@ class ValidateException extends \Exception
         parent::__construct($message, $code, $previous);
     }
 
+    /**
+     * @return mixed
+     */
+    public function getErrors()
+    {
+        return $this->errors;
+    }
+
 }

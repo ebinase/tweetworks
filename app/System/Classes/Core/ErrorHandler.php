@@ -30,6 +30,11 @@ class ErrorHandler implements ErrorHandlerInterface
 
         if ($e instanceof ValidateException) {
             Info::set('validation', $e->getMessage());
+            foreach ($e->getErrors() as $error) {
+                foreach ($error as $key => $value) {
+                    Info::set($key, $value);
+                }
+            }
             return back('/');
         } else {
             $response = new Response();
