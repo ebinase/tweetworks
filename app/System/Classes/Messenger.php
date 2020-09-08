@@ -60,6 +60,9 @@ class Messenger implements MessageInterface
 
     private function set($type, $key, $message)
     {
+        //エスケープ処理
+        $message = escape($message);
+
         $new_errors = $this->_session->get($type);
         $new_errors[$key] = $message;
         // FIXME: $_SESSION['errors']をシンプルに上書きできるなら消去は不要
