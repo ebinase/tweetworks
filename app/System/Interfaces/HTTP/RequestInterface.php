@@ -8,7 +8,9 @@ interface RequestInterface
     public function getRequestMethod();
     public  function isPost();
     public  function getGet($name, $default = null);
+    public function getAllGet();
     public function getPost($name, $default = null);
+    public function getAllPost();
     public function getHost();
     public function isSsl(): bool;
     public function getRequestUri();

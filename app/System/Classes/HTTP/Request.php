@@ -76,12 +76,23 @@ class Request implements RequestInterface{
         }
         return  $default;
     }
+
     public function getPost($name,$default = null)
     {
         if (isset($_POST[$name])){
             return $_POST[$name];
         }
         return $default;
+    }
+
+    public function getAllGet()
+    {
+        return $_GET;
+    }
+
+    public function getAllPost()
+    {
+        return $_POST;
     }
 
     public function getHost()
@@ -126,4 +137,6 @@ class Request implements RequestInterface{
 //            '0'             => '/post' ,
 //        ];
     }
+
+
 }
