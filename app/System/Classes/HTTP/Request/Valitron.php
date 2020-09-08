@@ -9,8 +9,19 @@ use Valitron\Validator;
 //Valitronをラッピングすることを諦め、直書きするクラス
 abstract class Valitron
 {
+    // バリデーションルールの定義(ユーザーの実装が必須)
     abstract static function rules(Validator $v);
-    abstract static function labels(Validator $v);
+
+    // 項目名を任意の日本語に直す(任意)
+    public static function labels(Validator $v){
+        return $v;
+    }
+
+    // エラーが出た際のメインメッセージを変更する(任意)
+    public static function errorMessage()
+    {
+        return '入力値に問題があります。';
+    }
 
     public static function validate(RequestInterface $request)
     {
@@ -20,12 +31,10 @@ abstract class Valitron
         $v = static::rules($v);
         $v = static::labels($v);
 
-        var_dump($v->validate());
-
         if ($v->validate()) {
             return true;
         } else {
-            throw new ValidateException($v->errors(), '入力値に問題があります。');
+            throw new ValidateException($v->errors(), static::errorMessage());
         }
     }
 

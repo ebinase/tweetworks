@@ -2,11 +2,14 @@
 
 namespace App\System\Classes\Core;
 
+use App\System\Classes\Exceptions\ValidateException;
+use App\System\Classes\Facades\Messenger\Info;
 use App\System\Classes\HTTP\Response;
 use App\System\Interfaces\Core\ErrorHandlerInterface;
 
 use App\System\Interfaces\HTTP\RequestInterface;
 use App\System\Interfaces\HTTP\ResponseInterface;
+use http\Env\Request;
 
 class ErrorHandler implements ErrorHandlerInterface
 {
@@ -24,9 +27,20 @@ class ErrorHandler implements ErrorHandlerInterface
      */
     public function handle(RequestInterface $request, \Exception $e): ResponseInterface
     {
-        $response = new Response();
-        $response->setContent("<h1>エラーが発生!</h1><p>{$e->getMessage()}</p>");
-        return $response;
+
+        if ($e instanceof ValidateException) {
+            Info::set('validation', $e->getMessage());
+            return back('/');
+        } else {
+            $response = new Response();
+            $response->setContent("<h1>エラーが発生!</h1><p>{$e->getMessage()}</p>");
+            return $response;
+        }
+    }
+
+    public function validationError(ResponseInterface $response, ValidateException $e)
+    {
+
     }
 
     public function render404Page($e)
