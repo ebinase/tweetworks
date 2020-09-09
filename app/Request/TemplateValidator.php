@@ -1,18 +1,17 @@
 <?php
 
-
 namespace App\Request;
-
-
 
 use App\System\Classes\HTTP\Request\Valitron;
 use Valitron\Validator;
 
 class TweetValidator extends Valitron
 {
+    // TODO: 中身を書き換えて使用する
+
     public static function rules(Validator $v)
     {
-        $v->rule('required', ['text'])->message('{field}は必須です。');
+        $v->rule('required', ['text', 'name'])->message('{field}は必須です。');
         $v->rule('lengthMax', 'text', 140)->message('{field}は140文字以内です');
 
         return $v;
@@ -40,6 +39,6 @@ class TweetValidator extends Valitron
      */
     public static function errorMessage()
     {
-        return 'ツイートを投稿できませんでした。入力内容を確認してください。';
+        return '入力形式に間違いがあります。';
     }
 }
