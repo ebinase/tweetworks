@@ -5,7 +5,7 @@ namespace App\Request;
 use App\System\Classes\HTTP\Request\Valitron;
 use Valitron\Validator;
 
-class TweetValidator extends Valitron
+class TemplateValidator extends Valitron
 {
     // TODO: 中身を書き換えて使用する
 
