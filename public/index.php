@@ -5,8 +5,6 @@ use App\System\Classes\Core\Application;
 
 require_once '../vendor/autoload.php';
 
-phpinfo();
-
 //Application呼び出し
 $application = new Application();
 $request = $application->getRequest();
