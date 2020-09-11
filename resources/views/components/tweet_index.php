@@ -56,27 +56,29 @@
                             </object>
                             <span>...<?=$tweet['created_at']?></span>
                         </div>
-                        <div class="dropdown">
-<!--                            <object>-->
-                                <a class="dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                                    <i class="fas fa-caret-down"></i>
-                                </a>
-<!--                            </object>-->
-                            <div id="dropdown-menu" class="dropdown-menu" aria-labelledby="navbarDropdown">
-                                <?php if (\App\System\Classes\Facades\Auth::info('unique_name') == $tweet['unique_name']) {?>
-                                    <div class="">
-                                        <!--削除ボタン-->
-                                        <form action="<?= url('/tweet/delete'); ?>" method="post" onsubmit="return check()">
-                                            <input type="hidden" name="_token" value="<?= $this->escape($_token['/tweet/delete']);?>">
-                                            <input type="hidden" name="tweet_id" value="<?=$tweet['id']?>">
-                                            <input class="dropdown-item" type="submit" value="削除">
-                                        </form>
-                                    </div>
-                                    <div class="dropdown-divider"></div>
-                                <?php } ?>
-                                <object><a class="dropdown-item">閉じる</a></object>
+                        <object>
+                            <div class="dropdown">
+
+                                    <a class="dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                                        <i class="fas fa-caret-down"></i>
+                                    </a>
+
+                                <div id="dropdown-menu" class="dropdown-menu" aria-labelledby="navbarDropdown">
+                                    <?php if (\App\System\Classes\Facades\Auth::info('unique_name') == $tweet['unique_name']) {?>
+                                        <div class="">
+                                            <!--削除ボタン-->
+                                            <form action="<?= url('/tweet/delete'); ?>" method="post" onsubmit="return check()">
+                                                <input type="hidden" name="_token" value="<?= $this->escape($_token['/tweet/delete']);?>">
+                                                <input type="hidden" name="tweet_id" value="<?=$tweet['id']?>">
+                                                <input class="dropdown-item" type="submit" value="削除">
+                                            </form>
+                                        </div>
+                                        <div class="dropdown-divider"></div>
+                                    <?php } ?>
+                                    <object><a class="dropdown-item">閉じる</a></object>
+                                </div>
                             </div>
-                        </div>
+                        </object>
                     </div>
 
                     <div class="row">

@@ -59,7 +59,7 @@
         </div>
     </div>
 
-    <p id="profile-bio" class="bio-text"><?=$user['bio']?></p>
+    <p id="profile-bio" class="bio-text"><?= nl2br($user['bio']); ?></p>
 
     <div class="row">
         <div class="col-3">
