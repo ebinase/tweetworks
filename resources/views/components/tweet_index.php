@@ -57,11 +57,11 @@
                             <span>...<?=$tweet['created_at']?></span>
                         </div>
                         <div class="dropdown">
-                            <object>
+<!--                            <object>-->
                                 <a class="dropdown-toggle" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                                     <i class="fas fa-caret-down"></i>
                                 </a>
-                            </object>
+<!--                            </object>-->
                             <div id="dropdown-menu" class="dropdown-menu" aria-labelledby="navbarDropdown">
                                 <?php if (\App\System\Classes\Facades\Auth::info('unique_name') == $tweet['unique_name']) {?>
                                     <div class="">
@@ -80,7 +80,7 @@
                     </div>
 
                     <div class="row">
-                        <p class="tweet-text w-100"><?= $tweet['text'] ?></p>
+                        <p class="tweet-text w-100"><?=  nl2br($tweet['text']); ?></p>
                     </div>
 
                     <div class="row align-items-center">
