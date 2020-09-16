@@ -3,9 +3,11 @@
 namespace App\Controller;
 
 use App\Model\Tweet;
+use App\Request\TweetValidator;
 use App\System\Classes\Controller;
 use App\System\Classes\Facades\Auth;
 use App\System\Classes\Facades\CSRF;
+use App\System\Classes\Facades\Messenger\Info;
 use App\System\Classes\Services\Service;
 use App\System\Interfaces\HTTP\RequestInterface;
 
@@ -13,20 +15,9 @@ class TweetController extends Controller
 {
     public function post(RequestInterface $request)
     {
-        // エラー格納用変数準備
-        $errors = [];
-
-        //テキストのバリデーション
         $text = $request->getPost('text');
-        if (!strlen($text)) {
-            $errors['text'] = '１文字以上入力してください。';
-        } elseif (mb_strlen($text) > 140) {
-            $errors['text'] = 'ツイートは140文字までです。';
-        }
-        if(count($errors) !== 0) {
-            //エラーが生じたらメッセージを添えてタイムラインに戻る。
-            return redirect('/home');
-        }
+
+        TweetValidator::validate($request);
 
         $session = Service::call('session');
         // エラーがなかったら投稿してタイムラインに戻る
@@ -37,6 +28,8 @@ class TweetController extends Controller
             'user_id' => $user_id,
             'text' => $text,
         ]);
+
+        Info::set('tweet', $text);
         return back('/home');
     }
 

@@ -50,10 +50,19 @@
                         </li>
 
                         <li class="nav-item">
-                            <button class="nav-link btn btn-tweet" type="button"
-                                    data-toggle="modal" data-target="#tweet-modal">
-                                ツイートする
-                            </button>
+                        <?php if ( auth() ) { ?>
+                                <button class="nav-link btn btn-tweet" type="button"
+                                        data-toggle="modal" data-target="#tweet-modal">
+                                    ツイートする
+                                </button>
+                        <?php } else {?>
+                            <a href="<?=url('/login')?>" class="nav-link btn btn-tweet" type="button">
+                                ログイン
+                            </a>
+                            <div class="w-100 text-center mt-2">
+                                <a href="<?= url('/sign-up')?>" class="">新規登録</a>
+                            </div>
+                        <?php }?>
                         </li>
                     </ul>
                 </nav>
@@ -61,7 +70,7 @@
             </div>
 
             <!--中央部分-->
-            <div class="col-7 pt-3 border-left border-right">
+            <div id="#center-container" class="col-7 pt-3 border-left border-right min-vh-100">
                 <h1 class="row tw-heading center-heading">
                     <?= $page_title ?><!--各テンプレート内で、$this->setLayoutVar()で設定-->
                 </h1>

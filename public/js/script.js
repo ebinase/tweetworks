@@ -7,7 +7,7 @@ $(function() {
     });
 
     //プロフィール編集ボタンを押したときにモーダルにデフォルトの値を設定
-    $('#profile-edit-btn').on('click', function () {
+    $('#profile-edit-btn').on('shown.bs.modal', function () {
         const name = $('#profile-name').text();
         const bio = $('#profile-bio').text();
 

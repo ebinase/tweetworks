@@ -6,16 +6,54 @@ use App\System\Interfaces\ViewInterface;
 
 class View implements ViewInterface
 {
+    /**
+     * @var string ビューファイルが置いてあるディレクトリのルート
+     */
     protected $_base_dir;
-    protected $_defaults;
+
+    /**
+     * 「全てのビュー」で共通で取り扱いたい変数を保存
+     *
+     * 例：CSRFトークンなど
+     *
+     * このインスタンス内でずっと使われるため、
+     * コンポーネントなどを用いる場合に名前の競合に注意。
+     *
+     * @var array
+     */
+    protected $_defaults = [];
+
+    /**
+     * ページタイトルなどレイアウトの変数をテンプレートから設定したい場合に使う
+     *
+     * @var array
+     */
     protected $_layout_variables = [];
+
+
 
     public function __construct($base_dir, $defaults = [])
     {
         $this->_base_dir = $base_dir;
-        $this->_defaults = $defaults;
+        $this->_defaults = array_merge($this->_defaults, $this->_escapeVariables($defaults));
     }
 
+    /**
+     * エスケープ処理した上でをインスタンス内に登録
+     *
+     * @param array $variables ビューで使う変数を格納した配列
+     */
+    public function registerDefaults($variables)
+    {
+        $this->_defaults = array_merge($this->_defaults, $this->_escapeVariables($variables));
+    }
+
+    /**
+     * 主にテンプレートの中でレイアウト内のタイトルを設定するために使う。
+     *
+     * @param $name
+     * @param $value
+     */
     public function setLayoutVar($name, $value)
     {
         $value = $this->_escapeVariables($value);
@@ -61,9 +99,11 @@ class View implements ViewInterface
         return $content;
     }
 
-    //renderメソッド内で使うと_contentの値もエスケープされるので注意！！
     /**
      * 配列(多次元やネストしたものを含む)のすべての要素をエスケープ
+     *
+     * renderメソッド内で使うと_contentの値もエスケープされるので注意！！
+     * ヘルパとしても実装してます。
      *
      * @param array | string $variables
      * @return mixed

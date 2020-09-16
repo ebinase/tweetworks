@@ -1,4 +1,4 @@
-<h1>入力内容確認</h1>
+<?php $this->setLayoutVar('page_title', '入力内容確認');?>
 <table>
     <tr>
         <th>お名前</th><td><?= $name ?></td>
