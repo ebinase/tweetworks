@@ -38,12 +38,20 @@ class TweetController extends Controller
 
         $tweet = new tweet();
 
-        // TODO: ログイン中のユーザーと削除する投稿のuser_idが等しいかチェック
-        $session = Service::call('session');
-        $session->get('user_id');
+        //削除対象のツイートのデータを配列で取得
+        $tweet_data = $tweet->fetchById($tweet_id);
 
-        $tweet->deleteById($tweet_id);
-
+        //リクエストされたツイートのデータが存在し、かつログイン中のユーザー自身のツイートだった場合のみ削除する。
+        if (empty($tweet_data['user_id'])) {
+            Info::set('tweet_delete', '該当ツイートはすでに存在していません。');
+        }
+        elseif ( $tweet_data['user_id'] !== Auth::id()) {
+            Info::set('unautholized', '他のユーザーのツイートを削除することはできません。');
+            return back('/home');
+        }
+        else {
+            $tweet->deleteById($tweet_id);
+        }
         return redirect('/home');
     }
 
