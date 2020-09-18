@@ -76,6 +76,17 @@ abstract class Model implements ModelInterface
         return $this->smartExecute($sql, $params, $strict)->fetchAll(\PDO::FETCH_ASSOC);
     }
 
+    /**
+     * @param $id
+     * @param bool $strict
+     * @return array
+     */
+    public function fetchById($id, $strict = false)
+    {
+        $sql = "select * from {$this->_tableName} where id = :id;";
+        return $this->fetch($sql, [':id' => $id], $strict);
+    }
+
     public function smartInsert(array $params)
     {
         //sql文で使いやすい形にparamsを変換

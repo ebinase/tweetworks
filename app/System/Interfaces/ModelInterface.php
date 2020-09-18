@@ -13,8 +13,10 @@ interface ModelInterface
     function fetch(string $sql, array $params, $strict = false);
     function fetchAll(string $sql, array $params, $strict = false);
 
-    public function smartInsert(array $params);
+    public function fetchById($id, $strict = false);
     public function deleteById($id);
+
+    public function smartInsert(array $params);
     public function smartCount($colum_name, $value);
     public function smartUpdate(array $params, array $cond);
 }
