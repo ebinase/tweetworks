@@ -5,6 +5,7 @@ namespace App\Controller;
 use App\Model\Follow;
 use App\Model\Tweet;
 use App\Model\User;
+use App\Request\ProfileValidator;
 use App\System\Classes\Controller;
 use App\System\Classes\Facades\Auth;
 use App\System\Classes\Facades\CSRF;
@@ -123,10 +124,10 @@ class ProfileController extends Controller
 
     public function update(RequestInterface $request)
     {
+        ProfileValidator::validate($request);
+
         $name = $request->getPost('name');
         $bio = $request->getPost('bio');
-
-        //TODO:バリデーション
 
         $user = new User();
 

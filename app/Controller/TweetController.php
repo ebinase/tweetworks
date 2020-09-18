@@ -15,9 +15,9 @@ class TweetController extends Controller
 {
     public function post(RequestInterface $request)
     {
-        $text = $request->getPost('text');
-
         TweetValidator::validate($request);
+
+        $text = $request->getPost('text');
 
         $session = Service::call('session');
         // エラーがなかったら投稿してタイムラインに戻る

@@ -25,7 +25,6 @@ class LoginController extends Controller
         //ユーザー入力値取得
         $unique_name = $request->getPost('unique_name');
         $password = $request->getPost('password');
-        //TODO: バリデーション
 
         // DBからunique_nameをキーにユーザーデータ取得(配列)
         $user = new User();
@@ -48,6 +47,7 @@ class LoginController extends Controller
         //　認証に失敗したらログインページにリダイレクト
         // TODO:スロットル機能(ログイン試行回数制限)機能
 
+        Info::set('login', 'ログインに失敗しました。');
         return redirect('/login');
     }
 

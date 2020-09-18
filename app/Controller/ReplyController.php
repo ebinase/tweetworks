@@ -3,6 +3,7 @@
 namespace App\Controller;
 
 use App\Model\Tweet;
+use App\Request\TweetValidator;
 use App\System\Classes\Controller;
 use App\System\Classes\Services\Service;
 use App\System\Interfaces\HTTP\RequestInterface;
@@ -11,12 +12,12 @@ class ReplyController extends Controller
 {
     public function post(RequestInterface $request)
     {
+        TweetValidator::validate($request);
+
         //返信先のツイートID
         $tweet_id = $request->getPost('tweet_id');
         //返信の内容
         $text = $request->getPost('text');
-
-        //TODO:バリデーション
 
         //ログイン中のユーザーID
         $session = Service::call('session');

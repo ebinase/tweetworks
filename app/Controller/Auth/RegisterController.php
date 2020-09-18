@@ -3,6 +3,7 @@
 namespace App\Controller\Auth;
 
 use App\Model\User;
+use App\Request\RegisterValidator;
 use App\System\Classes\Controller;
 use App\System\Classes\Facades\CSRF;
 use App\System\Interfaces\HTTP\RequestInterface;
@@ -18,8 +19,8 @@ class RegisterController extends Controller
 
     public function confirm(RequestInterface $request)
     {
+        RegisterValidator::validate($request);
 
-        // TODO: バリデーション
         $name = $request->getPost('name');
         $email = $request->getPost('email');
         $unique_name = $request->getPost('unique_name');
@@ -53,7 +54,8 @@ class RegisterController extends Controller
 
     public function register(RequestInterface $request)
     {
-        // TODO:バリデーションそれからエスケープ処理
+        // 一応バリデーションしておく
+        RegisterValidator::validate($request);
 
         // パスワードにランダムなソルトをつけた上でハッシュ化
         // 第２引数をDEFAULTにすると各PHPのバージョンに最適な暗号化形式を自動選択
