@@ -1,5 +1,5 @@
 $(function() {
-    $('.btn-follow').on('click', function () {
+    $('.js-btn-follow').on('click', function () {
         let follow_button = $(this)
         let user_id_followed = $(this).attr('data-follow-id');
         let address = $(this).attr('data-address');

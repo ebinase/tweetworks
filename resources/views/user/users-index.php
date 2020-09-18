@@ -1,5 +1,5 @@
 <style>
-    .btn-follow {
+    .js-btn-follow {
         background-color: white;
         color: #00acee;
         border: #00acee 1px solid;
@@ -17,7 +17,7 @@
                         <?=$user['name'];?>@<?=$user['unique_name'];?>
                     </a>
                 </div>
-                <div><button class="btn-follow">フォロー</button></div>
+                <div><button class="js-btn-follow">フォロー</button></div>
             </div>
             <div>
                 bioooooooooooooooooooooooooooooo

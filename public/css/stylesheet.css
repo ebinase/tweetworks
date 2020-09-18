@@ -140,22 +140,17 @@ li {
     background-color: #faf5d8;
 }
 
-/*フォローボタン*/
-.btn-follow {
-    background-color: white;
-    color: #00acee;
-    border: #00acee 1px solid;
-    border-radius: 20px;
-}
-.follow-active {
-    background-color: #00acee;
-    color: white;
-}
-
-/*プロフィールを編集するボタン*/
+/*プロフィール編集とフォローボタンの基本デザイン*/
 .btn-profile {
     background-color: white;
     color: #00acee;
     border: #00acee 1px solid;
     border-radius: 20px;
 }
+
+/*フォロー中の場合のフォローボタン*/
+.follow-active {
+    background-color: #00acee;
+    color: white;
+}
+

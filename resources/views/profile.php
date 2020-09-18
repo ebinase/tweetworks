@@ -48,15 +48,15 @@
 
                 <?php if ($follow_state  == '0') { ?>
 
-                    <button class="btn-follow" type="button"
-                        data-follow-id="<?=$user['id']?>"
-                        data-address="<?=url('/follow/update');?>">
+                    <button class="js-btn-follow btn-profile" type="button"
+                            data-follow-id="<?=$user['id']?>"
+                            data-address="<?=url('/follow/update');?>">
                         フォローする
 
                     </button>
                     <?php } else { ?>
 
-                    <button class="btn-follow follow-active" type="button"
+                    <button class="js-btn-follow btn-profile follow-active" type="button"
                             data-follow-id="<?=$user['id']?>"
                             data-address="<?=url('/follow/update');?>">
                         フォロー中
