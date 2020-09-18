@@ -34,7 +34,7 @@
 
     <div class="row mt-3">
         <div class="col-8">
-            <h2 id="profile-name" class=""><?=$user['name'];?></h2>
+            <h2 id="profile-name"><?=$user['name'];?></h2>
             <h3 class="text-muted">@<?=$user['unique_name'];?></h3>
         </div>
 
