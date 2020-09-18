@@ -50,7 +50,7 @@
 <!--                    <input type="hidden" name="_token" value="--><?//=$_token['/follow/update']?><!--">-->
 <!--                    ~~~~~~~~~~~~~~~~~~~~~~~~ここ編集~~~~~~~~~~~~~~~~~~~~~-->
 
-                <?php if ($follow_state  === 0) { ?>
+                <?php if ($follow_state  == '0') { ?>
 
                     <button class="btn-follow" type="button"
                         data-follow-id="<?=$user['id']?>"
