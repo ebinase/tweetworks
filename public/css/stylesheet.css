@@ -152,3 +152,10 @@ li {
     color: white;
 }
 
+/*プロフィールを編集するボタン*/
+.btn-profile {
+    background-color: white;
+    color: #00acee;
+    border: #00acee 1px solid;
+    border-radius: 20px;
+}

@@ -40,15 +40,11 @@
 
         <div class="col-4">
             <?php if (\App\System\Classes\Facades\Auth::id() == $user['id']) { ?>
-                <button id="profile-edit-btn" class="btn-follow" type="button"
+                <button id="profile-edit-btn" class="btn-profile" type="button"
                         data-toggle="modal" data-target="#profile-edit-modal">
                     プロフィールを編集
                 </button>
             <?php } else { ?>
-<!--                <form action="--><?//=url('/follow/update')?><!--" method="post">-->
-<!--                    <input type="hidden" name="user_id_followed" value="--><?//=$user['id']?><!--">-->
-<!--                    <input type="hidden" name="_token" value="--><?//=$_token['/follow/update']?><!--">-->
-<!--                    ~~~~~~~~~~~~~~~~~~~~~~~~ここ編集~~~~~~~~~~~~~~~~~~~~~-->
 
                 <?php if ($follow_state  == '0') { ?>
 
@@ -69,7 +65,7 @@
 
                 <?php } ?>
 
-<!--                </form>-->
+
             <?php } ?>
         </div>
     </div>
