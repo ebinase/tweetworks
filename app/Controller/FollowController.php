@@ -6,6 +6,7 @@ namespace App\Controller;
 
 use App\Model\Follow;
 use App\System\Classes\Facades\Auth;
+use App\System\Classes\HTTP\JsonResponse;
 use App\System\Interfaces\HTTP\RequestInterface;
 
 class FollowController extends \App\System\Classes\Controller
@@ -17,18 +18,30 @@ class FollowController extends \App\System\Classes\Controller
 
         $follow = new Follow();
 
-         print_r($data = $follow->checkIfFollows($user_id,$user_id_followed));
+        $ifFollows = $follow->checkIfFollows($user_id,$user_id_followed);
 
-        if (empty($data)){
+        if ($ifFollows == 0){
             $follow->smartInsert([
                 'user_id_followed' => $user_id_followed,
                 'user_id' => $user_id,
             ]);
+            $result = 'set';
         }else{
             $follow->deleteByFollows($user_id,$user_id_followed);
+            $result = 'unset';
         }
 
-        return back();
+        $content = [
+            'result' => $result,
+            'ifFollows' => $ifFollows
+        ];
+
+        $response = new JsonResponse();
+
+        $response->prepareJson($content);
+
+        return $response;
+
 
     }
 }

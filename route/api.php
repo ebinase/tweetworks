@@ -8,7 +8,7 @@ function registerApiRoutes(RouteInterface $route)
         //ルーティング処理
         //$route->get();
 
-        $route->post('/follow/update', 'follow', 'update', ['auth', 'csrf']);
+        $route->post('/follow/update', 'follow', 'update', ['auth']);
         $route->post('/favorite/update', 'Favorite', 'update', ['auth']);
     });
 }
