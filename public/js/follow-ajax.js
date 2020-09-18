@@ -1,23 +1,22 @@
 $(function() {
     $('.btn-follow').on('click', function () {
         let follow_button = $(this)
-        let follow_id = $(this).attr('data-follow-id');
+        let user_id_followed = $(this).attr('data-follow-id');
         let address = $(this).attr('data-address');
         $.ajax({
                 url: address,
                 type: 'post',
-                data: { 'follow_id' : follow_id },
+                data: { 'user_id_followed' : user_id_followed },
                 dataType: 'json'
             }
         )
 
             .done(function(data) {
                 if (data['result'] === 'set') {
-                    follow_button.addClass('follow-active');
+                    follow_button.addClass('follow-active').text('フォロー中');
                 } else {
-                    follow_button.removeClass('follow-active');
+                    follow_button.removeClass('follow-active').text('フォローする');
                 }
-                follow_button.next('span').text(data['favs']);
             })
 
             .fail(function() {

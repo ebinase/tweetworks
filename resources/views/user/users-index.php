@@ -1,5 +1,5 @@
 <style>
-    .btn-profile {
+    .btn-follow {
         background-color: white;
         color: #00acee;
         border: #00acee 1px solid;

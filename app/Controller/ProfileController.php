@@ -37,6 +37,8 @@ class ProfileController extends Controller
         $_token['/follow/update'] = CSRF::generate('/follow/update');
         $_token['/profile/update'] = CSRF::generate('/profile/update');
 
+        $follow_state = $follow->checkIfFollows(Auth::id(),$user_data['id']);
+
         $tweet = new Tweet();
 
         if($request->getGet('content') == 'favorites') {
@@ -72,6 +74,8 @@ class ProfileController extends Controller
         }
 
 
+
+
         return $this->render('profile', [
             'user' => $user_data,
             'tweets' => $tweets,
@@ -79,6 +83,7 @@ class ProfileController extends Controller
             '_token' => $_token,
             'paginate' => $paginate,
             'active' => $active,
+            'follow_state' => $follow_state,
         ], 'layouts/layout');
     }
 

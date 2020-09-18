@@ -140,3 +140,15 @@ li {
     background-color: #faf5d8;
 }
 
+/*フォローボタン*/
+.btn-follow {
+    background-color: white;
+    color: #00acee;
+    border: #00acee 1px solid;
+    border-radius: 20px;
+}
+.follow-active {
+    background-color: #00acee;
+    color: white;
+}
+
