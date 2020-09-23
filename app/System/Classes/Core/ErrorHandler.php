@@ -9,7 +9,6 @@ use App\System\Interfaces\Core\ErrorHandlerInterface;
 
 use App\System\Interfaces\HTTP\RequestInterface;
 use App\System\Interfaces\HTTP\ResponseInterface;
-use http\Env\Request;
 
 class ErrorHandler implements ErrorHandlerInterface
 {
