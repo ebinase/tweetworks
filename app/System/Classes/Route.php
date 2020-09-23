@@ -107,15 +107,4 @@ class Route implements RouteInterface
         return $this->_difinitions;
     }
 
-
-    // todo: 削除
-    function mapFullUrls($base_url)
-    {
-        $urls = [];
-        foreach ($this->_difinitions as $key => $value) {
-            $urls[$key] = $base_url . $key;
-        }
-        return $urls;
-    }
-
 }

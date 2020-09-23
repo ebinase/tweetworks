@@ -18,7 +18,6 @@ abstract class Kernel implements KernelInterface
     //処理
     //==============================================================================
 
-    //Request、ファサードにするべき？
     public function __construct(RequestInterface $request)
     {
         $this->_registerSettings();
@@ -42,13 +41,11 @@ abstract class Kernel implements KernelInterface
         $routeGroup = $params['group'];
 
         //今回のルートグループはどこか見極めてそのグループのミドルウェアを登録
-        //TODO: middlewareGroupsの中身を書いた順とは逆に入れ替える。
         $this->_middlewares = array_merge($this->_middlewares, $this->_middlewareGroups[$routeGroup]);
 
         //そのルート特有のミドルウェアを登録
         foreach ($params['middlewares'] as $middleware) {
             //$paramsに登録されたミドルウェアを追加する
-            //FIXME: ミドルウェアが重複した際の対処(優先度：低)
             if (isset($this->_routeMiddleware[$middleware])) {
                 $this->_middlewares[] = $this->_routeMiddleware[$middleware];
             }
@@ -56,7 +53,6 @@ abstract class Kernel implements KernelInterface
 
     }
 
-    //↑↑動作確認済み-----------------------------------------------------------------------------------
 
     public function build(): HttpHandlerInterface
     {

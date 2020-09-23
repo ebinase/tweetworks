@@ -12,7 +12,10 @@ interface SessionInterface
     function clear(): void;
     function regenerate(): void;
 
-    function setAuthenticated($bool);
+    function setAuthenticated(bool $bool);
     function isAuthenticated();
+
+    function setAdminAuthenticated(bool $bool);
+    function isAdminAuthenticated();
 
 }

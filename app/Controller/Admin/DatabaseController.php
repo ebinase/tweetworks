@@ -1,11 +1,19 @@
 <?php
 
-namespace App\Controller;
+namespace App\Controller\Admin;
 
 use App\System\Classes\Controller;
+use App\System\Classes\Exceptions\UnauthorizedException;
+use App\System\Classes\Services\Env;
+use App\System\Interfaces\HTTP\RequestInterface;
 
 class DatabaseController extends Controller
 {
+    public function index()
+    {
+        return $this->render('admin/database');
+    }
+
     public function migrate()
     {
         $migration = new \Database\migration\Migration();

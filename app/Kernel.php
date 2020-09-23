@@ -27,8 +27,9 @@ final class Kernel extends HttpKernel
             'api' => [
 
             ],
-            'develop' => [
-
+            'admin' => [
+                \App\Middleware\SessionReferer::class,
+                \App\Middleware\AdminAuthenticate::class,
             ],
         ];
 
