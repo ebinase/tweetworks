@@ -55,9 +55,13 @@ class Session implements SessionInterface
         }
     }
 
-    public function setAuthenticated($bool)
+    public function setAuthenticated(bool $bool)
     {
-        $this->set('_authenticated',(bool)$bool);
+        // ログイン状態を上書き
+        $this->set('_authenticated', $bool);
+
+        // 念の為、管理者ログインをfalseに上書き
+        $this->set('_admin_authenticated', false);
 
         $this->regenerate();
     }
@@ -65,5 +69,21 @@ class Session implements SessionInterface
     public function isAuthenticated()
     {
         return $this->get('_authenticated',false);
+    }
+
+    public function setAdminAuthenticated(bool $bool)
+    {
+        // 管理者ログイン状態を上書き
+        $this->set('_admin_authenticated', $bool);
+
+        // 念の為、通常ユーザーログインをfalseに上書き
+        $this->set('_authenticated', false);
+
+        $this->regenerate();
+    }
+
+    public function isAdminAuthenticated()
+    {
+        return $this->get('_admin_authenticated',false);
     }
 }

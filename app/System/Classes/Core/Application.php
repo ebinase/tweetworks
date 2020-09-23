@@ -2,7 +2,6 @@
 
 namespace App\System\Classes\Core;
 //
-use App\System\Classes\Facades\Session;
 use App\System\Interfaces\Core\ApplicationInterface;
 
 //ファサード
@@ -124,8 +123,8 @@ class Application implements ApplicationInterface
         registerWebRoutes($route);
         require_once  App::routeDir() . '/api.php';
         registerApiRoutes($route);
-        require_once  App::routeDir() . '/develop.php';
-        registerDevelopRoutes($route);
+        require_once  App::routeDir() . '/admin.php';
+        registerAdminRoutes($route);
     }
 
     //==============================================================================

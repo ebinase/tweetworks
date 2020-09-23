@@ -16,14 +16,20 @@ class Env
         $dotenv->load();
     }
 
-    //$nameに該当する.envファイルの中身を取得。万が一Applicationでboot()を実行し忘れても自動でbootしてから実行
-    public static function get($name)
+    /**
+     * $nameに該当する.envファイルの中身を取得。万が一Applicationでboot()を実行し忘れても自動でbootしてから実行
+     *
+     * @param $name
+     * @param false $default
+     * @return false|string
+     */
+    public static function get($name, $default = false)
     {
         if((self::$dotenv instanceof Dotenv) === false){
             self::boot();
         }
 
-        return $_ENV[$name];
+        return $_ENV[$name] ?? $default;
     }
 
     public static function update($name, $value)

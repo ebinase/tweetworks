@@ -41,5 +41,7 @@ function registerWebRoutes(RouteInterface $route)
 
         $route->post('/reply/post', 'reply', 'post', ['auth', 'csrf']);
 
+        $route->get('/admin/login', 'Admin/Login', 'showLoginForm');
+        $route->post('/admin/login/auth', 'Admin/Login', 'auth');
     });
 }

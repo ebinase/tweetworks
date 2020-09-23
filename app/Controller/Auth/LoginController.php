@@ -33,6 +33,8 @@ class LoginController extends Controller
         //パスワードが一致したらログイン処理
         if (password_verify($password, $db_data['password'])) {
             $session = Service::call('session');
+            // セッション情報をクリア(事前に管理者ログインしていた場合への対応)
+            $session->clear();
             $session->setAuthenticated(true);
             //ログイン後にユーザー関連の処理を行いやすいよう、セッションにidとユーザーネームを登録
             $session->set('user_id' ,$db_data['id']);
