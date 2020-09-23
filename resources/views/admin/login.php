@@ -10,4 +10,8 @@
         <input type="submit" value="管理者ログイン">
     </form>
     <?=\App\System\Classes\Facades\Admin::check() === true ? 'ログイン済み' : '未ログイン' ;?>
+
+    <div>
+        <a href="<?=url('/')?>">サービストップへ</a>
+    </div>
 </div>

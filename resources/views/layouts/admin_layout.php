@@ -15,7 +15,7 @@
         <div class="row">
             <div class="col-3 pt-3">
                 <nav class="nav flex-column position-fixed">
-                    <a href="<?= url('/admin') ?>" class="nav-item theme-color brand-logo">
+                    <a href="<?= url('/admin/top') ?>" class="nav-item theme-color brand-logo">
                         T<span class="d-none d-xl-inline">weetworks</span>
                     </a>
                     <div class="nav-item">管理画面</div>
@@ -29,7 +29,7 @@
                         </li>
 
                         <li class="nav-item">
-                            <a class="nav-item" href="<?= url('/logout'); ?>">ログアウト</a>
+                            <a class="nav-item" href="<?= url('/admin/logout'); ?>">ログアウト</a>
                         </li>
                     </ul>
                 </nav>
@@ -37,7 +37,7 @@
             </div>
 
             <!--中央部分-->
-            <div id="#center-container" class="col-7 pt-3 border-left border-right min-vh-100">
+            <div id="#center-container" class="col-9 pt-3 border-left border-right min-vh-100">
                 <h1 class="row tw-heading center-heading">
                     <?= $page_title ?><!--各テンプレート内で、$this->setLayoutVar()で設定-->
                 </h1>
@@ -46,36 +46,6 @@
                 </div>
             </div>
 
-            <!--右側-->
-            <div class="col-2 pt-3">
-                <div class="container position-fixed">
-<!--                    <div class="row">-->
-<!--                        <i class="fab fa-twitter fa-5x"></i>-->
-<!--                    </div>-->
-<!--                    <div class="row">-->
-<!--                        <i class="fab fa-twitter fa-4x"></i>-->
-<!--                    </div>-->
-                    <div class="row">
-                        <i id="character" class="fab fa-twitter fa-3x"></i>
-                    </div>
-<!--                    <div class="row">-->
-<!--                        <i class="fab fa-twitter fa-2x"></i>-->
-<!--                    </div>-->
-
-                    <?php $info_state = \App\System\Classes\Facades\Messenger\Info::has() ? 'info-active' : 'info-passive'; ?>
-                    <div id="info-modal" class="row <?=$info_state?>">
-                        <div class="col-3">
-                            <div class="info-container bg-light border">
-                                <button id="info-cancel-btn">x</button>
-                                <div class="info-contents">
-<!--                                    <div class="font-weight-bold">Infomation</div>-->
-                                    <?=\App\System\Classes\Facades\Messenger\Info::showAllInfo('info-text')?>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 

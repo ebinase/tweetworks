@@ -7,9 +7,9 @@ function registerAdminRoutes(RouteInterface $route)
     // TODO: group()の外側にもコードを書けるようにする。
 
     $route->group('admin', function ($route){
-        
 
 
+        $route->get('/admin/logout', 'Admin/Login', 'logout');
 
         $route->get('/admin/top', 'Admin/Admin', 'index');
 

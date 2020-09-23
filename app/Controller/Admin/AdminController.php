@@ -13,7 +13,7 @@ class AdminController extends Controller
 {
     public function index()
     {
-        return $this->render('admin/top');
+        return $this->render('admin/top', [], 'layouts/admin_layout');
     }
 
 }

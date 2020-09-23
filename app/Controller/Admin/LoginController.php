@@ -39,4 +39,15 @@ class LoginController extends Controller
         Info::set('login', 'ログインに失敗しました。');
         return redirect('/admin/login');
     }
+
+    public function logout()
+    {
+        $session = Service::call('session');
+        $session->clear();
+        $session->setAdminAuthenticated(false);
+
+        Info::set('logout', 'ログアウトしました。');
+
+        return redirect('/admin/login');
+    }
 }
