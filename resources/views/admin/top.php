@@ -1,6 +1,6 @@
 <?php $this->setLayoutVar('page_title', '管理画面トップ');?>
 
-<div>
+<div class="container">
     <h2>データベース</h2>
     <ul>
         <li><a href="<?= url('/admin/database') ?>">マイグレーション</a></li>
