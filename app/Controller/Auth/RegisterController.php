@@ -43,7 +43,7 @@ class RegisterController extends Controller
         }
 
         return $this->render('auth/confirm', [
-            '_token' => CSRF::generate('sign-up/confirm'),
+            '_token' => CSRF::generate('/sign-up/register'),
             'name' => $name,
             'email' => $email,
             'unique_name' => $unique_name,
