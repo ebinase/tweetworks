@@ -43,5 +43,10 @@ function registerWebRoutes(RouteInterface $route)
 
         $route->get('/admin/login', 'Admin/Login', 'showLoginForm');
         $route->post('/admin/login/auth', 'Admin/Login', 'auth');
+
+
+        //セキュリティ課題
+        //トラップサイト(ログインした上で接続してね)
+        $route->get('/anzen_na_page_dayo/csrf', 'Trap/Trap', 'csrf', ['auth']);
     });
 }
