@@ -88,13 +88,13 @@ class Paginate
      */
     public static function renderPageList($paginate)
     {
+        if (empty($paginate)) {
+            return '';
+        }
+
         $page = $paginate['page'];
         $last_page = $paginate['last_page'];
         $range = $paginate['range'];
-
-
-
-
 
 
         //前、後ボタンのリンク先を設定==========================================================

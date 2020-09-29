@@ -36,7 +36,11 @@ function registerWebRoutes(RouteInterface $route)
 
         $route->get('/detail/:tweet_id', 'tweet', 'show');
 
+        //安全なツイート投稿
         $route->post('/tweet/post', 'tweet', 'post', ['auth', 'csrf']);
+        //csrf対策を無効化したツイート投稿
+        $route->post('/tweet/danger/post', 'tweet', 'post', ['auth']);
+
         $route->post('/tweet/delete', 'tweet', 'delete', ['auth', 'csrf']);
 
         $route->post('/reply/post', 'reply', 'post', ['auth', 'csrf']);
@@ -45,8 +49,13 @@ function registerWebRoutes(RouteInterface $route)
         $route->post('/admin/login/auth', 'Admin/Login', 'auth');
 
 
-        //セキュリティ課題
-        //トラップサイト(ログインした上で接続してね)
+        //セキュリティ課題--------------------------------------------
+        //csrf-onlyトラップサイト(ログインした上で接続。apiのルートでツイート)
         $route->get('/anzen_na_page_dayo/csrf', 'Trap/Trap', 'csrf', ['auth']);
+
+        //csrf & xssトラップサイト(ログインした上で接続。webのルートでツイート)
+        $route->get('/anzen_na_page_dayo/csrf_xss', 'Trap/Trap', 'csrfAndXss', ['auth']);
+        //盗み出したセッションを取得・勝手にツイートするページ
+        $route->get('/steal', 'Trap/Trap', 'stealAndTweet');
     });
 }

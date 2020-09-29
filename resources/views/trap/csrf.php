@@ -23,12 +23,12 @@
                 if (data['result'] === '1') {
                     window.alert('攻撃成功！');
                 } else {
-                    window.alert('攻撃失敗！');
+                    window.alert('バリデーションエラー起きたよ');
                 }
             })
 
             .fail(function() {
-                window.alert('接続に失敗');
+                window.alert('攻撃失敗！');
             });
     })
 </script>
