@@ -9,6 +9,7 @@ use App\Request\ProfileValidator;
 use App\System\Classes\Controller;
 use App\System\Classes\Facades\Auth;
 use App\System\Classes\Facades\CSRF;
+use App\System\Classes\Facades\Messenger\Info;
 use App\System\Classes\Facades\Paginate;
 use App\System\Classes\Services\Service;
 use App\System\Interfaces\HTTP\RequestInterface;
@@ -22,7 +23,8 @@ class ProfileController extends Controller
         $user_data = $this->_getUserDataFromUname($request);
 
         //ユーザー情報がなかったらhomeへ
-        if (! isset($user_data)) {
+        if (empty($user_data)) {
+            Info::set('not_found', 'ユーザー情報が存在しません');
             return back();
         }
 
@@ -42,23 +44,29 @@ class ProfileController extends Controller
 
         $tweet = new Tweet();
 
-        if($request->getGet('content') == 'favorites') {
+        if($request->getGet('content') === 'favorites') {
             //お気に入りツイート一覧を要求されたら
             $tweets_num = $tweet->countProfileFavorites($user_data['id']);
-            $paginate = Paginate::prepareParams(20 , 3, $tweets_num);
-
-            $tweets = $tweet->getFavoriteTweets($user_data['id'], Auth::id(), $paginate['db_start'], $paginate['items_per_page']);
-
+            if ($tweets_num != 0) {
+                $paginate = Paginate::prepareParams(20 , 3, $tweets_num);
+                $tweets = $tweet->getFavoriteTweets($user_data['id'], Auth::id(), $paginate['db_start'], $paginate['items_per_page']);
+            } else {
+                $paginate = [];
+                $tweets = [];
+            }
             //現在表示中のコンテンツをビューで表示するための設定
             $active['fav'] = 'profile-active';
 
-        } elseif($request->getGet('content') == 'replies') {
+        } elseif($request->getGet('content') === 'replies') {
             //リプライ一覧を要求されたら
             $tweets_num = $tweet->countProfileReplies($user_data['id']);
-            $paginate = Paginate::prepareParams(20 , 3, $tweets_num);
-
-            $tweets = $tweet->getUserReplies($user_data['id'], Auth::id(), $paginate['db_start'], $paginate['items_per_page']);
-
+            if ($tweets_num != 0) {
+                $paginate = Paginate::prepareParams(20 , 3, $tweets_num);
+                $tweets = $tweet->getUserReplies($user_data['id'], Auth::id(), $paginate['db_start'], $paginate['items_per_page']);
+            } else {
+                $paginate = [];
+                $tweets = [];
+            }
             //現在表示中のコンテンツをビューで表示するための設定
             $active['rep'] = 'profile-active';
 
@@ -66,10 +74,13 @@ class ProfileController extends Controller
             //該当するユーザーが存在したら
             //ツイート一覧表示
             $tweets_num = $tweet->countProfileTweets($user_data['id']);
-            $paginate = Paginate::prepareParams(20 , 3, $tweets_num);
-
-            $tweets = $tweet->getUserTweets($user_data['id'], Auth::id(), $paginate['db_start'], $paginate['items_per_page']);
-
+            if ($tweets_num != 0) {
+                $paginate = Paginate::prepareParams(20 , 3, $tweets_num);
+                $tweets = $tweet->getUserTweets($user_data['id'], Auth::id(), $paginate['db_start'], $paginate['items_per_page']);
+            } else {
+                $paginate = [];
+                $tweets = [];
+            }
             //現在表示中のコンテンツをビューで表示するための設定
             $active['twe'] = 'profile-active';
         }
