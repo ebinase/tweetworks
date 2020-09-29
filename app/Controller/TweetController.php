@@ -30,7 +30,8 @@ class TweetController extends Controller
         ]);
 
         Info::set('tweet', $text);
-        return back('/home');
+        return redirect('/home');
+//        return back('/home');
     }
 
     public function delete(RequestInterface $request) {
