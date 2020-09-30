@@ -22,8 +22,8 @@ class ProfileController extends Controller
         //urlから取得したユニークネームをもとにユーザーデータをDBから取り出す。
         $user_data = $this->_getUserDataFromUname($request);
 
-        //ユーザー情報がなかったらhomeへ
-        if (empty($user_data)) {
+        //ユーザー情報がなかったら戻る
+        if ($user_data === false) {
             Info::set('not_found', 'ユーザー情報が存在しません');
             return back();
         }
@@ -103,12 +103,22 @@ class ProfileController extends Controller
     {
         $user_data = $this->_getUserDataFromUname($request);
 
+        //ユーザー情報がなかったら戻る
+        if ($user_data === false) {
+            Info::set('not_found', 'ユーザー情報が存在しません');
+            return back();
+        }
+
         $follow = new Follow();
+        // TODO:フォローしているかどうか、自分自身のアカウントかどうか確認する機能
         $follows = $follow->getFollowsIndex($user_data['id']);
+
+        $_token['/tweet/post'] = CSRF::generate('/tweet/post');
 
         return $this->render('user/users-index', [
             'users' => $follows,
             'title' => 'フォロー',
+            '_token' => $_token,
         ], 'layouts/layout');
     }
 
@@ -116,11 +126,21 @@ class ProfileController extends Controller
     {
         $user_data = $this->_getUserDataFromUname($request);
 
+        //ユーザー情報がなかったら戻る
+        if ($user_data === false) {
+            Info::set('not_found', 'ユーザー情報が存在しません');
+            return back();
+        }
+
         $follow = new Follow();
         $followers = $follow->getFollowersIndex($user_data['id']);
+
+        $_token['/tweet/post'] = CSRF::generate('/tweet/post');
+
         return $this->render('user/users-index', [
             'users' => $followers,
-            'title' => 'フォロー',
+            'title' => 'フォロワー',
+            '_token' => $_token
         ], 'layouts/layout');
     }
 

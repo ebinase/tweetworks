@@ -234,6 +234,7 @@ SELECT count(*)
 FROM follows
     INNER JOIN tweets t
         ON follows.user_id_followed = t.user_id
+        OR t.user_id = :user_id
 WHERE follows.user_id = :user_id
     AND t.reply_to_id IS NULL;
 EOF;

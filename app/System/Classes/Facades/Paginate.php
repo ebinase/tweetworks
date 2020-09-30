@@ -148,7 +148,9 @@ class Paginate
         $skip_back = true;
         $skip_forth = true;
 
-        if (($page - $back_range) <= 1 ) {
+        //or $start_page==1となるのは、例えば3ページ表示予定だが、2ページ分しかなかったときの2ページ目表示などでは
+        //$back_rangeが0となり$page - $back_range = 2となるから
+        if (($page - $back_range) <= 1 or $start_page == 1) {
             $skip_back = false;
         }
 
@@ -159,7 +161,7 @@ class Paginate
         $view = new View(App::viewDir());
 
         // htmlエスケープした上でレンダリング
-        return $view->render('components/pagination-links', escapeVariables([
+        return $view->render('components/pagination-links', [
             //メインのリンクの部分
             'start' => $start_page,
             'end' => $end_page,
@@ -174,7 +176,7 @@ class Paginate
             'prev_btn' => $prev_btn,
             //ページ管理用クエリ文字を含む遷移先のurl
             'url' => $paginate['url'],
-        ]));
+        ]);
 
     }
 }

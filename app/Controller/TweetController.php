@@ -68,6 +68,12 @@ class TweetController extends Controller
         $tweet  = new Tweet();
 
         $main_tweet = $tweet->getDetailTweet($tweet_id, $user_id);
+
+        if (empty($main_tweet)) {
+            Info::set('not_found', 'ツイートが存在しません');
+            return back('/home');
+        }
+
         $replies = $tweet->getReplies($tweet_id, $user_id);
 
         return $this->render('detail', [

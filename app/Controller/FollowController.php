@@ -16,24 +16,27 @@ class FollowController extends \App\System\Classes\Controller
         $user_id_followed = $request->getPost('user_id_followed');
         $user_id = Auth::id();
 
-        $follow = new Follow();
+        if ($user_id == $user_id_followed) {
+            $result = 'self_follow';
+        } else {
+            $follow = new Follow();
 
-        $ifFollows = $follow->checkIfFollows($user_id,$user_id_followed);
+            $ifFollows = $follow->checkIfFollows($user_id,$user_id_followed);
 
-        if ($ifFollows == 0){
-            $follow->smartInsert([
-                'user_id_followed' => $user_id_followed,
-                'user_id' => $user_id,
-            ]);
-            $result = 'set';
-        }else{
-            $follow->deleteByFollows($user_id,$user_id_followed);
-            $result = 'unset';
+            if ($ifFollows == 0){
+                $follow->smartInsert([
+                    'user_id_followed' => $user_id_followed,
+                    'user_id' => $user_id,
+                ]);
+                $result = 'set';
+            }else{
+                $follow->deleteByFollows($user_id,$user_id_followed);
+                $result = 'unset';
+            }
         }
 
         $content = [
             'result' => $result,
-            'ifFollows' => $ifFollows
         ];
 
         $response = new JsonResponse();

@@ -1,3 +1,5 @@
+<?php $this->setLayoutVar('page_title', $title);?>
+
 <style>
     .js-btn-follow {
         background-color: white;
@@ -8,7 +10,6 @@
 
 <a href="<?=prevUrl()?>" class="back">←戻る</a>
 <div class="container">
-    <h2><?=$title?></h2>
     <?php foreach ($users as $user) { ?>
         <div style="border: #6e6e6e 1px solid">
             <div style="display: flex">
@@ -17,7 +18,13 @@
                         <?=$user['name'];?>@<?=$user['unique_name'];?>
                     </a>
                 </div>
-                <div><button class="js-btn-follow">フォロー</button></div>
+                <div>
+                    <button class="js-btn-follow" type="button"
+                             data-follow-id="<?=$user['id']?>"
+                             data-address="<?=url('/follow/update');?>">
+                        フォロー
+                    </button>
+                </div>
             </div>
             <div>
                 bioooooooooooooooooooooooooooooo

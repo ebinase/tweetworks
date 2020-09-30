@@ -14,8 +14,10 @@ $(function() {
             .done(function(data) {
                 if (data['result'] === 'set') {
                     follow_button.addClass('follow-active').text('フォロー中');
-                } else {
+                } else if(data['result'] === 'unset') {
                     follow_button.removeClass('follow-active').text('フォローする');
+                } else if (data['result'] === 'self-follow') {
+                    window.alert('自分自身をフォローすることはできません。');
                 }
             })
 
