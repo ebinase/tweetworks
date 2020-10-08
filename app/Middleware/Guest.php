@@ -3,7 +3,7 @@
 namespace App\Middleware;
 
 use App\System\Classes\Facades\Auth;
-use App\System\Classes\Facades\Route;
+use App\System\Classes\Facades\Messenger\Info;
 use App\System\Interfaces\Core\HttpHandlerInterface;
 use App\System\Interfaces\Core\MiddlewareInterface;
 use App\System\Interfaces\HTTP\RequestInterface;
@@ -16,6 +16,7 @@ class Guest implements MiddlewareInterface
     {
         //ログイン済みだったらホームにリダイレクト
         if (Auth::check() == true) {
+            Info::set('guest', 'このページにアクセスするにはログアウトしてください。');
             return redirect('/home');
         }
 

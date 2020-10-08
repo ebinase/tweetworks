@@ -16,7 +16,6 @@ class LoginController extends Controller
         return $this->render('auth/login', [
             'unique_id' => '',
             'password' => '',
-            '_token' => CSRF::generate('/login/auth'),
         ], 'layouts/layout');
     }
 
